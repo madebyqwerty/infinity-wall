@@ -8,7 +8,13 @@ const config = {
 	preprocess: vitePreprocess(),
 
 	kit: {
-		adapter: adapter()
+		adapter: adapter(),
+		alias: {
+			'@pocketbase': './src/lib/pocketbase',
+			'@components': './src/lib/components',
+			'@utils': './src/lib/utils',
+			'@stores': './src/lib/stores'
+		}
 	}
 };
 
