@@ -7,6 +7,7 @@ RUN apk add --no-cache \
     unzip \
     # this is needed only if you want to use scp to copy later your pb_data locally
     openssh
+RUN apk add caddy
 
 # Copy your custom PocketBase and build
 COPY ./ /app
@@ -28,7 +29,7 @@ RUN npm run build
 
 WORKDIR /app
 
-EXPOSE 8080
+EXPOSE 80 443
 
 # start PocketBase
 CMD ["sh", "docker-wrapper.sh"]
