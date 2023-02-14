@@ -1,7 +1,5 @@
 <script lang="ts">
 	import auth_store from '@stores/auth_store';
-	import type { PageData } from './$types';
-	export let data: PageData;
 </script>
 
 <h1>Welcome to SvelteKit</h1>
