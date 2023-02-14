@@ -1,12 +1,13 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { site_name } from '@utils';
-	import type { FormData } from './$types';
+	import type { ActionData } from './$types';
 
-	export let form: FormData;
-	$: email_error = form?.errors?.email?.at(0);
+	export let form: ActionData;
+
+	$: auth_error = form?.errors?.auth?.at(0);
+	$: email_error = form?.errors.email?.at(0);
 	$: password_error = form?.errors?.password?.at(0);
-	$: unauthorized = form?.error;
 </script>
 
 <div class="hero min-h-screen bg-base-200">
@@ -28,12 +29,12 @@
 			use:enhance
 		>
 			<div class="card-body">
+				{#if auth_error}
+					<div class="text-error">
+						{auth_error}
+					</div>
+				{/if}
 				<div class="form-control">
-					{#if unauthorized}
-						<div class="text-error">
-							{unauthorized}
-						</div>
-					{/if}
 					<label class="label" for="email">
 						<span class="label-text">Email</span>
 					</label>
@@ -42,7 +43,7 @@
 						placeholder="martin.novak@upshop.cz"
 						id="email"
 						name="email"
-						class="input input-bordered {email_error || unauthorized ? 'input-error' : ''}"
+						class="input input-bordered {email_error || auth_error ? 'input-error' : ''}"
 					/>
 					{#if email_error}
 						<span class="text-error">{email_error}</span>
@@ -56,7 +57,7 @@
 						type="password"
 						placeholder="*******"
 						name="password"
-						class="input input-bordered {password_error || unauthorized ? 'input-error' : ''}"
+						class="input input-bordered {password_error || auth_error ? 'input-error' : ''}"
 						id="password"
 					/>
 					{#if password_error}

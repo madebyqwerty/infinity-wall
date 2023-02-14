@@ -1,6 +1,6 @@
+import { login_schema } from '@utils/login_schema';
 import { fail, redirect } from '@sveltejs/kit';
 import type { Actions } from './$types';
-import { login_schema } from '@utils/login_schema';
 
 export const actions: Actions = {
 	default: async ({ locals, request }) => {
@@ -18,8 +18,10 @@ export const actions: Actions = {
 		}
 
 		try {
-			await locals.pb.collection('users').authWithPassword(email as string, password as string);
+			await locals.pb.collection('admins').authWithPassword(email as string, password as string);
 		} catch (e) {
+			console.log(e);
+
 			const response = {
 				errors: {
 					auth: ['Špatný email, nebo heslo'],
@@ -27,9 +29,10 @@ export const actions: Actions = {
 					password: ['']
 				}
 			};
-			return fail(403, response);
+
+			return fail(400, response);
 		}
 
-		throw redirect(303, '/');
+		throw redirect(303, '/admin');
 	}
 };
