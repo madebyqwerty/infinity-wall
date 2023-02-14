@@ -1,1 +1,1 @@
-export const hello = () => 'Hello';
+export const site_name = 'Track';
