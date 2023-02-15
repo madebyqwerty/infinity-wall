@@ -35,6 +35,7 @@
 					</div>
 				{/if}
 				<div class="form-control">
+					<input type="hidden" name="type" value="users" />
 					<label class="label" for="email">
 						<span class="label-text">Email</span>
 					</label>

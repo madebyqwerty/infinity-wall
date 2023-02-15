@@ -5,7 +5,7 @@ import { login_schema } from '@utils/login_schema';
 export const actions: Actions = {
 	default: async ({ locals, request }) => {
 		const data = await request.formData();
-		const { email, password } = Object.fromEntries(data);
+		const { email, password, type } = Object.fromEntries(data);
 
 		const result = login_schema.safeParse(data);
 
@@ -18,7 +18,9 @@ export const actions: Actions = {
 		}
 
 		try {
-			await locals.pb.collection('users').authWithPassword(email as string, password as string);
+			await locals.pb
+				.collection(type as string)
+				.authWithPassword(email as string, password as string);
 		} catch (e) {
 			const response = {
 				errors: {
@@ -29,7 +31,10 @@ export const actions: Actions = {
 			};
 			return fail(403, response);
 		}
-
-		throw redirect(303, '/');
+		if (type == 'users') {
+			throw redirect(303, '/');
+		} else {
+			throw redirect(303, '/admin');
+		}
 	}
 };

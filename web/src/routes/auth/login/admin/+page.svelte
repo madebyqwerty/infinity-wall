@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
 	import { site_name } from '@utils';
-	import type { ActionData } from './$types';
+	import type { ActionData } from '../$types';
 
 	export let form: ActionData;
 
@@ -20,7 +20,8 @@
 				<div class="text-error">
 					{auth_error}
 				</div>
-				<form method="POST" use:enhance>
+				<form method="POST" action="/auth/login" use:enhance>
+					<input type="hidden" name="type" value="admins" />
 					<label for="email" class="label"><span class="label-text">Email</span></label>
 					<input
 						type="email"
