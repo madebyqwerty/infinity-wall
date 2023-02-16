@@ -35,6 +35,7 @@
 	"type": "module",
 	"dependencies": {
 		"daisyui": "^2.50.0",
+		"iconify-icon": "^1.0.5",
 		"pocketbase": "^0.10.1",
 		"theme-change": "^2.3.0",
 		"zod": "^3.20.6",

@@ -48,6 +48,7 @@
 									</figure>
 								</td>
 								<td>
+									<iconify-icon icon="material-symbols:add-circle" />
 									Manager
 									<br />
 									<span class="badge badge-ghost badge-sm">Ecommerce marketing</span>

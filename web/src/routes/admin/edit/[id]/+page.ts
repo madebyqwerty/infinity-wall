@@ -1,8 +1,9 @@
 import { redirect } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 
-export const load = (async ({ parent, params }) => {
+export const load = (async ({ parent, params, url }) => {
 	const data = await parent();
+	const edit = url.searchParams.get('edit');
 
 	const user = data.users.find((user) => user.id == params.id);
 
