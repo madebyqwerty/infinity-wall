@@ -7,6 +7,11 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.pb.authStore.loadFromCookie(event.request.headers.get('cookie') || '');
 
 	if (event.locals.pb.authStore.isValid) {
+		try {
+			await event.locals.pb.collection('users').authRefresh();
+		} catch (_) {
+			event.locals.pb.authStore.clear();
+		}
 		event.locals.user = structuredClone(event.locals.pb.authStore.model);
 	}
 
