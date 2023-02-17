@@ -12,9 +12,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 		} catch (_) {
 			event.locals.pb.authStore.clear();
 		}
-		event.locals.user = structuredClone(event.locals.pb.authStore.model);
 	}
 
+	event.locals.user = structuredClone(event.locals.pb.authStore.model);
 	const response = await resolve(event);
 
 	response.headers.set(

@@ -2,12 +2,11 @@
 	import { enhance } from '$app/forms';
 	import { site_name } from '@utils';
 	import type { ActionData } from '../$types';
+	import { page } from '$app/stores';
 
-	export let form: ActionData;
-
-	$: auth_error = form?.errors?.auth?.at(0) || '';
-	$: email_error = form?.errors.email?.at(0) || '';
-	$: password_error = form?.errors?.password?.at(0) || '';
+	$: auth_error = $page.form?.errors?.auth?.at(0) || '';
+	$: email_error = $page.form?.errors.email?.at(0) || '';
+	$: password_error = $page.form?.errors?.password?.at(0) || '';
 </script>
 
 <div class="grid place-items-center min-h-screen">
