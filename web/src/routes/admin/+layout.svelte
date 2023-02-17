@@ -11,7 +11,7 @@
 	});
 
 	export let data: LayoutData;
-	$: sidebar_open = $page.route.id?.includes('edit');
+	$: sidebar_open = $page.route.id?.includes('create');
 </script>
 
 <main class="min-h-screen">

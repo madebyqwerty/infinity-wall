@@ -16,7 +16,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each data.users as user (user.id)}
+			{#each data.users as user, i (user.id)}
 				<tr>
 					<td>
 						<figure class="flex items-center space-x-3">
@@ -33,17 +33,21 @@
 					<td>{user.email}</td>
 
 					<td>
-						<a href="/admin/edit/{user.id}" class="btn btn-primary btn-sm">
+						<a href="/admin/create?edit={i}" class="btn btn-primary btn-sm">
 							<iconify-icon icon="material-symbols:edit" />
 						</a>
-						<a href="/admin/delete/{user.id}" class="btn btn-error btn-sm">
+						<a href="/admin/delete/{i}" class="btn btn-error btn-sm">
 							<iconify-icon icon="material-symbols:delete-outline" />
 						</a>
 					</td>
 				</tr>
-			{:else}
-				<h2>Ještě nemáte žádné přidané uživatele</h2>
 			{/each}
+			<tr
+				><td
+					><a href="/admin/create" class="btn btn-outline btn-primary">Přidat nového uživatele</a
+					></td
+				></tr
+			>
 		</tbody>
 	</table>
 </div>
