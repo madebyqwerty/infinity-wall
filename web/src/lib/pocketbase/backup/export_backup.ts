@@ -1,20 +1,15 @@
-import { createObjectCsvWriter } from 'csv-writer';
-
-export async function export_backup() {
-	const csvWriter = createObjectCsvWriter({
-		path: 'backup.csv',
-		header: [
-			{ id: 'name', title: 'NAME' },
-			{ id: 'lang', title: 'LANGUAGE' }
-		]
-	});
-
-	const records = [
-		{ name: 'Bob', lang: 'French, English' },
-		{ name: 'Mary', lang: 'English' }
+export function export_backup() {
+	const rows = [
+		['name1', 'city1', 'some other info'],
+		['name2', 'city2', 'more info']
 	];
 
-	await csvWriter.writeRecords(records);
+	let csvContent = 'data:text/csv;charset=utf-8,' + rows.map((e) => e.join(',')).join('\n');
+	var encodedUri = encodeURI(csvContent);
+	var link = document.createElement('a');
+	link.setAttribute('href', encodedUri);
+	link.setAttribute('download', 'backup.csv');
+	document.body.appendChild(link); // Required for FF
 
-	console.log('...Done');
+	link.click(); // This will download the data file named "my_data.csv".
 }
