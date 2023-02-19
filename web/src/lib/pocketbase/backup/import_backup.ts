@@ -11,25 +11,27 @@ export async function import_backup(filelist: FileList) {
 					const backup = element.split(',');
 					try {
 						const data = {
-							time: backup[7],
-							language: backup[5],
-							rating: backup[6],
-							description: backup[3],
-							user: backup[9]
+							time: backup[8],
+							language: backup[6],
+							rating: backup[7],
+							description: backup[4],
+							user: backup[10],
+							date: backup[3]
 						};
 
 						const record = await pb
 							.collection('records')
-							.update(backup[4], data, { $autoCancel: false });
+							.update(backup[5], data, { $autoCancel: false });
 					} catch (e) {
 						if (e!.toString() == "ClientResponseError 404: The requested resource wasn't found.") {
 							const data = {
-								id: backup[4],
-								time: backup[7],
-								language: backup[5],
-								rating: backup[6],
-								description: backup[3],
-								user: backup[9]
+								id: backup[5],
+								time: backup[8],
+								language: backup[6],
+								rating: backup[7],
+								description: backup[4],
+								user: backup[10],
+								date: backup[3]
 							};
 
 							const record = await pb.collection('records').create(data, { $autoCancel: false });
