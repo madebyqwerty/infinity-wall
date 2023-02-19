@@ -10,3 +10,4 @@
 <pre>
   {JSON.stringify($auth_store)}
 </pre>
+<a href="/addrecord/">Addrecord</a>

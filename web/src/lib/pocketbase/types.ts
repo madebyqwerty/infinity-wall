@@ -41,3 +41,43 @@ export type UsersResponse = UsersRecord & AuthSystemFields
 export type CollectionRecords = {
 	users: UsersRecord
 }
+
+
+export enum RecordsLanguageOptions {
+	"java" = "java",
+	"cpp" = "cpp",
+	"python" = "python",
+	"javascript" = "javascript",
+	"csharp" = "csharp",
+	"php" = "php",
+	"ruby" = "ruby",
+	"perl" = "perl",
+	"swift" = "swift",
+	"golang" = "golang",
+	"kotlin" = "kotlin",
+	"scala" = "scala",
+	"rlang" = "rlang",
+	"bash" = "bash",
+	"rust" = "rust",
+	"objectivec" = "objectivec",
+	"react" = "react",
+	"angular" = "angular",
+	"vue" = "vue",
+	"ember" = "ember",
+	"svelte" = "svelte",
+	"clang" = "clang",
+	"cobol" = "cobol",
+	"fortran" = "fortran",
+	"lisp" = "lisp",
+	"pascal" = "pascal",
+	"sql" = "sql",
+	"typescript" = "typescript",
+	"elixir" = "elixir",
+	"erlang" = "erlang",
+	"julia" = "julia",
+	"haskell" = "haskell",
+	"clojure" = "clojure",
+	"ocaml" = "ocaml",
+	"fsharp" = "fsharp",
+	"webassembly" = "webassembly",
+}
