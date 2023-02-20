@@ -19,7 +19,7 @@
 				<div class="text-error">
 					{auth_error}
 				</div>
-				<form method="POST" action="/auth/login" use:enhance>
+				<form method="POST" use:enhance>
 					<input type="hidden" name="type" value="admins" />
 					<label for="email" class="label"><span class="label-text">Email</span></label>
 					<input

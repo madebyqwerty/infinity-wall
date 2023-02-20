@@ -3,7 +3,6 @@
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 
 	onMount(() => {
 		// @ts-ignore

@@ -1,4 +1,4 @@
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { zfd } from 'zod-form-data';
 import type { Actions } from './$types';
@@ -30,7 +30,7 @@ export const actions: Actions = {
 
 		if (is_create) {
 			console.log(data);
-			locals.pb.collection('users').create({
+			await locals.pb.collection('users').create({
 				password,
 				name,
 				username,
@@ -38,7 +38,9 @@ export const actions: Actions = {
 				passwordConfirm: password
 			});
 		} else {
-			locals.pb.collection('users').update(id as string, data);
+			await locals.pb.collection('users').update(id as string, data);
 		}
+
+		throw redirect(303, '/admin');
 	}
 };
