@@ -3,7 +3,6 @@
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
 	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 
 	onMount(() => {
 		// @ts-ignore
@@ -11,7 +10,7 @@
 	});
 
 	export let data: LayoutData;
-	$: sidebar_open = $page.route.id?.includes('edit');
+	$: sidebar_open = $page.route.id?.includes('create');
 </script>
 
 <main class="min-h-screen">
