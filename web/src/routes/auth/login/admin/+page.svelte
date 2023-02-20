@@ -13,7 +13,7 @@
 	<div class="card w-96 bg-base-300 text-neutral-content p-4 shadow-lg">
 		<div class="card-body">
 			<h1 class="card-title mb-8">
-				Adminstrátorské přihlášení do UpShop {site_name}
+				Administrátorské přihlášení do UpShop {site_name}
 			</h1>
 			<div class="form-control">
 				<div class="text-error">

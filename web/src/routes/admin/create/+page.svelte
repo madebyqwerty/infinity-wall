@@ -25,12 +25,6 @@
 		<h2 class="text-4xl mb-4">{title}</h2>
 		<form use:enhance method="POST" class="flex flex-col gap-4">
 			<input type="hidden" value={data.user?.id} name="id" />
-			<!-- <div class="form-control">
-				<label class="label" for="avatar">
-					<span class="label-text">Vyberte nový profilový obrázek</span>
-				</label>
-				<input type="file" name="avatar" id="avatar" class="file-input w-full" />
-			</div> -->
 			<div class="form-control">
 				<label for="name">
 					<span class="label-text">Jméno</span>

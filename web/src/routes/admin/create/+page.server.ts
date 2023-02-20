@@ -11,7 +11,7 @@ export const actions: Actions = {
 		const user_id = url.searchParams.get('edit');
 		const is_create = user_id === null;
 
-		const userSchema = zfd.formData({
+		const user_schema = zfd.formData({
 			name: z
 				.string({ required_error: 'Jméno nesmí být prázdné' })
 				.min(2, 'Jméno musí být delší jak 2 znaky'),
@@ -20,7 +20,7 @@ export const actions: Actions = {
 			password: z.string().min(6, 'Heslo musí mít minimálně 6 znaků').optional()
 		});
 
-		const result = userSchema.safeParse(data);
+		const result = user_schema.safeParse(data);
 
 		if (!result.success) {
 			const response = result.error.flatten().fieldErrors;
