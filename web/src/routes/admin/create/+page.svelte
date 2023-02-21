@@ -4,6 +4,7 @@
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 	import type { PageData, ActionData } from './$types';
+	import Sidebar from '@components/Sidebar.svelte';
 
 	export let data: PageData;
 	export let form: ActionData;
@@ -19,66 +20,44 @@
 	$: password_error = form?.password?.at(0) || '';
 </script>
 
-<div class="drawer-side">
-	<!-- svelte-ignore a11y-missing-content -->
-	<a href="/admin" class="drawer-overlay" />
+<Sidebar {title} route="/admin">
+	<form use:enhance method="POST" class="flex flex-col gap-4">
+		<input type="hidden" value={data.user?.id} name="id" />
+		<Input
+			placeholder="Martin Novák"
+			value={data.user?.name || ''}
+			error={name_error}
+			label="Jméno"
+			name="name"
+			type="text"
+		/>
 
-	<div class="p-8 max-w-lg w-full bg-base-100 text-base-content drawer-content">
-		<h2 class="text-4xl mb-4">{title}</h2>
-		<form use:enhance method="POST" class="flex flex-col gap-4">
-			<input type="hidden" value={data.user?.id} name="id" />
-			<Input
-				placeholder="Martin Novák"
-				value={data.user?.name || ''}
-				error={name_error}
-				label="Jméno"
-				name="name"
-				type="text"
-			/>
+		<Input
+			error={email_error}
+			label="E-mail"
+			name="email"
+			placeholder="martin.novak@upshop.cz"
+			type="email"
+			value={data.user?.email || ''}
+		/>
 
-			<Input
-				error={email_error}
-				label="E-mail"
-				name="email"
-				placeholder="martin.novak@upshop.cz"
-				type="email"
-				value={data.user?.email || ''}
-			/>
+		<Input
+			error={username_error}
+			label="Uživatelské jméno"
+			name="username"
+			placeholder="martin.novak"
+			type="text"
+			value={data.user?.username || ''}
+		/>
 
-			<Input
-				error={username_error}
-				label="Uživatelské jméno"
-				name="username"
-				placeholder="martin.novak"
-				type="text"
-				value={data.user?.username || ''}
-			/>
+		<Input
+			error={password_error}
+			label="Heslo"
+			name="password"
+			placeholder="********"
+			type="password"
+		/>
 
-			<Input
-				error={password_error}
-				label="Heslo"
-				name="password"
-				placeholder="********"
-				type="password"
-			/>
-
-			<button type="submit" class="btn btn-primary"> {button_title} </button>
-		</form>
-	</div>
-</div>
-
-<style>
-	@keyframes slide {
-		from {
-			transform: translateX(-100%);
-		}
-		to {
-			transform: translateX(0);
-		}
-	}
-
-	.drawer-content {
-		animation: slide 300ms;
-		animation-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
-	}
-</style>
+		<button type="submit" class="btn btn-primary"> {button_title} </button>
+	</form>
+</Sidebar>

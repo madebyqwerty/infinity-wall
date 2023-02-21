@@ -2,7 +2,7 @@
 	import Dashboard from './Dashboard.svelte';
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
-	import { page } from '$app/stores';
+	import DrawerToggle from '@components/DrawerToggle.svelte';
 
 	onMount(() => {
 		// @ts-ignore
@@ -10,12 +10,11 @@
 	});
 
 	export let data: LayoutData;
-	$: sidebar_open = $page.route.id?.includes('create');
 </script>
 
 <main class="min-h-screen">
 	<div class="drawer">
-		<input id="admin-drawer" type="checkbox" class="drawer-toggle" bind:checked={sidebar_open} />
+		<DrawerToggle routes={['create']} />
 		<div class="drawer-content">
 			<Dashboard {data} />
 		</div>
