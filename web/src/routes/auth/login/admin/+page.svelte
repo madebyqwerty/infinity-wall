@@ -3,6 +3,7 @@
 	import { site_name } from '@utils';
 	import type { ActionData } from '../$types';
 	import { page } from '$app/stores';
+	import Input from '@components/Input.svelte';
 
 	$: auth_error = $page.form?.errors?.auth?.at(0) || '';
 	$: email_error = $page.form?.errors.email?.at(0) || '';
@@ -15,35 +16,28 @@
 			<h1 class="card-title mb-8">
 				Administrátorské přihlášení do UpShop {site_name}
 			</h1>
-			<div class="form-control">
-				<div class="text-error">
-					{auth_error}
-				</div>
-				<form method="POST" use:enhance>
-					<input type="hidden" name="type" value="admins" />
-					<label for="email" class="label"><span class="label-text">Email</span></label>
-					<input
-						type="email"
-						name="email"
-						id="email"
-						class="input input-bordered w-full max-w-xs"
-					/>
-					<label for="email" class="label">
-						<span class="label-text-alt text-error">{email_error}</span>
-					</label>
-					<label for="password" class="label"><span class="label-text">Heslo</span></label>
-					<input
-						type="password"
-						name="password"
-						id="password"
-						class="input input-bordered w-full max-w-xs"
-					/>
-					<label for="password" class="label">
-						<span class="label-text-alt text-error">{password_error}</span>
-					</label>
-					<button class="btn mt-4 max-w-xs" type="submit"> Přihlásit se </button>
-				</form>
+			<div class="text-error">
+				{auth_error}
 			</div>
+
+			<form method="POST" use:enhance>
+				<Input
+					error={email_error}
+					label="E-mail"
+					name="email"
+					placeholder="admin@upshop.cz"
+					type="text"
+				/>
+
+				<Input
+					error={password_error}
+					label="Heslo"
+					name="password"
+					placeholder="******"
+					type="password"
+				/>
+				<button class="btn mt-4 max-w-xs" type="submit"> Přihlásit se </button>
+			</form>
 		</div>
 	</div>
 </div>
