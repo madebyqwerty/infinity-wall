@@ -29,7 +29,7 @@ RUN npm run build
 
 WORKDIR /app
 
-EXPOSE 80 443
+EXPOSE 80
 
 # start PocketBase
 CMD ["sh", "docker-wrapper.sh"]
