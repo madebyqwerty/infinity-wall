@@ -1,4 +1,6 @@
 <script lang="ts">
+	import Input from '@components/Input.svelte';
+
 	import { enhance } from '$app/forms';
 	import { page } from '$app/stores';
 	import type { PageData, ActionData } from './$types';
@@ -25,77 +27,41 @@
 		<h2 class="text-4xl mb-4">{title}</h2>
 		<form use:enhance method="POST" class="flex flex-col gap-4">
 			<input type="hidden" value={data.user?.id} name="id" />
-			<div class="form-control">
-				<label for="name">
-					<span class="label-text">Jméno</span>
-				</label>
-				<input
-					type="text"
-					name="name"
-					id="name"
-					placeholder="Nové jméno"
-					value={data.user?.name || ''}
-					class="input input-bordered w-full"
-				/>
-				<label for="name" class="label">
-					<span class="label-text-alt text-error">
-						{name_error}
-					</span>
-				</label>
-			</div>
-			<div class="form-control">
-				<label for="email">
-					<span class="label-text">Email</span>
-				</label>
-				<input
-					type="email"
-					name="email"
-					id="email"
-					placeholder="Nový email"
-					value={data.user?.email || ''}
-					class="input input-bordered w-full"
-				/>
-				<label for="name" class="label">
-					<span class="label-text-alt text-error">
-						{email_error}
-					</span>
-				</label>
-			</div>
-			<div class="form-control">
-				<label for="username">
-					<span class="label-text">Uživatelské jméno</span>
-				</label>
-				<input
-					type="text"
-					name="username"
-					id="username"
-					placeholder="Nové uživatelské jméno"
-					value={data.user?.email || ''}
-					class="input input-bordered w-full"
-				/>
-				<label for="name" class="label">
-					<span class="label-text-alt text-error">
-						{email_error}
-					</span>
-				</label>
-			</div>
-			<div class="form-control">
-				<label for="password">
-					<span class="label-text">Heslo</span>
-				</label>
-				<input
-					type="password"
-					name="password"
-					id="password"
-					placeholder="Nové heslo"
-					class="input input-bordered w-full"
-				/>
-				<label for="name" class="label">
-					<span class="label-text-alt text-error">
-						{password_error}
-					</span>
-				</label>
-			</div>
+			<Input
+				placeholder="Martin Novák"
+				value={data.user?.name || ''}
+				error={name_error}
+				label="Jméno"
+				name="name"
+				type="text"
+			/>
+
+			<Input
+				error={email_error}
+				label="E-mail"
+				name="email"
+				placeholder="martin.novak@upshop.cz"
+				type="email"
+				value={data.user?.email || ''}
+			/>
+
+			<Input
+				error={username_error}
+				label="Uživatelské jméno"
+				name="username"
+				placeholder="martin.novak"
+				type="text"
+				value={data.user?.username || ''}
+			/>
+
+			<Input
+				error={password_error}
+				label="Heslo"
+				name="password"
+				placeholder="********"
+				type="password"
+			/>
+
 			<button type="submit" class="btn btn-primary"> {button_title} </button>
 		</form>
 	</div>
