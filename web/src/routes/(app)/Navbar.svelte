@@ -5,7 +5,7 @@
 	const { user } = $page.data as PageData;
 </script>
 
-<div class="navbar bg-primary text-primary-content">
+<div class="navbar bg-primary text-primary-content fixed">
 	<div class="navbar-start">
 		<div class="dropdown">
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
