@@ -18,9 +18,9 @@
 				<ul
 					class="menu menu-compact dropdown-content mt-3 p-2 shadow-md bg-base-100 text-base-content rounded-box w-52"
 				>
-					<li><a href="#graf">Graf</a></li>
-					<li><a href="#filter">Filtrování</a></li>
-					<li><a href="#data">Záznamy</a></li>
+					<li><a href="/#graf">Graf</a></li>
+					<li><a href="/#filter">Filtrování</a></li>
+					<li><a href="/#data">Záznamy</a></li>
 				</ul>
 			</div>
 		</div>
