@@ -1,6 +1,6 @@
-import type { RecordsLanguageOptions } from '../pocketbase/types';
+import type { RecordsLanguageOptions } from '@pocketbase/types';
 
-export const languageColors: { [key in RecordsLanguageOptions]: string } = {
+export const language_colors: { [key in RecordsLanguageOptions]: string } = {
 	java: '#F9A825',
 	cpp: '#00599C',
 	python: '#17739f',
@@ -39,7 +39,7 @@ export const languageColors: { [key in RecordsLanguageOptions]: string } = {
 	webassembly: '#0467FB'
 };
 
-export const languageNames: { [key in RecordsLanguageOptions]: string } = {
+export const language_names: { [key in RecordsLanguageOptions]: string } = {
 	angular: 'Angular',
 	bash: 'Bash',
 	clang: 'C',
@@ -76,6 +76,45 @@ export const languageNames: { [key in RecordsLanguageOptions]: string } = {
 	typescript: 'TypeScript',
 	vue: 'Vue',
 	webassembly: 'WebAssembly'
+};
+
+export const language_ids: { [key: string]: string } = {
+	Angular: 'angular',
+	Bash: 'bash',
+	C: 'clang',
+	Clojure: 'clojure',
+	Cobol: 'cobol',
+	'C++': 'cpp',
+	'C#': 'csharp',
+	Elixir: 'elixir',
+	Ember: 'ember',
+	Erlang: 'erlang',
+	Fortran: 'fortran',
+	'F#': 'fsharp',
+	GO: 'golang',
+	Haskell: 'haskell',
+	Java: 'java',
+	JavaScript: 'javascript',
+	Julia: 'julia',
+	Kotlin: 'kotlin',
+	Lisp: 'lisp',
+	'Objective-C': 'objectivec',
+	OCaml: 'ocaml',
+	Pascal: 'pascal',
+	Perl: 'perl',
+	PHP: 'php',
+	Python: 'python',
+	R: 'rlang',
+	React: 'react',
+	Ruby: 'ruby',
+	Rust: 'rust',
+	Scala: 'scala',
+	SQL: 'sql',
+	Svelte: 'svelte',
+	Swift: 'swift',
+	TypeScript: 'typescript',
+	Vue: 'vue',
+	WebAssembly: 'webassembly'
 };
 
 export const languageIDs: { [key: string]: string } = {

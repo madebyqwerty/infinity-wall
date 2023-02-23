@@ -18,3 +18,7 @@ Nebo zkompilovat
 
 `go build main.go`
 `./backend serve`
+
+Nebo docker
+`docker build . -t upshop .`
+`docker run -p 80:80 upshop`
