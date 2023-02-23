@@ -4,11 +4,6 @@
 	import type { LayoutData } from './$types';
 	import DrawerToggle from '@components/DrawerToggle.svelte';
 
-	onMount(() => {
-		// @ts-ignore
-		document.body.dataset.theme = 'admin';
-	});
-
 	export let data: LayoutData;
 </script>
 
