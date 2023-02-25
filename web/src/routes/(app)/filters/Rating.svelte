@@ -9,13 +9,13 @@
 </script>
 
 <div class="">
-	<label for="rating" class="mb-2">
+	<label for="rating">
 		<span class="label-text">Hodnocení</span>
 	</label>
 
 	<div class="dropdown">
 		<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-		<label tabindex="0" class="btn btn-ghost btn-sm text-left w-max" for="rating">
+		<label tabindex="0" class="btn btn-ghost btn-sm text-left w-max mt-2" for="rating">
 			Vybrat hodnocení
 		</label>
 
