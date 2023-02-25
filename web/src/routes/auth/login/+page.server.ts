@@ -29,6 +29,7 @@ export const actions: Actions = {
 					password: ['']
 				}
 			};
+			console.log(e, type, email, password)
 			return fail(403, response);
 		}
 		if (type == 'users') {

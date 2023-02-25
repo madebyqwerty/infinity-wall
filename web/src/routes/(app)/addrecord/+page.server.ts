@@ -3,6 +3,7 @@ import { zfd } from 'zod-form-data';
 import type { Actions } from './$types';
 import { languageNames } from '@utils/languages';
 import { RecordsLanguageOptions } from '@pocketbase/types';
+import { fail } from '@sveltejs/kit';
 
 export const actions: Actions = {
 	default: async ({ locals, request, url }) => {
@@ -23,5 +24,25 @@ export const actions: Actions = {
 			language: z.nativeEnum(RecordsLanguageOptions),
 			description: z.string().max(500, 'Popis nesmí být delší než 500 znaků')
 		});
+
+		let parsed = schema.safeParse(data)
+
+		if(!parsed.success){
+			const response = {
+				errors: { ...parsed.error.flatten().fieldErrors, auth: [''] }
+			};
+
+			return fail(400, response);
+		}
+		try {
+			await locals.pb
+				.collection("records")
+				.create(data, { $autoCancel: false });
+		} catch (e) {
+			console.log("idk")
+		}
+		
+		
+
 	}
 };
