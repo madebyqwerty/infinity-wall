@@ -17,6 +17,7 @@
 		<a href="/backup/import" class="btn btn-outline">Importovat zálohu</a>
 		<a href="/backup/export" class="btn btn-outline">Exportovat zálohu</a>
 	</div>
+
 	<div class="overflow-x-auto">
 		<table class="table w-full">
 			<thead>
