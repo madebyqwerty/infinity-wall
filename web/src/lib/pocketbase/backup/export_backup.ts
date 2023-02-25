@@ -7,7 +7,8 @@ export async function export_backup() {
 
 	const out: any[][] = [];
 	records.forEach((element) => {
-		const [collection_id, collection_name, created, date, description, id, language, rating, time, updated, user] = Object.values(element)
+		//const [collection_id, collection_name, created, date, description, id, language, rating, time, updated, user] = Object.values(element)
+		const { id, time, rating, description, user, date, language } = element
 		out.push([id, time, rating, description, user, date, language]);
 	});
 
