@@ -6,7 +6,8 @@
 </script>
 
 <div
-	class="sticky top-0 z-30 bg-opacity-90 backdrop-blur bg-primary text-primary-content shadow-md"
+	id="navbar"
+	class="top-0 z-30 bg-opacity-90 backdrop-blur bg-primary text-primary-content shadow-md"
 >
 	<nav class="navbar">
 		<div class="navbar-start">
