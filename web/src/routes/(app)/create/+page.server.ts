@@ -8,14 +8,14 @@ import { fail } from '@sveltejs/kit';
 export const actions: Actions = {
 	default: async ({ locals, request, url }) => {
 		const data = Object.fromEntries(await request.formData())
-		data["length"] = parseInt(data["length"])
+		data["time"] = parseInt(data["time"])
 		data["rating"] = parseInt(data["rating"])
 
 		
 
 		const schema = zfd.formData({
 			date: z.string({ required_error: 'Neplatné datum' }),
-			length: z
+			time: z
 				.number({ required_error: 'Neplatná délka' })
 				.min(0, 'Délka musí být delší než 0')
 				.max(1440, 'Délka nesmí být více než  jeden den'),
@@ -28,7 +28,6 @@ export const actions: Actions = {
 		});
 
 		let parsed = schema.safeParse(data)
-		console.log("picovinka", JSON.stringify(data), schema, parsed)
 		if(!parsed.success){
 			const response = {
 				errors: { ...parsed.error.flatten().fieldErrors, auth: [''] }
@@ -37,11 +36,12 @@ export const actions: Actions = {
 			return fail(400, response);
 		}
 		try {
+			data["user"] = locals.pb.authStore.model?.id
 			await locals.pb
 				.collection("records")
 				.create(data, { $autoCancel: false });
 		} catch (e) {
-			console.log("idk")
+			console.log("idk",e, data, locals.pb.authStore.model?.id)
 		}
 		
 		

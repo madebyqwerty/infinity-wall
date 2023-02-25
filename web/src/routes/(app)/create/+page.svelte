@@ -7,7 +7,7 @@
 	let rating = 3;
 	let dateString = "";
 	let date=new Date();
-	$: dateString = `${date.getDate()}.${(date.getMonth() + 1)}.${date.getFullYear()}`
+	$: dateString = date.toISOString()
 ;
 
 	$:console.log(dateString)
@@ -17,7 +17,7 @@
 	<form use:enhance method="POST" class="flex flex-col items-center justify-center">
 		<input type="text" class="displaynone" bind:value={dateString} name="date">
 		<DateInput closeOnSelection={true} bind:value={date}/>
-		<input type="number" name="length" placeholder="Délka" class="input input-bordered w-full max-w-xs" />
+		<input type="number" name="time" placeholder="Délka" class="input input-bordered w-full max-w-xs" />
 		<div class="ratink">
 			<div style="transition:250ms ease-in-out;opacity:{(6-rating)/4-1/4}">
 				<iconify-icon
