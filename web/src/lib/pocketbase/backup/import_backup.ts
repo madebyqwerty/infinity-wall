@@ -2,27 +2,28 @@ import type { arrayOutputType } from 'zod';
 import { pb } from '../index';
 
 function is_row_valid(row: Array<string>) {
-	if (!/^\d{4}\-\d{2}\-\d{2}\ \d{2}\:\d{2}\:\d{2}\.\d{3}\Z/.test(row[3])) {
+	const [id, time, rating, description, user, date, language] = row;
+	if (!/^\d{4}\-\d{2}\-\d{2}\ \d{2}\:\d{2}\:\d{2}\.\d{3}\Z/.test(date)) {
 		return false;
 	}
 
-	if (row[5].length != 15) {
+	if (id.length != 15) {
 		return false;
 	}
 
-	if (1 > Number(row[7]) || Number(row[7]) > 5) {
+	if (1 > Number(rating) || Number(rating) > 5) {
 		return false;
 	}
 
-	if (1 > Number(row[8]) || Number(row[8]) > 1440) {
+	if (1 > Number(time) || Number(time) > 1440) {
 		return false;
 	}
 
-	if (row[10].length != 15) {
+	if (user.length != 15) {
 		return false;
 	}
 
-	if (row[10] != pb.authStore.model?.id) {
+	if (user != pb.authStore.model?.id) {
 		return false;
 	}
 
@@ -31,38 +32,22 @@ function is_row_valid(row: Array<string>) {
 
 async function do_backup(backup: Array<string>) {
 	if (!is_row_valid(backup)) {
-		return 0;
+		return;
 	}
 
+	const [id, time, rating, description, user, date, language] = backup;
+
 	try {
-		const data = {
-			time: backup[8],
-			language: backup[6],
-			rating: backup[7],
-			description: backup[4],
-			user: backup[10],
-			date: backup[3]
-		};
-		const record = await pb.collection('records').update(backup[5], data, { $autoCancel: false });
+		await pb.collection('records').update(id, {time, language, rating, description, user, date}, { $autoCancel: false });
 		console.log('Imported');
 	} 
 
 	catch (e) {
 		if (e!.toString() !== "ClientResponseError 404: The requested resource wasn't found.") {
-			return 0;
+			return;
 		}
 
-		const data = {
-			id: backup[5],
-			time: backup[8],
-			language: backup[6],
-			rating: backup[7],
-			description: backup[4],
-			user: backup[10],
-			date: backup[3]
-		};
-
-		const record = await pb.collection('records').create(data, { $autoCancel: false });
+		await pb.collection('records').create({id, time, language, rating, description, user, date}, { $autoCancel: false });
 		console.log('Imported');
 	}
 }
