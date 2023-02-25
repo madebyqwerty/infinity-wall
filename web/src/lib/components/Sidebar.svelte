@@ -7,11 +7,11 @@
 	export let route: string;
 
 	onMount(() => {
-		document.body.classList.add('overflow-hidden');
-		document.body.classList.add('mr-4');
+		const navbar = document.querySelector('#navbar');
+
+		document.body.classList.add('overflow-y-hidden');
 		return () => {
-			document.body.classList.remove('overflow-hidden');
-			document.body.classList.remove('mr-4');
+			document.body.classList.remove('overflow-y-hidden');
 		};
 	});
 </script>
