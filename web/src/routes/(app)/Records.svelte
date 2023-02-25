@@ -5,7 +5,6 @@
 	import { language_colors, language_names } from '@utils/languages';
 	import { goto } from '$app/navigation';
 	import { get_text_color } from '@utils';
-	import Filter from './Filter.svelte';
 
 	const { records } = $page.data as PageData;
 
@@ -13,11 +12,9 @@
 </script>
 
 <section id="data" class="my-12">
-	<Filter />
-	<h2 class="text-6xl text-primary mb-4">Moje záznamy</h2>
-	<a href="/create/">+</a>
-	<!-- Each block for records -->
-	
+
+	<h2 class="text-6xl text-base-content mb-4">Moje záznamy</h2>
+
 	<div class="overflow-x-auto">
 		<table class="table w-full">
 			<thead>

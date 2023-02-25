@@ -27,19 +27,15 @@ function convert_date_to_pocketbase_format(date: Date | null) {
 export const load = (async ({ locals, url, depends }) => {
 	depends('home');
 
-	if (locals.user == null) {
-		throw redirect(303, '/auth/login');
-	}
-
 	// Get all the records in the given timeframe
-	const datePast =
+	const date_past =
 		convert_date_to_pocketbase_format(get_date_from_string(url.searchParams.get('from'))) ??
 		convert_date_to_pocketbase_format(subtract_month(new Date(), 1));
-	const dateEnd =
+	const date_end =
 		convert_date_to_pocketbase_format(get_date_from_string(url.searchParams.get('to'))) ??
 		convert_date_to_pocketbase_format(new Date());
 
-	let filter = `(date >= "${datePast}" && date <= "${dateEnd}")`;
+	let filter = `(date >= "${date_past}" && date <= "${date_end}")`;
 
 	const langs: string[] | null = JSON.parse(url.searchParams.get('langs') as string);
 	const stars: number[] | null = JSON.parse(url.searchParams.get('stars') as string)?.map(
@@ -47,8 +43,7 @@ export const load = (async ({ locals, url, depends }) => {
 	);
 
 	const records = await locals.pb.collection('records').getList<RecordsResponse>(1, 200, {
-		filter: filter,
-		$autoCancel: false
+		filter: filter
 	});
 
 	return {

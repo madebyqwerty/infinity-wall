@@ -26,13 +26,18 @@ export const handle: Handle = async ({ event, resolve }) => {
 	let is_valid = event.locals.pb.authStore.isValid;
 
 	if (!event.url.toString().includes('auth') && !is_valid) {
-		if (event.url.toString().includes('admin') && !is_admin(event.locals.user)) {
-			throw redirect(303, '/');
-		}
-
 		const url = event.url.toString();
-		const redirect_url = url.includes('admin') ? '/auth/login' : '/auth/login/admin';
+		const redirect_url = url.includes('admin') ? '/auth/login/admin' : '/auth/login';
 		throw redirect(303, redirect_url);
+	}
+
+	// Protect the admin route
+	if (
+		event.url.toString().includes('admin') &&
+		!event.url.toString().includes('auth') &&
+		!is_admin(event.locals.user)
+	) {
+		throw redirect(303, '/');
 	}
 
 	const response = await resolve(event);
