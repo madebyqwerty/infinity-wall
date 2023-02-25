@@ -1,6 +1,6 @@
 http://:80 {
         reverse_proxy /api* 127.0.0.1:8090
-        reverse_proxy /_*/ 127.0.0.1:8090
+        reverse_proxy /_/* 127.0.0.1:8090
         reverse_proxy * 127.0.0.1:8080
 
         bind 0.0.0.0
