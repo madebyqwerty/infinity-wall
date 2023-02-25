@@ -7,7 +7,7 @@
 <main>
 	<Navbar />
 	<div class="drawer">
-		<DrawerToggle routes={['record']} />
+		<DrawerToggle routes={['record',"create"]} />
 		<div class="drawer-content">
 			<Dashboard />
 		</div>

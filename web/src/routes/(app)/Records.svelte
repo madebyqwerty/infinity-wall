@@ -7,11 +7,15 @@
 	import { get_text_color } from '@utils';
 
 	const { records } = $page.data as PageData;
+
+	
 </script>
 
 <section id="data" class="my-12">
 	<h2 class="text-6xl text-primary mb-4">Moje záznamy</h2>
+	<a href="/create/">+</a>
 	<!-- Each block for records -->
+	
 	<div class="overflow-x-auto">
 		<table class="table w-full">
 			<!-- head -->
