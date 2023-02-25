@@ -20,7 +20,8 @@ module.exports = {
 					'--tab-border': '1px', // border width of tabs
 					'--tab-radius': '0rem' // border radius of tabs
 				}
-			}
+			},
+			'corporate'
 		]
 	},
 	plugins: [require('daisyui')]

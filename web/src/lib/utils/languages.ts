@@ -1,6 +1,6 @@
-import type { RecordsLanguageOptions } from '../pocketbase/types';
+import type { RecordsLanguageOptions } from '@pocketbase/types';
 
-export const languageColors: { [key in RecordsLanguageOptions]: string } = {
+export const language_colors: { [key in RecordsLanguageOptions]: string } = {
 	java: '#F9A825',
 	cpp: '#00599C',
 	python: '#17739f',
@@ -39,7 +39,7 @@ export const languageColors: { [key in RecordsLanguageOptions]: string } = {
 	webassembly: '#0467FB'
 };
 
-export const languageNames: { [key in RecordsLanguageOptions]: string } = {
+export const language_names: { [key in RecordsLanguageOptions]: string } = {
 	angular: 'Angular',
 	bash: 'Bash',
 	clang: 'C',
@@ -78,7 +78,7 @@ export const languageNames: { [key in RecordsLanguageOptions]: string } = {
 	webassembly: 'WebAssembly'
 };
 
-export const languageIDs: { [key: string]: string } = {
+export const language_ids: { [key: string]: string } = {
 	Angular: 'angular',
 	Bash: 'bash',
 	C: 'clang',

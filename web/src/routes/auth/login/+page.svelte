@@ -2,12 +2,13 @@
 	import { enhance } from '$app/forms';
 	import { site_name } from '@utils';
 	import type { ActionData } from './$types';
+	import Input from '@components/Input.svelte';
 
 	export let form: ActionData;
 
-	$: auth_error = form?.errors?.auth?.at(0);
-	$: email_error = form?.errors.email?.at(0);
-	$: password_error = form?.errors?.password?.at(0);
+	$: auth_error = form?.errors?.auth?.at(0) || '';
+	$: email_error = form?.errors.email?.at(0) || '';
+	$: password_error = form?.errors?.password?.at(0) || '';
 </script>
 
 <div class="hero min-h-screen bg-base-200">
@@ -20,7 +21,8 @@
 				Vítejte v aplikaci pro zaznamenávání vašeho osobního růstu a profesionálního rozvoje v rámci
 				naší společnosti UpShop. Prosím, přihlaste se a začněte využívat všech možností, které vám
 				naše aplikace nabízí. Jsme tu pro vás, abychom vám pomohli s vaším růstem a abychom vás
-				podpořili na cestě k dosažení vašich cílů.
+				podpořili na cestě k dosažení vašich cílů. <br /> <br />
+				Pokud ještě nemáte účet požádejte svého administrátora aby vám účet vytvořil.
 			</p>
 		</div>
 		<form
@@ -29,50 +31,32 @@
 			use:enhance
 		>
 			<div class="card-body">
-				{#if auth_error}
-					<div class="text-error">
-						{auth_error}
-					</div>
-				{/if}
-				<div class="form-control">
-					<input type="hidden" name="type" value="users" />
-					<label class="label" for="email">
-						<span class="label-text">Email</span>
-					</label>
-					<input
-						type="text"
-						placeholder="martin.novak@upshop.cz"
-						id="email"
-						name="email"
-						class="input input-bordered {email_error || auth_error ? 'input-error' : ''}"
-					/>
-					{#if email_error}
-						<span class="text-error">{email_error}</span>
-					{/if}
+				<div class="text-error">
+					{auth_error}
 				</div>
-				<div class="form-control">
-					<label class="label" for="password">
-						<span class="label-text">Heslo</span>
-					</label>
-					<input
-						type="password"
-						placeholder="*******"
-						name="password"
-						class="input input-bordered {password_error || auth_error ? 'input-error' : ''}"
-						id="password"
-					/>
-					{#if password_error}
-						<span class="text-error">{password_error}</span>
-					{/if}
-				</div>
+
+				<Input
+					error={email_error}
+					label="E-mail"
+					name="email"
+					placeholder="martin.novak@upshop.cz"
+					type="email"
+				/>
+
+				<Input
+					error={password_error}
+					label="Heslo"
+					name="password"
+					placeholder="********"
+					type="error"
+				/>
+
 				<div class="form-control mt-6">
 					<button class="btn btn-primary" type="submit">Přihlásit se</button>
 				</div>
-				<div
-					class="link link-secondary tooltip tooltip-bottom"
-					data-tip="Požádejte svého administrátora aby vám vytvořil účet"
-				>
-					Ještě nemáte účet?
+
+				<div class="flex w-full flex-col">
+					<a href="/auth/login/admin" class="link link-secondary">Administrátorské přihlášení</a>
 				</div>
 			</div>
 		</form>

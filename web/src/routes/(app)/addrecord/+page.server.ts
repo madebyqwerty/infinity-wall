@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { zfd } from 'zod-form-data';
 import type { Actions } from './$types';
-import { languageNames } from '@utils/languages';
+import { language_names } from '@utils/languages';
 import { RecordsLanguageOptions } from '@pocketbase/types';
 import { fail } from '@sveltejs/kit';
 
@@ -9,7 +9,7 @@ export const actions: Actions = {
 	default: async ({ locals, request, url }) => {
 		const data = await request.formData();
 
-		const my_enum = Object.keys(languageNames);
+		const my_enum = Object.keys(language_names);
 
 		const schema = zfd.formData({
 			date: z.string({ required_error: 'Neplatné datum' }),

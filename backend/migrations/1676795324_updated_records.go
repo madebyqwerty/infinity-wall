@@ -1,12 +1,10 @@
 package migrations
 
 import (
-	"encoding/json"
-
 	"github.com/pocketbase/dbx"
 	"github.com/pocketbase/pocketbase/daos"
 	m "github.com/pocketbase/pocketbase/migrations"
-	"github.com/pocketbase/pocketbase/models/schema"
+	"github.com/pocketbase/pocketbase/tools/types"
 )
 
 func init() {
@@ -18,21 +16,7 @@ func init() {
 			return err
 		}
 
-		// add
-		new_date := &schema.SchemaField{}
-		json.Unmarshal([]byte(`{
-			"system": false,
-			"id": "iz0luean",
-			"name": "date",
-			"type": "date",
-			"required": false,
-			"unique": false,
-			"options": {
-				"min": "",
-				"max": ""
-			}
-		}`), new_date)
-		collection.Schema.AddField(new_date)
+		collection.UpdateRule = types.Pointer("@request.auth.id = user.id")
 
 		return dao.SaveCollection(collection)
 	}, func(db dbx.Builder) error {
@@ -43,8 +27,7 @@ func init() {
 			return err
 		}
 
-		// remove
-		collection.Schema.RemoveField("iz0luean")
+		collection.UpdateRule = nil
 
 		return dao.SaveCollection(collection)
 	})
