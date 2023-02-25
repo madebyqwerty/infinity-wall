@@ -4,7 +4,7 @@
 	export let data: LayoutData;
 </script>
 
-<div class="lg:px-96">
+<div class="xl:px-96">
 	<h1 class="text-6xl text-primary my-16">Management uživatelů</h1>
 	<table class="table max-w-screen-xl w-full">
 		<thead>

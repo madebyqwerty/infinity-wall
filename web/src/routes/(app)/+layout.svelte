@@ -21,12 +21,14 @@
 			on:scroll={update_scroll}
 			bind:this={drawer_content}
 		>
-			<div class="bg">
+			<div class="bg xl:h-[800px] ">
 				<Navbar {scroll_y} />
-				<Hero />
+				<div class="2xl:px-96 xl:px-72 px-4 xl:py-16 py-8">
+					<Hero />
+				</div>
 			</div>
-			<div class="lg:px-96">
-				<div class="-translate-y-48">
+			<div class="xl:px-96 xl:py-0 px-8 py-16">
+				<div class="xl:-translate-y-48">
 					<Filter />
 					<Records />
 				</div>
@@ -42,6 +44,5 @@
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
-		height: 800px;
 	}
 </style>

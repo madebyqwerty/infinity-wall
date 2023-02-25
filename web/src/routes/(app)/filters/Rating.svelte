@@ -23,7 +23,7 @@
 		<ul class="dropdown-content shadow bg-base-100 p-1 w-max menu" tabindex="0">
 			{#each [1, 2, 3, 4, 5] as number}
 				<li class="form-control">
-					<label class="label cursor-pointer">
+					<label class="label cursor-pointer w-full justify-start">
 						<input type="checkbox" checked={true} class="checkbox checkbox-xs" />
 						<span class="label-text flex">
 							{#each Array(number) as start, i}
