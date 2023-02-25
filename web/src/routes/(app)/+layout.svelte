@@ -6,7 +6,7 @@
 
 <main>
 	<div class="drawer">
-		<DrawerToggle routes={['record',"create"]} />
+		<DrawerToggle routes={['record', 'backup', 'export', 'import', "create"]} />
 		<div class="drawer-content">
 			<Navbar />
 			<Dashboard />
