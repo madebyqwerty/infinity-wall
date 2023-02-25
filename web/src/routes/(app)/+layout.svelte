@@ -15,7 +15,8 @@
 
 <main>
 	<div class="drawer">
-		<DrawerToggle routes={['record']} />
+		<DrawerToggle routes={['record', 'backup', 'export', 'import', "create"]} />
+
 		<div
 			class="drawer-content scroll-p-32 scroll-smooth"
 			on:scroll={update_scroll}

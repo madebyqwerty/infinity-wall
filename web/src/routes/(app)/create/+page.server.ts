@@ -7,9 +7,11 @@ import { fail } from '@sveltejs/kit';
 
 export const actions: Actions = {
 	default: async ({ locals, request, url }) => {
-		const data = await request.formData();
+		const data = Object.fromEntries(await request.formData())
+		data["length"] = parseInt(data["length"])
+		data["rating"] = parseInt(data["rating"])
 
-		const my_enum = Object.keys(language_names);
+		
 
 		const schema = zfd.formData({
 			date: z.string({ required_error: 'Neplatné datum' }),
@@ -26,7 +28,7 @@ export const actions: Actions = {
 		});
 
 		let parsed = schema.safeParse(data)
-
+		console.log("picovinka", JSON.stringify(data), schema, parsed)
 		if(!parsed.success){
 			const response = {
 				errors: { ...parsed.error.flatten().fieldErrors, auth: [''] }

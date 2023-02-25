@@ -7,7 +7,8 @@ export async function export_backup() {
 
 	const out: any[][] = [];
 	records.forEach((element) => {
-		out.push(Object.values(element));
+		const { id, time, rating, description, user, date, language } = element
+		out.push([id, time, rating, description, user, date, language]);
 	});
 
 	let csvContent = 'data:text/csv;charset=utf-8,' + out.map((e) => e.join(',')).join('\n');
