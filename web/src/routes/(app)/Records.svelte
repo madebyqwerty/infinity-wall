@@ -5,16 +5,16 @@
 	import { language_colors, language_names } from '@utils/languages';
 	import { goto } from '$app/navigation';
 	import { get_text_color } from '@utils';
+	import Filter from './Filter.svelte';
 
 	const { records } = $page.data as PageData;
 </script>
 
 <section id="data" class="my-12">
+	<Filter />
 	<h2 class="text-6xl text-primary mb-4">Moje záznamy</h2>
-	<!-- Each block for records -->
 	<div class="overflow-x-auto">
 		<table class="table w-full">
-			<!-- head -->
 			<thead>
 				<tr>
 					<th>Datum</th>

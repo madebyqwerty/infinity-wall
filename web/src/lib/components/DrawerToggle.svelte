@@ -9,6 +9,8 @@
 		routes.forEach((route) => {
 			if ($page.route.id?.includes(route)) {
 				sidebar_open = true;
+			} else {
+				sidebar_open = false;
 			}
 		});
 	}

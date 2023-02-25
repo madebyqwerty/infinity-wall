@@ -5,10 +5,10 @@
 </script>
 
 <main>
-	<Navbar />
 	<div class="drawer">
 		<DrawerToggle routes={['record']} />
 		<div class="drawer-content">
+			<Navbar />
 			<Dashboard />
 		</div>
 		<slot />

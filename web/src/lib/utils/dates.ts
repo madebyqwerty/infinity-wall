@@ -16,16 +16,26 @@ export function get_date_from_string(dateString: string | null) {
  * @param  {Date} date Datum od kterého odstarnit měsíce
  * @param  {number} months Kolik měsíců odstranit
  */
-export function subtract_month(date: Date, months: number) {
+export function subtract_month(date: Date, months = 1) {
 	date.setMonth(date.getMonth() - months);
 	return date;
 }
 
-export function get_minute_sklonovani(minutes:number){
-  if(minutes == 1){
-    return "minuta"
-  } else if(minutes <= 4) {
-    return "minuty"
-  }
-  return "minut"
+export function subtract_week(date: Date, weeks = 1) {
+	date.setDate(date.getDate() - weeks * 7);
+	return date;
+}
+
+export function subtract_year(date: Date, years = 1) {
+	date.setFullYear(date.getFullYear() - years);
+	return date;
+}
+
+export function get_minute_sklonovani(minutes: number) {
+	if (minutes == 1) {
+		return 'minuta';
+	} else if (minutes <= 4) {
+		return 'minuty';
+	}
+	return 'minut';
 }
