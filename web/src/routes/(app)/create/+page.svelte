@@ -4,7 +4,7 @@
 	import { enhance } from '$app/forms';
 	import Sidebar from '@components/Sidebar.svelte';
 
-	let rating = 5;
+	let rating = 3;
 	let dateString = "";
 	let date=new Date();
 	$: dateString = `${date.getDate()}.${(date.getMonth() + 1)}.${date.getFullYear()}`
