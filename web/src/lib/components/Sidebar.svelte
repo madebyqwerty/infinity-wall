@@ -24,7 +24,11 @@
 		class="p-8 max-w-3xl w-full bg-base-100 text-base-content drawer-side-content fixed h-screen z-40"
 	
 	>
-		<h2 class="text-4xl mb-4">{title}</h2>
+		<div class="flex xl:items-center">
+			<h2 class="text-4xl mb-4">{title}</h2>
+			<div class="flex-grow" />
+			<a class="btn btn-outline btn-error" href={route}>Zavřít</a>
+		</div>
 		<p class="mb-4">{description}</p>
 		<slot />
 	</div>

@@ -9,13 +9,13 @@
 </script>
 
 <div class="">
-	<label for="rating" class="mb-2">
+	<label for="rating">
 		<span class="label-text">Hodnocení</span>
 	</label>
 
 	<div class="dropdown">
 		<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-		<label tabindex="0" class="btn btn-ghost btn-sm text-left w-max" for="rating">
+		<label tabindex="0" class="btn btn-ghost btn-sm text-left w-max mt-2" for="rating">
 			Vybrat hodnocení
 		</label>
 
@@ -23,7 +23,7 @@
 		<ul class="dropdown-content shadow bg-base-100 p-1 w-max menu" tabindex="0">
 			{#each [1, 2, 3, 4, 5] as number}
 				<li class="form-control">
-					<label class="label cursor-pointer">
+					<label class="label cursor-pointer w-full justify-start">
 						<input type="checkbox" checked={true} class="checkbox checkbox-xs" />
 						<span class="label-text flex">
 							{#each Array(number) as start, i}
