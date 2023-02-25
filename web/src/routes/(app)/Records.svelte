@@ -13,7 +13,7 @@
 	<div class="flex xl:flex-row flex-col items-center gap-2">
 		<h2 class="text-6xl text-base-content mb-4">Moje záznamy</h2>
 		<div class="flex-grow" />
-		<a href="/addrecord" class="btn btn-primary">Přidat záznam</a>
+		<a href="/create" class="btn btn-primary">Přidat záznam</a>
 		<a href="/backup/import" class="btn btn-outline">Importovat zálohu</a>
 		<a href="/backup/export" class="btn btn-outline">Exportovat zálohu</a>
 	</div>

@@ -39,3 +39,7 @@ export function get_minute_sklonovani(minutes: number) {
 	}
 	return 'minut';
 }
+
+export function get_date_in_mmddyyyy(date: Date) {
+	return `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`;
+}

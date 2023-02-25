@@ -5,7 +5,9 @@ import { pocketbase_URL } from '@pocketbase';
 const is_admin = (user: Record | Admin | null) => user?.collectionName === 'admins';
 
 export const handle: Handle = async ({ event, resolve }) => {
-	event.locals.pb = new PocketBase(pocketbase_URL);
+	event.locals.pb = new PocketBase(`http://${new URL(event.request.url).host}`);
+
+	console.log('STARTING POCKETBASE ON', `http://${new URL(event.request.url).host}`);
 	event.locals.pb.authStore.loadFromCookie(event.request.headers.get('cookie') || '');
 
 	const auth_refresh = async (type: 'admins' | 'users') =>
