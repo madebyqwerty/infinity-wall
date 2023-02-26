@@ -1,4 +1,4 @@
-<div class="sticky top-0">
+<div class="sticky top-0 z-30">
 	<nav class="navbar bg-primary text-primary-content">
 		<div class="navbar-start">
 			<h3 class="text-xl font-bold">UpShop Track</h3>

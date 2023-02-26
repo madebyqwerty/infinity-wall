@@ -5,7 +5,10 @@
 </script>
 
 <div class="xl:px-96">
-	<h1 class="text-6xl text-primary my-16">Management uživatelů</h1>
+	<div class="flex xl:flex-row flex-col gap-4 items-center justify-between">
+		<h1 class="text-6xl text-base-content my-16">Management uživatelů</h1>
+		<a href="/admin/create" class="btn btn-primary btn-outline">Přidat nového uživatele</a>
+	</div>
 	<table class="table max-w-screen-xl w-full">
 		<thead>
 			<tr>
@@ -17,7 +20,7 @@
 		</thead>
 		<tbody>
 			{#each data.users as user, i (user.id)}
-				<tr>
+				<tr class="hover">
 					<td>
 						<figure class="flex items-center space-x-3">
 							<div>
@@ -42,12 +45,6 @@
 					</td>
 				</tr>
 			{/each}
-			<tr
-				><td
-					><a href="/admin/create" class="btn btn-outline btn-primary">Přidat nového uživatele</a
-					></td
-				></tr
-			>
 		</tbody>
 	</table>
 </div>
