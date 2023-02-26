@@ -7,7 +7,7 @@ export const GET = async ({ params }) => {
     try {
         const { user_id } = params;
 
-        const records = await pb.collection('records').getFullList(200 /* batch size */, {
+        const records = await pb.collection('records').getFullList(200, {
             sort: '-created',
         });
 
@@ -43,9 +43,7 @@ export const POST = async ({ request, params }) => {
 
         const created = await pb.collection('records').create({ "time": Number(body["time-spent"]), "rating": Number(body["rating"]), "description": body["description"], "user": user_id, "date": body["date"], "language": body["programming-language"] });
 
-        const record = await pb.collection('records').getOne(created.id, {
-            expand: 'relField1,relField2.subRelField',
-        });
+        const record = await pb.collection('records').getOne(created.id, {});
 
         const { id, date, time, language, rating, description } = record;
 

@@ -7,9 +7,7 @@ export const GET = async ({ params }) => {
     try {
         const { user_id, record_id } = params;
 
-        const record = await pb.collection('records').getOne(record_id, {
-            expand: 'relField1,relField2.subRelField',
-        });
+        const record = await pb.collection('records').getOne(record_id, {});
 
         const { id, date, time, language, rating, description } = record;
 
@@ -24,7 +22,7 @@ export const DELETE = async ({ params }) => {
     try {
         const { user_id, record_id } = params;
 
-        //await pb.collection('records').delete(record_id);
+        await pb.collection('records').delete(record_id);
 
         return new Response(JSON.stringify(""), { status: 200 });
     }
@@ -40,9 +38,7 @@ export const PUT = async ({ request, params }) => {
 
         await pb.collection('records').update(record_id, { "time": Number(body["time-spent"]), "rating": Number(body["rating"]), "description": body["description"], "user": user_id, "date": body["date"], "language": body["programming-language"] });
 
-        const record = await pb.collection('records').getOne(record_id, {
-            expand: 'relField1,relField2.subRelField',
-        });
+        const record = await pb.collection('records').getOne(record_id, {});
 
         const { id, date, time, language, rating, description } = record;
 
