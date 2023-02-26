@@ -15,7 +15,7 @@
 
 <main>
 	<div class="drawer">
-		<DrawerToggle routes={['record', 'backup', 'export', 'import', 'create']} />
+		<DrawerToggle routes={['record', 'backup', 'export', 'import', 'create', 'edit']} />
 
 		<div class="drawer-content scroll-smooth" on:scroll={update_scroll} bind:this={drawer_content}>
 			<Navbar {scroll_y} />

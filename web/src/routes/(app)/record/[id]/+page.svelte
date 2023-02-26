@@ -5,12 +5,14 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+	console.log(data)
 </script>
 
 <Sidebar
 	route="/"
-	title="Záznam ze dne {new Date(data.record.time).toLocaleDateString('cs')}"
+	title="Záznam ze dne {new Date(data.record.date).toLocaleDateString('cs')}"
 	description={data.record.description}
+	size="lg"
 >
 	<div class="grid grid-cols-8">
 		<div class="col-span-3">
@@ -20,7 +22,7 @@
 			<strong>Programovací jazyk</strong>
 		</div>
 		<div class="col-span-5">
-			<div>{new Date(data.record.time).toLocaleDateString('cs')}</div>
+			<div>{new Date(data.record.date).toLocaleDateString('cs')}</div>
 			<div>{data.record.time}</div>
 			<div>{'*'.repeat(data.record.rating)}</div>
 			<div class="flex flex-wrap gap-1">
@@ -30,4 +32,5 @@
 			</div>
 		</div>
 	</div>
+	<a href="/edit/{data.record.id}" class="btn btn-outline w-full">Upravit záznam</a>
 </Sidebar>
