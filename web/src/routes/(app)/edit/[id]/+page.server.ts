@@ -1,4 +1,5 @@
-import type { RecordsResponse,RecordsLanguageOptions } from '$lib/pocketbase/types';
+import type { RecordsResponse } from '@pocketbase/types';
+import {RecordsLanguageOptions} from "@pocketbase/types"
 import type { PageServerLoad,Actions } from './$types';
 import { fail } from '@sveltejs/kit';
 import { z } from 'zod';
