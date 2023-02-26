@@ -1,12 +1,18 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import type { PageData } from './$types';
+	import { browser } from '$app/environment';
 
 	const { user } = $page.data as PageData;
+
+	export let scroll_y: number;
 </script>
 
 <div
-	class="sticky top-0 z-30 bg-opacity-90 backdrop-blur bg-primary text-primary-content shadow-md"
+	id="navbar"
+	class="sticky top-0 z-30 {scroll_y > 0
+		? 'bg-opacity-50 shadow-md text-base-content'
+		: 'bg-opacity-0 shadow-none text-primary-content'} backdrop-blur bg-base-100 text-base-content transition duration-300 ease-in-out"
 >
 	<nav class="navbar">
 		<div class="navbar-start">
@@ -31,7 +37,7 @@
 			<div class="dropdown dropdown-end">
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<label tabindex="0" class="btn btn-ghost" for="">
-					{user.name}
+					{user?.name}
 				</label>
 				<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 				<ul

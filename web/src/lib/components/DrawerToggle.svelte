@@ -6,11 +6,16 @@
 	let sidebar_open = false;
 
 	$: {
-		routes.forEach((route) => {
-			if ($page.route.id?.includes(route)) {
+		const pathname = $page.url.pathname;
+
+		for (const route of routes) {
+			if (pathname.includes(route)) {
 				sidebar_open = true;
+				break;
 			}
-		});
+
+			sidebar_open = false;
+		}
 	}
 </script>
 

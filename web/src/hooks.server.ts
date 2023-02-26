@@ -1,11 +1,16 @@
 import { redirect, type Handle } from '@sveltejs/kit';
 import PocketBase, { type Admin, type Record } from 'pocketbase';
-import { pocketbase_URL } from '@pocketbase';
+import { dev } from '$app/environment';
 
 const is_admin = (user: Record | Admin | null) => user?.collectionName === 'admins';
 
 export const handle: Handle = async ({ event, resolve }) => {
+	const pocketbase_URL = dev
+		? 'http://127.0.0.1:8090'
+		: `http://${new URL(event.request.url).host}`;
+
 	event.locals.pb = new PocketBase(pocketbase_URL);
+
 	event.locals.pb.authStore.loadFromCookie(event.request.headers.get('cookie') || '');
 
 	const auth_refresh = async (type: 'admins' | 'users') =>
@@ -23,22 +28,21 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	event.locals.user = structuredClone(event.locals.pb.authStore.model);
 
-	let is_valid = event.locals.pb.authStore.isValid;
+	// Dont redirect in auth route
+	if (!event.url.toString().includes('auth')) {
+		let is_valid = event.locals.pb.authStore.isValid;
+		const isnt_admin = !is_admin(event.locals.user);
+		const is_admin_page = event.url.toString().includes('admin');
 
-	// This code checks if the user is logged in or not
-	// If the user is not logged in, it redirects to the login page
-	// Depending on the page, it redirects to the admin login page or the user login page
-	// If the user is logged in, it does nothing
+		if (!is_valid) {
+			if (is_admin_page) {
+				throw redirect(303, '/auth/login/admin');
+			}
+			throw redirect(303, '/auth/login');
+		}
 
-	if (!event.url.toString().includes('auth') && !is_valid) {
-		const url = event.url.toString();
-		const redirect_url = url.includes('admin') ? '/auth/login' : '/auth/login/admin';
-		throw redirect(303, redirect_url);
-	}
-
-	// If the user is not an admin, redirect them to the homepage
-	if (event.url.toString().includes('admin') && !is_admin(event.locals.user)) {
-		throw redirect(303, '/');
+		// Redirect user to admin dashboard if admin trying to access home page
+		if (!isnt_admin && !is_admin_page) throw redirect(303, '/admin');
 	}
 
 	const response = await resolve(event);

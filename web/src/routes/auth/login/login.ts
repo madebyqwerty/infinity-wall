@@ -17,9 +17,10 @@ export default async function login(type: 'admins' | 'users', data: FormData, pb
 	try {
 		await pb.collection(type).authWithPassword(email as string, password as string);
 	} catch (e) {
+		console.log('LOGIN ERROR:', e);
 		const response = {
 			errors: {
-				auth: ['Špatný email, nebo heslo'],
+				auth: ['Špatný email, uživatelské jméno, nebo heslo'],
 				email: [''],
 				password: ['']
 			}

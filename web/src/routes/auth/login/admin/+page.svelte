@@ -23,7 +23,7 @@
 			<form method="POST" use:enhance>
 				<Input
 					error={email_error}
-					label="E-mail"
+					label="E-mail nebo uživatelské jméno"
 					name="email"
 					placeholder="admin@upshop.cz"
 					type="text"
@@ -38,6 +38,7 @@
 				/>
 				<button class="btn mt-4 max-w-xs" type="submit"> Přihlásit se </button>
 			</form>
+			<a href="/auth/login" class="link link-secondary">Nejste administrátor? Přihlašte se zde.</a>
 		</div>
 	</div>
 </div>

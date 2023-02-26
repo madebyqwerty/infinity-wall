@@ -3,6 +3,7 @@
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
 	import DrawerToggle from '@components/DrawerToggle.svelte';
+	import Navbar from './Navbar.svelte';
 
 	export let data: LayoutData;
 </script>
@@ -11,6 +12,7 @@
 	<div class="drawer">
 		<DrawerToggle routes={['create']} />
 		<div class="drawer-content">
+			<Navbar />
 			<Dashboard {data} />
 		</div>
 		<slot />
