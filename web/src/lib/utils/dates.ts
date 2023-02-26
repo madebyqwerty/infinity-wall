@@ -46,7 +46,6 @@ export function get_date_in_ddmmyyyy(date: Date) {
 
 export function convert_date_to_pocketbase_format(date: Date | null) {
 	if (date) {
-		date.setDate(date.getDate());
 		date.setUTCHours(0, 0, 0, 0);
 		console.log(date.toISOString());
 		return date.toISOString();

@@ -6,9 +6,8 @@ import { fail, redirect } from '@sveltejs/kit';
 import { convert_date_to_pocketbase_format } from '@utils/dates';
 
 export const actions: Actions = {
-	default: async ({ locals, request, url }) => {
+	default: async ({ locals, request }) => {
 		const data = await request.formData();
-		console.log('Creating');
 
 		const parsed_date = convert_date_to_pocketbase_format(new Date(data.get('date') as string));
 		if (parsed_date) data.set('date', parsed_date);

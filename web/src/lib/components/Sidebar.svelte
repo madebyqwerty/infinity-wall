@@ -1,11 +1,9 @@
 <script lang="ts">
-	import { fade, fly } from 'svelte/transition';
 	import { onMount } from 'svelte';
 
 	export let title: string;
 	export let description: string = '';
 	export let route: string;
-	export let size: string = "max-w-sm";
 
 	onMount(() => {
 		const navbar = document.querySelector('#navbar');
@@ -22,8 +20,7 @@
 	<a href={route} class="drawer-overlay" data-sveltekit-noscroll />
 
 	<div
-		class="p-8 {size} bg-base-100 text-base-content drawer-side-content fixed h-screen z-40"
-	
+		class="p-8 max-w-3xl w-full bg-base-100 text-base-content drawer-side-content fixed h-screen z-40"
 	>
 		<div class="flex xl:items-center">
 			<h2 class="text-4xl mb-4">{@html title}</h2>
