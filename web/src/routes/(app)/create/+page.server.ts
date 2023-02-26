@@ -3,14 +3,19 @@ import { zfd } from 'zod-form-data';
 import type { Actions } from './$types';
 import { RecordsLanguageOptions } from '@pocketbase/types';
 import { fail } from '@sveltejs/kit';
+import { convert_date_to_pocketbase_format } from '@utils/dates';
 
 export const actions: Actions = {
 	default: async ({ locals, request, url }) => {
-		const data = Object.fromEntries(await request.formData())
-		data["time"] = parseInt(data["time"])
-		data["rating"] = parseInt(data["rating"])
+		const data = await request.formData();
+		console.log('Creating');
 
-		
+		const parsed_date = convert_date_to_pocketbase_format(new Date(data.get('date') as string));
+		if (parsed_date) data.set('date', parsed_date);
+
+		data.set('user', locals.pb.authStore.model?.id as string);
+		data.set('time', parseInt(data.get('time')));
+		data.set('rating', parseInt(data.get('rating')));
 
 		const schema = zfd.formData({
 			date: z.string({ required_error: 'Neplatné datum' }),
@@ -26,24 +31,19 @@ export const actions: Actions = {
 			description: z.string().max(500, 'Popis nesmí být delší než 500 znaků')
 		});
 
-		let parsed = schema.safeParse(data)
-		if(!parsed.success){
+		let parsed = schema.safeParse(data);
+		if (!parsed.success) {
 			const response = {
 				errors: { ...parsed.error.flatten().fieldErrors, auth: [''] }
 			};
+			console.log(response);
 
 			return fail(400, response);
 		}
 		try {
-			data["user"] = locals.pb.authStore.model?.id
-			await locals.pb
-				.collection("records")
-				.create(data, { $autoCancel: false });
+			await locals.pb.collection('records').create(data, { $autoCancel: false });
 		} catch (e) {
-			console.log("idk",e, data, locals.pb.authStore.model?.id)
+			console.log('idk', e, data, locals.pb.authStore.model?.id);
 		}
-		
-		
-
 	}
 };

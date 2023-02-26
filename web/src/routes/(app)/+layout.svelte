@@ -17,22 +17,18 @@
 	<div class="drawer">
 		<DrawerToggle routes={['record', 'backup', 'export', 'import', "create", "edit"]} />
 
-		<div
-			class="drawer-content scroll-p-32 scroll-smooth"
-			on:scroll={update_scroll}
-			bind:this={drawer_content}
-		>
-			<div class="bg xl:h-[800px] ">
-				<Navbar {scroll_y} />
-				<div class="2xl:px-96 xl:px-72 px-4 xl:py-16 py-8">
+		<div class="drawer-content scroll-smooth" on:scroll={update_scroll} bind:this={drawer_content}>
+			<Navbar {scroll_y} />
+			<div class="bg -my-64 py-64">
+				<div class="xl:px-60 xl:py-8 px-4 bg">
 					<Hero />
 				</div>
 			</div>
-			<div class="xl:px-96 xl:py-0 px-8 py-16">
-				<div class="xl:-translate-y-48">
-					<Filter />
-					<Records />
-				</div>
+			<div
+				class="xl:px-60 xl:py-8 px-4 xl:grid grid-cols-12 gap-8 w-full scroll-p-40  -pt-10 mt-10"
+			>
+				<Filter />
+				<Records />
 			</div>
 		</div>
 		<slot />

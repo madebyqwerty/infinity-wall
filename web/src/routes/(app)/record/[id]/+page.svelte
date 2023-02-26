@@ -26,16 +26,9 @@
 			<div>{data.record.time}</div>
 			<div>{'*'.repeat(data.record.rating)}</div>
 			<div class="flex flex-wrap gap-1">
-		
-					<div
-						class="badge"
-						style="background-color: {language_colors[data.record.language]}; border-color: {language_colors[
-							data.record.language
-						]}; color: {get_text_color(language_colors[data.record.language])};"
-					>
-						{language_names[data.record.language]}
-					</div>
-		
+				<div class="badge badge-primary">
+					{data.record.language}
+				</div>
 			</div>
 		</div>
 	</div>
