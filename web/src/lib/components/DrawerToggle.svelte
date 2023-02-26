@@ -6,8 +6,6 @@
 	let sidebar_open = false;
 
 	$: {
-		console.log($page);
-
 		const pathname = $page.url.pathname;
 
 		for (const route of routes) {

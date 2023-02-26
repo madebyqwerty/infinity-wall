@@ -38,6 +38,7 @@
 				/>
 				<button class="btn mt-4 max-w-xs" type="submit"> Přihlásit se </button>
 			</form>
+			<a href="/auth/login" class="link link-secondary">Nejste administrátor? Přihlašte se zde.</a>
 		</div>
 	</div>
 </div>
