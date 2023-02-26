@@ -7,17 +7,20 @@
 <Sidebar
 	route="/"
 	title="Importujte soubor"
-	description="Pokud ještě nemáte .csv zálohu, vygenerujte si ji zde (doplnit odkaz pls)"
+	description="Chcete obnovit své záznamy z uložené zálohy?
+   S naší funkcí pro import dat to není žádný problém.
+   Stačí vybrat soubor s vašimi záznamy a kliknout na importovat zálohu.
+   Během chvíle budou vaše data zpět v aplikaci."
 >
-	<form use:enhance method="POST">
+	<form use:enhance method="POST" class="flex flex-col gap-4">
 		<input
 			multiple={false}
 			type="file"
 			name="file"
 			accept=".csv"
-			class="file-input file-input-bordered file-input-info w-full max-w-xs"
+			class="file-input w-full max-w-xs"
+			placeholder="Vyberte soubor"
 		/>
-		<br />
-		<button class="btn btn-info">Importovat zálohu</button>
+		<button class="btn">Importovat zálohu</button>
 	</form>
 </Sidebar>

@@ -11,8 +11,8 @@
 <div
 	id="navbar"
 	class="sticky top-0 z-30 {scroll_y > 0
-		? 'bg-opacity-50 shadow-md text-base-content'
-		: 'bg-opacity-0 shadow-none text-primary-content'} backdrop-blur bg-base-100 text-base-content transition duration-300 ease-in-out"
+		? 'bg-opacity-90 shadow-md text-base-content'
+		: 'bg-opacity-0 shadow-none text-base-content'} backdrop-blur bg-base-100 text-base-content transition duration-300 ease-in-out"
 >
 	<nav class="navbar">
 		<div class="navbar-start">

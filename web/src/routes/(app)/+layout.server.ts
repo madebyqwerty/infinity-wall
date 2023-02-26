@@ -1,6 +1,10 @@
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
-import { get_date_from_string, subtract_month } from '@utils/dates';
+import {
+	convert_date_to_pocketbase_format,
+	get_date_from_string,
+	subtract_month
+} from '@utils/dates';
 import type { RecordsResponse } from '@pocketbase/types';
 
 function create_filter(arr: Array<string | number> | null, type: string, mode: '&&' | '||' = '&&') {
@@ -17,13 +21,6 @@ function create_filter(arr: Array<string | number> | null, type: string, mode: '
 	return result;
 }
 
-function convert_date_to_pocketbase_format(date: Date | null) {
-	if (date) {
-		return date.toISOString().replace('T', ' ').replace('Z', '');
-	}
-	return null;
-}
-
 export const load = (async ({ locals, url, depends }) => {
 	depends('home');
 
@@ -33,7 +30,7 @@ export const load = (async ({ locals, url, depends }) => {
 		convert_date_to_pocketbase_format(subtract_month(new Date(), 1));
 	const date_end =
 		convert_date_to_pocketbase_format(get_date_from_string(url.searchParams.get('to'))) ??
-		convert_date_to_pocketbase_format(new Date());
+		convert_date_to_pocketbase_format(new Date('2024-01-01'));
 
 	let filter = `(date >= "${date_past}" && date <= "${date_end}")`;
 
@@ -48,6 +45,8 @@ export const load = (async ({ locals, url, depends }) => {
 
 	return {
 		user: locals.user,
-		records: structuredClone(records.items)
+		records: structuredClone(records.items),
+		date_past,
+		date_end
 	};
 }) satisfies LayoutServerLoad;
