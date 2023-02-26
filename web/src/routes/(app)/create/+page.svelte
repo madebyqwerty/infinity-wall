@@ -1,37 +1,71 @@
-<script>
+<script lang="ts">
 	import { language_names } from '@utils/languages';
 	import { DateInput } from 'date-picker-svelte';
 	import { enhance } from '$app/forms';
 	import Sidebar from '@components/Sidebar.svelte';
+	import FormControl from '@components/FormControl.svelte';
 
 	let rating = 3;
 	let dateString = '';
 	let date = new Date();
+
+	export let form: import('./$types').ActionData;
+
 	$: dateString = date.toISOString();
 
-	$: console.log(dateString);
+	$: console.log(form);
 </script>
 
 <Sidebar route="/" title="Vytvořit nový záznam">
+	{#if form?.error}
+		<div class="text-error mb-4">
+			{form?.error}
+		</div>
+	{/if}
 	<form use:enhance method="POST" class="flex flex-col items-center justify-center">
 		<input type="hidden" class="hidden" bind:value={dateString} name="date" />
-		<DateInput closeOnSelection={true} bind:value={date} />
-		<input
-			type="number"
-			name="time"
-			placeholder="Délka"
-			class="input input-bordered w-full max-w-xs"
+		<DateInput
+			closeOnSelection={true}
+			bind:value={date}
+			locale={{
+				months: [
+					'Leden',
+					'Únor',
+					'Březen',
+					'Duben',
+					'Květen',
+					'Červen',
+					'Červenec',
+					'Srpen',
+					'Září',
+					'Říjen',
+					'Listopad',
+					'Prosince'
+				],
+				weekdays: ['Po', 'Út', 'St', 'Čt', 'Pá', 'So', 'Ne']
+			}}
+			format="dd. MM. yyyy"
 		/>
-		<div class="ratink">
+
+		<FormControl label="Délka záznamu" error={form?.errors?.time}
+			><input
+				type="number"
+				name="time"
+				placeholder="Délka"
+				class="input input-bordered"
+				min={0}
+			/></FormControl
+		>
+
+		<div class="flex items-center justify-around">
 			<div style="transition:250ms ease-in-out;opacity:{(6 - rating) / 4 - 1 / 4}">
 				<iconify-icon
 					icon="fluent:emoji-angry-24-regular"
-					class="down text-base-content"
+					class="text-base-content translate-y-1"
 					inline={true}
 					width={30}
 				/>
 			</div>
-
 			<div class="rating rating-lg">
 				<input type="radio" name="rating" bind:group={rating} value={1} class="mask mask-star-2" />
 				<input type="radio" name="rating" bind:group={rating} value={2} class="mask mask-star-2" />
@@ -46,23 +80,34 @@
 				<input type="radio" name="rating" bind:group={rating} value={4} class="mask mask-star-2" />
 				<input type="radio" name="rating" bind:group={rating} value={5} class="mask mask-star-2" />
 			</div>
-			<div style="transition:250ms ease-in-out;opacity:{rating / 4 - 1 / 4}">
+
+			<div style="transition:250ms ease-in-out;opacity:{rating / 4 - 0.25}">
 				<iconify-icon
 					icon="fluent:emoji-laugh-20-regular"
-					class="down text-base-content"
+					class="text-base-content translate-y-1"
 					inline={true}
 					width={30}
 				/>
 			</div>
 		</div>
-		<select class="select select-bordered w-full max-w-xs" name="language">
-			<option disabled selected>Vyberte Jazyk</option>
-			{#each Object.entries(language_names) as l}
-				<option value={l[0]}>{l[1]}</option>
-			{/each}
-		</select>
 
-		<textarea class="textarea textarea-bordered" name="description" placeholder="Popis" />
+		<FormControl label="Programovací Jazyk" error={form?.errors?.language}>
+			<select class="select select-bordered w-full" name="language">
+				<option disabled selected>Vyberte Jazyk</option>
+				{#each Object.entries(language_names) as l}
+					<option value={l[0]}>{l[1]}</option>
+				{/each}
+			</select>
+		</FormControl>
+
+		<FormControl label="Popis" error={form?.errors?.description}>
+			<textarea
+				class="textarea textarea-bordered w-full"
+				rows={8}
+				name="description"
+				placeholder="Např: Optimalizoval jsem deployování docker containeru na server."
+			/>
+		</FormControl>
 
 		<button class="btn btn-primary" type="submit"> Přidat záznam </button>
 	</form>
@@ -77,14 +122,10 @@
 		gap: 1rem;
 	}
 
-	form > * {
-		width: 100% !important;
-		max-width: 20rem;
-	}
-	.ratink {
-		display: flex;
-		flex-direction: row;
-		justify-content: space-around;
-		align-items: center;
+	:global(:root) {
+		--date-picker-background: hsl(var(--b1));
+		--date-picker-foreground: hsl(var(--bc));
+		--date-picker-highlight-border: hsl(var(--pf));
+		--date-picker-selected-color: hsl(var(--pc));
 	}
 </style>
