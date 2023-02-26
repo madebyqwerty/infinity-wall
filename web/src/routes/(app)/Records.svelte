@@ -18,7 +18,7 @@
 		<a href="/backup/export" class="btn btn-ghost btn-sm">Exportovat zálohu</a>
 	</div>
 	<table class="table w-full">
-		<thead>
+		<thead class="sticky top-16">
 			<tr>
 				<th>Datum</th>
 				<th>Délka</th>
@@ -26,7 +26,7 @@
 				<th>Programovací jazyk</th>
 			</tr>
 		</thead>
-		<tbody class="overflow-hidden">
+		<tbody>
 			{#each records as record (record.id)}
 				<tr
 					class="hover cursor-pointer"

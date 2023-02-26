@@ -29,25 +29,30 @@ export const actions: Actions = {
 					.min(1, 'Hodnocení musí být alespoň jedna hvězda')
 					.max(5, 'Hodnocení nesmí být více jak 5 hvězd')
 			),
-			language: z.nativeEnum(RecordsLanguageOptions),
+			language: z.nativeEnum(RecordsLanguageOptions, { required_error: 'Neplatný jazyk' }),
 			description: z.string().max(500, 'Popis nesmí být delší než 500 znaků')
 		});
 
 		let parsed = schema.safeParse(data);
+
 		if (!parsed.success) {
 			const response = {
-				errors: { ...parsed.error.flatten().fieldErrors, auth: [''] }
+				errors: { ...parsed.error.flatten().fieldErrors }
 			};
 			console.log(response);
 
 			return fail(400, response);
 		}
+
 		try {
 			await locals.pb.collection('records').create(data, { $autoCancel: false });
-
-			throw redirect(303, '/');
 		} catch (e) {
 			console.log('idk', e, data, locals.pb.authStore.model?.id);
+			return fail(400, {
+				error: 'Nepodařilo se vytvořit záznam. Zkuste to prosím znovu.'
+			});
 		}
+
+		throw redirect(303, '/');
 	}
 };
