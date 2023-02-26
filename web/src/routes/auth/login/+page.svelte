@@ -37,10 +37,10 @@
 
 				<Input
 					error={email_error}
-					label="E-mail"
+					label="E-mail nebo uživatelské jméno"
 					name="email"
 					placeholder="martin.novak@upshop.cz"
-					type="email"
+					type="text"
 				/>
 
 				<Input
@@ -48,7 +48,7 @@
 					label="Heslo"
 					name="password"
 					placeholder="********"
-					type="error"
+					type="password"
 				/>
 
 				<div class="form-control mt-6">

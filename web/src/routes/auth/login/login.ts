@@ -20,7 +20,7 @@ export default async function login(type: 'admins' | 'users', data: FormData, pb
 		console.log('LOGIN ERROR:', e);
 		const response = {
 			errors: {
-				auth: ['Špatný email, nebo heslo'],
+				auth: ['Špatný email, uživatelské jméno, nebo heslo'],
 				email: [''],
 				password: ['']
 			}
