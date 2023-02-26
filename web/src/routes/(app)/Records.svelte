@@ -25,7 +25,7 @@
 					<th>Datum</th>
 					<th>Délka</th>
 					<th>Hodnocení</th>
-					<th>Programovací jazyky</th>
+					<th>Programovací jazyk</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -39,18 +39,16 @@
 						<td>{'*'.repeat(record.rating)}</td>
 						<td>
 							<div class="flex flex-wrap gap-1">
-								{#each record.language as language}
 									<div
 										class="badge"
 										style="background-color: {language_colors[
-											language
-										]}; border-color: {language_colors[language]};color: {get_text_color(
-											language_colors[language]
+											record.language
+										]}; border-color: {language_colors[record.language]};color: {get_text_color(
+											language_colors[record.language]
 										)};"
 									>
-										{language_names[language]}
+										{language_names[record.language]}
 									</div>
-								{/each}
 							</div>
 						</td>
 					</tr>

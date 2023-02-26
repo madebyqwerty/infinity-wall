@@ -1,8 +1,18 @@
+import type { RecordsResponse,RecordsLanguageOptions } from '$lib/pocketbase/types';
+import type { PageServerLoad,Actions } from './$types';
+import { fail } from '@sveltejs/kit';
 import { z } from 'zod';
 import { zfd } from 'zod-form-data';
-import type { Actions } from './$types';
-import { RecordsLanguageOptions } from '@pocketbase/types';
-import { fail } from '@sveltejs/kit';
+
+export const load = (async ({ locals, params }) => {
+	const { id } = params;
+
+	const record = await locals.pb.collection('records').getOne<RecordsResponse>(id);
+
+	return {
+		record: structuredClone(record)
+	};
+}) satisfies PageServerLoad;
 
 export const actions: Actions = {
 	default: async ({ locals, request, url }) => {
@@ -10,7 +20,8 @@ export const actions: Actions = {
 		data["time"] = parseInt(data["time"])
 		data["rating"] = parseInt(data["rating"])
 
-		
+		const id = data["id"];
+		delete data.id;
 
 		const schema = zfd.formData({
 			date: z.string({ required_error: 'Neplatné datum' }),
@@ -38,7 +49,7 @@ export const actions: Actions = {
 			data["user"] = locals.pb.authStore.model?.id
 			await locals.pb
 				.collection("records")
-				.create(data, { $autoCancel: false });
+				.update(id,data);
 		} catch (e) {
 			console.log("idk",e, data, locals.pb.authStore.model?.id)
 		}

@@ -5,36 +5,39 @@
 	import type { PageData } from './$types';
 
 	export let data: PageData;
+	console.log(data)
 </script>
 
 <Sidebar
 	route="/"
-	title="Záznam ze dne {new Date(data.record.time).toLocaleDateString('cs')}"
+	title="Záznam ze dne {new Date(data.record.date).toLocaleDateString('cs')}"
 	description={data.record.description}
+	size="lg"
 >
 	<div class="grid grid-cols-8">
 		<div class="col-span-3">
 			<strong>Datum</strong><br />
 			<strong>Délka</strong> <br />
 			<strong>Hodnocení</strong> <br />
-			<strong>Programovací jazyky</strong>
+			<strong>Programovací jazyk</strong>
 		</div>
 		<div class="col-span-5">
-			<div>{new Date(data.record.time).toLocaleDateString('cs')}</div>
+			<div>{new Date(data.record.date).toLocaleDateString('cs')}</div>
 			<div>{data.record.time}</div>
 			<div>{'*'.repeat(data.record.rating)}</div>
 			<div class="flex flex-wrap gap-1">
-				{#each data.record.language as language}
+		
 					<div
 						class="badge"
-						style="background-color: {language_colors[language]}; border-color: {language_colors[
-							language
-						]}; color: {get_text_color(language_colors[language])};"
+						style="background-color: {language_colors[data.record.language]}; border-color: {language_colors[
+							data.record.language
+						]}; color: {get_text_color(language_colors[data.record.language])};"
 					>
-						{language_names[language]}
+						{language_names[data.record.language]}
 					</div>
-				{/each}
+		
 			</div>
 		</div>
 	</div>
+	<a href="/edit/{data.record.id}" class="btn btn-outline w-full">Upravit záznam</a>
 </Sidebar>
