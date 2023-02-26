@@ -22,7 +22,10 @@ export const actions: Actions = {
 			header: true
 		});
 
-		for (const record of records.data) {
+		for (let i in records.data) {
+			const record = records.data[i];
+			if (records.errors.find((e) => e.row === parseInt(i))) continue;
+
 			const { id, date, language, description, rating, ...time } = record;
 
 			const [day, month, year] = date?.split('-');
@@ -41,7 +44,6 @@ export const actions: Actions = {
 					rating
 				});
 			} catch (e) {
-				console.log(e);
 				try {
 					await locals.pb.collection('records').create({
 						id: is_valid_id(id) ? id : undefined,
