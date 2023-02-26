@@ -2,7 +2,7 @@
 export const GET = async ({ params }) => {
     const { user_id, record_id } = params;
 
-    return new Response(JSON.stringify({}), { status: 200 });
+    return new Response(JSON.stringify({ User: user_id, Record: record_id }), { status: 200 });
 }
 
 export const DELETE = async () => {
@@ -19,7 +19,3 @@ export const PUT = async () => {
 
 
 //users/br80sh6kzdwh2ep/records/ilp08lfxn2b3tl4
-/*
-curl --request DELETE \
-  --url http://192.168.0.10:5173/users/br80sh6kzdwh2ep/records/ilp08lfxn2b3tl4 \
-  --header 'Content-Type: application/json'*/
