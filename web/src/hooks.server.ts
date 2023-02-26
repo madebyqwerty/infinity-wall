@@ -29,7 +29,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.user = structuredClone(event.locals.pb.authStore.model);
 
 	// Dont redirect in auth route
-	if (!event.url.toString().includes('auth')) {
+	if (!event.url.toString().includes('auth') && !event.url.toString().includes('users')) {
 		let is_valid = event.locals.pb.authStore.isValid;
 		const isnt_admin = !is_admin(event.locals.user);
 		const is_admin_page = event.url.toString().includes('admin');
