@@ -1,21 +1,19 @@
 <script lang="ts">
-	let group = 0;
+	import { language_names } from '@utils/languages';
 </script>
 
 <section id="rating">
 	<label for="rating">
-		<span class="label-text">Hodnocení</span>
+		<span class="label-text">Jazyky</span>
 	</label>
 
-	<ul class="bg-base-100 menu">
-		{#each [1, 2, 3, 4, 5] as number}
+	<ul class="menu">
+		{#each Object.values(language_names) as language}
 			<li class="form-control">
 				<label class="label cursor-pointer justify-start">
 					<input type="checkbox" checked={true} class="checkbox checkbox-xs" />
 					<span class="label-text flex">
-						{#each Array(number) as start}
-							<div class="bg-orange-400 w-3 h-3 mask-star-2 mask" />
-						{/each}
+						{language}
 					</span>
 				</label>
 			</li>

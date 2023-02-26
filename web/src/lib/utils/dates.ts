@@ -40,6 +40,16 @@ export function get_minute_sklonovani(minutes: number) {
 	return 'minut';
 }
 
-export function get_date_in_mmddyyyy(date: Date) {
-	return `${date.getMonth() + 1}-${date.getDate()}-${date.getFullYear()}`;
+export function get_date_in_ddmmyyyy(date: Date) {
+	return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+}
+
+export function convert_date_to_pocketbase_format(date: Date | null) {
+	if (date) {
+		date.setDate(date.getDate());
+		date.setUTCHours(0, 0, 0, 0);
+		console.log(date.toISOString());
+		return date.toISOString();
+	}
+	return null;
 }
