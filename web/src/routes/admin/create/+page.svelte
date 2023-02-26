@@ -5,6 +5,7 @@
 	import { page } from '$app/stores';
 	import type { PageData, ActionData } from './$types';
 	import Sidebar from '@components/Sidebar.svelte';
+	import { goto, invalidate } from '$app/navigation';
 
 	export let data: PageData;
 	export let form: ActionData;
@@ -21,7 +22,7 @@
 </script>
 
 <Sidebar {title} route="/admin">
-	<form use:enhance method="POST" class="flex flex-col gap-4">
+	<form use:enhance method="POST" class="flex flex-col gap-4" on:submit={() => invalidate('admin')}>
 		<input type="hidden" value={data.user?.id} name="id" />
 		<Input
 			placeholder="Martin Novák"

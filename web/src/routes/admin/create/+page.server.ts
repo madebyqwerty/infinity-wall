@@ -1,5 +1,5 @@
 import { fail, redirect } from '@sveltejs/kit';
-import { z } from 'zod';
+import { optional, z } from 'zod';
 import { zfd } from 'zod-form-data';
 import type { Actions } from './$types';
 
@@ -15,9 +15,11 @@ export const actions: Actions = {
 			name: z
 				.string({ required_error: 'Jméno nesmí být prázdné' })
 				.min(2, 'Jméno musí být delší jak 2 znaky'),
-			email: z.string({ required_error: 'Email nesmí být prázdný' }).email(),
-			username: z.string({ required_error: 'Uživatelské jméno nesmí být prázdné' }).optional(),
-			password: z.string().min(6, 'Heslo musí mít minimálně 6 znaků').optional()
+			email: z.string().optional(),
+			username: z.string().optional(),
+			password: is_create
+				? z.string().min(8, 'Heslo musí mít minimálně 8 znaků')
+				: optional(z.string())
 		});
 
 		const result = user_schema.safeParse(data);
@@ -38,6 +40,8 @@ export const actions: Actions = {
 				passwordConfirm: password
 			});
 		} else {
+			if (!password) data.delete('password');
+
 			await locals.pb.collection('users').update(id as string, data);
 		}
 

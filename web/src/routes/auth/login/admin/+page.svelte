@@ -23,7 +23,7 @@
 			<form method="POST" use:enhance>
 				<Input
 					error={email_error}
-					label="E-mail"
+					label="E-mail nebo uživatelské jméno"
 					name="email"
 					placeholder="admin@upshop.cz"
 					type="text"
