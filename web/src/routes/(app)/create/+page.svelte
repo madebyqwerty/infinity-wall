@@ -57,8 +57,8 @@
 			/></FormControl
 		>
 
-		<div class="flex items-center justify-around">
-			<div style="transition:250ms ease-in-out;opacity:{(6 - rating) / 4 - 1 / 4}">
+		<div class="flex items-center justify-between w-full">
+			<div style="transition:250ms ease-in-out;opacity:{(5 - rating) / 4}">
 				<iconify-icon
 					icon="fluent:emoji-angry-24-regular"
 					class="text-base-content translate-y-1"
@@ -81,7 +81,7 @@
 				<input type="radio" name="rating" bind:group={rating} value={5} class="mask mask-star-2" />
 			</div>
 
-			<div style="transition:250ms ease-in-out;opacity:{rating / 4 - 0.25}">
+			<div style="transition:250ms ease-in-out;opacity:{(rating - 1) / 4}">
 				<iconify-icon
 					icon="fluent:emoji-laugh-20-regular"
 					class="text-base-content translate-y-1"

@@ -15,7 +15,7 @@
 <Sidebar
 	route="/record/{data.record.id}"
 	title="Upravit záznam <br/> {date.toLocaleDateString('cs')}"
-	size="md"
+	size="max-w-md"
 >
 <form use:enhance method="POST" class="flex flex-col items-center justify-center">
 	<input type="text" class="displaynone" bind:value={dateString} name="date">
