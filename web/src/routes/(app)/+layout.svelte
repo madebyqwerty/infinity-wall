@@ -19,14 +19,12 @@
 
 		<div class="drawer-content scroll-smooth" on:scroll={update_scroll} bind:this={drawer_content}>
 			<Navbar {scroll_y} />
-			<div class="bg -my-64 py-64">
-				<div class="xl:px-60 xl:py-8 px-4 bg">
+			<div class="bg -my-56 py-56">
+				<div class="xl:px-60 xl:py-8 px-4">
 					<Hero />
 				</div>
 			</div>
-			<div
-				class="xl:px-60 xl:py-8 px-4 xl:grid grid-cols-12 gap-8 w-full scroll-p-40  -pt-10 mt-10"
-			>
+			<div class="xl:px-60 xl:py-8 2xl:grid px-4 grid-cols-12 gap-8 w-full mt-10">
 				<Filter />
 				<Records />
 			</div>

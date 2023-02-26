@@ -2,19 +2,18 @@
 	import { page } from '$app/stores';
 	import type { PageData } from './$types';
 	import { get_minute_sklonovani } from '@utils/dates';
-	import { language_colors, language_names } from '@utils/languages';
 	import { goto } from '$app/navigation';
-	import { get_text_color } from '@utils';
 
 	const { records } = $page.data as PageData;
-	console.log(records);
 </script>
 
-<section id="data" class="bg-base-100 bg-opacity-75 rounded-md p-8 w-full col-span-8">
-	<div class="flex xl:flex-row flex-col items-center gap-2 text-base-content text-opacity-75 mb-4 ">
+<section id="data" class="bg-base-100 bg-opacity-90 rounded-md p-8 w-full col-span-8">
+	<div
+		class="flex xl:flex-row flex-col xl:items-center gap-2 text-base-content text-opacity-75 mb-4 "
+	>
 		<h2 class="text-4xl text-base-content">Moje záznamy</h2>
 		<div class="flex-grow" />
-		<a href="/create" class="btn btn-sm">Přidat záznam</a>
+		<a href="/create" class="btn btn-sm btn-primary">Přidat záznam</a>
 		<a href="/backup/import" class="btn btn-ghost btn-sm">Importovat zálohu</a>
 		<a href="/backup/export" class="btn btn-ghost btn-sm">Exportovat zálohu</a>
 	</div>
