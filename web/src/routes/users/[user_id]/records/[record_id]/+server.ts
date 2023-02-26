@@ -13,7 +13,7 @@ export const GET = async ({ params }) => {
 
         const { id, date, time, language, rating, description } = record;
 
-        return new Response(JSON.stringify({ id: id, date: date, "time-spend": time.toString(), "programming-language": language, rating: rating, description: description }), { status: 200 });
+        return new Response(JSON.stringify({ id: id, date: date, "time-spent": time.toString(), "programming-language": language, rating: rating, description: description }), { status: 200 });
     }
     catch {
         return new Response(JSON.stringify(""), { status: 404 });
@@ -33,16 +33,22 @@ export const DELETE = async ({ params }) => {
     }
 }
 
-export const PUT = async ({ params }) => {
+export const PUT = async ({ request, params }) => {
     try {
         const { user_id, record_id } = params;
+        const body = await request.json()
 
-        return new Response(JSON.stringify(""), { status: 200 });
+        await pb.collection('records').update(record_id, { "time": Number(body["time-spent"]), "rating": Number(body["rating"]), "description": body["description"], "user": user_id, "date": body["date"], "language": body["programming-language"] });
+
+        const record = await pb.collection('records').getOne(record_id, {
+            expand: 'relField1,relField2.subRelField',
+        });
+
+        const { id, date, time, language, rating, description } = record;
+
+        return new Response(JSON.stringify({ id: id, date: date, "time-spent": time.toString(), "programming-language": language, rating: rating, description: description }), { status: 200 });
     }
     catch {
         return new Response(JSON.stringify(""), { status: 404 });
     }
 }
-
-
-//users/br80sh6kzdwh2ep/records/ilp08lfxn2b3tl4
