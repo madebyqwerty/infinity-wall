@@ -28,7 +28,7 @@ export const actions: Actions = {
 			time: zfd.numeric(
 				z
 					.number({ required_error: 'Neplatná délka' })
-					.min(0, 'Délka musí být delší než 0')
+					.min(1, 'Délka musí být delší než 0')
 					.max(1440, 'Délka nesmí být více než  jeden den')
 			),
 			rating: zfd.numeric(

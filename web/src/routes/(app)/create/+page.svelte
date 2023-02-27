@@ -25,7 +25,7 @@
 				name="time"
 				placeholder="Délka"
 				class="input input-bordered"
-				min={0}
+				min={1}
 			/></FormControl
 		>
 
