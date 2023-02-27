@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation';
-	import { subtract_month, subtract_week, subtract_year } from '@utils/dates';
+	import { get_date_in_ddmmyyyy, subtract_month, subtract_week, subtract_year } from '@utils/dates';
 	import { page } from '$app/stores';
 
 	let selected: Date;
@@ -8,8 +8,8 @@
 	async function update_date(e: Event & { currentTarget: EventTarget & HTMLSelectElement }) {
 		const url = $page.url;
 
-		url.searchParams.set('from', selected.toISOString());
-		url.searchParams.set('to', new Date().toISOString());
+		url.searchParams.set('from', get_date_in_ddmmyyyy(selected));
+		url.searchParams.set('to', get_date_in_ddmmyyyy(new Date()));
 
 		await goto(url.toString(), { noScroll: true });
 		await invalidate('home');

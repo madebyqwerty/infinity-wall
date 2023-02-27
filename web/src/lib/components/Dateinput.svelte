@@ -1,11 +1,12 @@
 <script>
+	import { get_date_in_ddmmyyyy } from '@utils/dates';
 	import { DateInput } from 'date-picker-svelte';
 
 	export let name = 'date';
 
 	export let date_string = '';
 	let date = new Date();
-	$: date_string = date.toISOString();
+	$: date_string = get_date_in_ddmmyyyy(date);
 </script>
 
 <input type="hidden" bind:value={date_string} {name} />
