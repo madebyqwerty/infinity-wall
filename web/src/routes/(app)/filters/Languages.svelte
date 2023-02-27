@@ -1,5 +1,47 @@
 <script lang="ts">
-	import { language_names } from '@utils/languages';
+	import { goto, invalidate } from '$app/navigation';
+	import { page } from '$app/stores';
+	import FormControl from '@components/FormControl.svelte';
+	import type { RecordsLanguageOptions } from '@pocketbase/types';
+	import { language_colors, language_names } from '@utils/languages';
+
+	console.log($page.data);
+
+	const data = $page.data;
+
+	let search = '';
+
+	$: used_languages = Object.keys(data.usage_data.usedLanguages).sort(
+		(a, b) => data.usage_data.usedLanguages[b] - data.usage_data.usedLanguages[a]
+	) as RecordsLanguageOptions[];
+
+	$: languages = [
+		...used_languages,
+		// Filter out languages that are already in use
+		Object.keys(language_names).filter(
+			(lang) => !used_languages.includes(lang as RecordsLanguageOptions)
+		)
+	]
+		.flat(1)
+		.filter((el) => el.toLowerCase().includes(search.toLowerCase())) as RecordsLanguageOptions[];
+
+	$: filtered_languages =
+		JSON.parse($page.url.searchParams.get('languages') as string) ?? languages;
+
+	async function update_languages(language: RecordsLanguageOptions) {
+		if (filtered_languages.includes(language)) {
+			filtered_languages = filtered_languages.filter((lang: string) => lang !== language);
+		} else {
+			filtered_languages = [...filtered_languages, language];
+		}
+
+		const url = $page.url;
+
+		url.searchParams.set('languages', JSON.stringify(filtered_languages));
+
+		await goto(url.toString(), { noScroll: true });
+		await invalidate('home');
+	}
 </script>
 
 <section id="rating">
@@ -7,13 +49,25 @@
 		<span class="label-text">Jazyky</span>
 	</label>
 
+	<input
+		type="text"
+		class="input input-sm border-b input-bordered block w-full my-4"
+		placeholder="Hledat mezi jazyky"
+		bind:value={search}
+	/>
+
 	<ul class="menu">
-		{#each Object.values(language_names) as language}
+		{#each languages as language (language)}
 			<li class="form-control">
 				<label class="label cursor-pointer justify-start">
-					<input type="checkbox" checked={true} class="checkbox checkbox-xs" />
+					<input
+						type="checkbox"
+						checked={filtered_languages.includes(language)}
+						on:change={() => update_languages(language)}
+						class="checkbox checkbox-xs"
+					/>
 					<span class="label-text flex">
-						{language}
+						{language_names[language]}
 					</span>
 				</label>
 			</li>

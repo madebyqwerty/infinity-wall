@@ -37,12 +37,13 @@ export const load = (async ({ locals, url, depends }) => {
 
 	let filter = `(date >= "${date_past}" && date <= "${date_end}")`;
 
-	const langs: string[] | null = JSON.parse(url.searchParams.get('langs') as string);
+	const langs: string[] | null = JSON.parse(url.searchParams.get('languages') as string);
 	const stars: number[] | null = JSON.parse(url.searchParams.get('stars') as string);
 
 	console.log(stars);
 
 	filter += create_filter(stars, 'rating', '||');
+	filter += create_filter(langs, 'language', '||');
 
 	console.log(filter);
 
