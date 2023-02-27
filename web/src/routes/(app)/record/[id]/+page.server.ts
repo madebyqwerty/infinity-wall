@@ -15,9 +15,9 @@ export const actions: Actions = {
 		const data = Object.fromEntries(await request.formData());
 		try{
 			await locals.pb.collection("records").delete(data.id);
-			redirect(303, '/');
+			throw redirect(303, '/');
 		} catch(e){
-			console.log(e)
+			console.log(e);
 		}
 	}
 };
