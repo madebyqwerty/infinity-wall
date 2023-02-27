@@ -3,6 +3,7 @@
 	import { get_text_color } from '@utils';
 	import { language_colors, language_names } from '@utils/languages';
 	import type { PageData } from './$types';
+	import { enhance } from '$app/forms';
 
 	export let data: PageData;
 	console.log(data)
@@ -32,5 +33,17 @@
 			</div>
 		</div>
 	</div>
-	<a href="/edit/{data.record.id}" class="btn btn-outline w-full">Upravit záznam</a>
+	<div class="flex flex-row gap-1">
+		<a href="/edit/{data.record.id}" class="btn btn-outline flex-grow">Upravit záznam</a>
+		<form use:enhance method="POST">
+			<input type="hidden" value={data.record.id} name="id" />
+			<button type="submit" class="btn btn-outline btn-error">
+				<iconify-icon
+					icon="ion:trash-outline"
+					inline={true}
+					width={30}
+				/>
+			</button>
+		</form>
+	</div>
 </Sidebar>
