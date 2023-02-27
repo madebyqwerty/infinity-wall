@@ -1,10 +1,10 @@
 <script lang="ts">
-	import { page } from '$app/stores';
 	import type { PageData } from './$types';
 	import { get_minute_sklonovani } from '@utils/dates';
 	import { goto } from '$app/navigation';
 
-	const { records } = $page.data as PageData;
+	export let data: PageData;
+	const { records } = data;
 </script>
 
 <section id="data" class="bg-base-100 bg-opacity-90 rounded-md p-8 w-full col-span-8">

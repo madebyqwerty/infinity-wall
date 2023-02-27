@@ -23,6 +23,7 @@ function create_filter(arr: Array<string | number> | null, type: string, mode: '
 }
 
 export const load = (async ({ locals, url, depends }) => {
+	console.log('Running layou server load');
 	depends('home');
 
 	// Get all the records in the given timeframe
@@ -46,23 +47,32 @@ export const load = (async ({ locals, url, depends }) => {
 	});
 
 	let usage_data = {
-		usedLanguages:{},
-		mostUsed:{
-			name:"",
-			time:0
+		usedLanguages: {},
+		mostUsed: {
+			name: '',
+			time: 0
 		},
-		totalTime:0
+		totalTime: 0
 	};
-	records.items.map((k)=>{
-		if(!usage_data.usedLanguages[k.language]){usage_data.usedLanguages[k.language] = k.time}
-		else {usage_data.usedLanguages[k.language] += k.time}
-		usage_data.totalTime+=k.time;
-	})
-	usage_data.mostUsed={
-		name:Object.keys(usage_data.usedLanguages).sort((a,b)=>{return usage_data.usedLanguages[b] - usage_data.usedLanguages[a]})[0],
-		time:usage_data.usedLanguages[Object.keys(usage_data.usedLanguages).sort((a,b)=>{return usage_data.usedLanguages[b] - usage_data.usedLanguages[a]})[0]]
-	}
-console.log(usage_data)
+	records.items.map((k) => {
+		if (!usage_data.usedLanguages[k.language]) {
+			usage_data.usedLanguages[k.language] = k.time;
+		} else {
+			usage_data.usedLanguages[k.language] += k.time;
+		}
+		usage_data.totalTime += k.time;
+	});
+	usage_data.mostUsed = {
+		name: Object.keys(usage_data.usedLanguages).sort((a, b) => {
+			return usage_data.usedLanguages[b] - usage_data.usedLanguages[a];
+		})[0],
+		time: usage_data.usedLanguages[
+			Object.keys(usage_data.usedLanguages).sort((a, b) => {
+				return usage_data.usedLanguages[b] - usage_data.usedLanguages[a];
+			})[0]
+		]
+	};
+	console.log(usage_data);
 	return {
 		user: locals.user,
 		records: structuredClone(records.items),
