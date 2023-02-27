@@ -1,15 +1,11 @@
 <script lang="ts">
 	import { language_names } from '@utils/languages';
-	import { DateInput } from 'date-picker-svelte';
+	import  Dateinput  from '@components/Dateinput.svelte';
 	import { enhance } from '$app/forms';
 	import Sidebar from '@components/Sidebar.svelte';
 	import FormControl from '@components/FormControl.svelte';
 	import Rating from '@components/Rating.svelte';
 
-	let dateString = '';
-	$: dateString = date.toISOString();
-	let date = new Date();
-	let rating = 3;
 
 	export let form: import('./$types').ActionData;
 </script>
@@ -21,29 +17,7 @@
 		</div>
 	{/if}
 	<form use:enhance method="POST" class="flex flex-col items-center justify-center">
-		<input type="hidden" class="hidden" bind:value={dateString} name="date" />
-		<DateInput
-			closeOnSelection={true}
-			bind:value={date}
-			locale={{
-				months: [
-					'Leden',
-					'Únor',
-					'Březen',
-					'Duben',
-					'Květen',
-					'Červen',
-					'Červenec',
-					'Srpen',
-					'Září',
-					'Říjen',
-					'Listopad',
-					'Prosince'
-				],
-				weekdays: ['Po', 'Út', 'St', 'Čt', 'Pá', 'So', 'Ne']
-			}}
-			format="dd. MM. yyyy"
-		/>
+		<Dateinput />
 
 		<FormControl label="Délka záznamu" error={form?.errors?.time}
 			><input
