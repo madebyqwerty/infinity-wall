@@ -1,5 +1,6 @@
 
 import { pb } from '@pocketbase';
+import { get_date_in_ddmmyyyy, get_date_from_ddmmyyyy } from '@utils/dates';
 
 pb.admins.authWithPassword("login@vaclavparma.cz", "testtesttest")
 
@@ -25,8 +26,6 @@ export const GET = async ({ params }) => {
             });
         });
 
-        console.log(out);
-
         return new Response(JSON.stringify(out), { status: 200 });
     }
     catch {
@@ -41,13 +40,13 @@ export const POST = async ({ request, params }) => {
         const { user_id } = params;
         const body = await request.json()
 
-        const created = await pb.collection('records').create({ "time": Number(body["time-spent"]), "rating": Number(body["rating"]), "description": body["description"], "user": user_id, "date": body["date"], "language": body["programming-language"] });
+        const created = await pb.collection('records').create({ "time": parseInt(body["time-spent"]), "rating": parseInt(body["rating"]), "description": body["description"], "user": user_id, "date": get_date_from_ddmmyyyy(body["date"]).toISOString(), "language": body["programming-language"] });
 
         const record = await pb.collection('records').getOne(created.id, {});
 
         const { id, date, time, language, rating, description } = record;
 
-        return new Response(JSON.stringify({ id: id, date: date, "time-spent": time.toString(), "programming-language": language, rating: rating, description: description }), { status: 200 });
+        return new Response(JSON.stringify({ id: id, date: get_date_in_ddmmyyyy(new Date(date)), "time-spent": time.toString(), "programming-language": language, rating: rating, description: description }), { status: 200 });
     }
     catch {
         return new Response(JSON.stringify(""), { status: 404 });
