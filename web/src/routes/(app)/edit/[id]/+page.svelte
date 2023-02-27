@@ -10,9 +10,7 @@
 	export let data: PageData;
 	export let form: ActionData;
 
-	let dateString = '';
 	let date = new Date(data.record.date);
-	$: dateString = date.toISOString();
 </script>
 
 <Sidebar
@@ -33,7 +31,7 @@
 				min={0}
 			/></FormControl
 		>
-		<Rating />
+		<Rating rating={data.record.rating}/>
 
 		<FormControl label="Programovací Jazyk" error={form?.errors?.language}>
 			<select class="select select-bordered w-full" name="language">
