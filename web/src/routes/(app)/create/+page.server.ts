@@ -3,13 +3,13 @@ import { zfd } from 'zod-form-data';
 import type { Actions } from './$types';
 import { RecordsLanguageOptions } from '@pocketbase/types';
 import { fail, redirect } from '@sveltejs/kit';
-import { convert_date_to_pocketbase_format } from '@utils/dates';
+import { convert_date_to_pocketbase_format, get_date_from_ddmmyyyy } from '@utils/dates';
 
 export const actions: Actions = {
 	default: async ({ locals, request }) => {
 		const data = await request.formData();
 
-		const parsed_date = convert_date_to_pocketbase_format(new Date(data.get('date') as string));
+		const parsed_date = get_date_from_ddmmyyyy(data.get('date') as string).toISOString();
 		if (parsed_date) data.set('date', parsed_date);
 
 		data.set('user', locals.pb.authStore.model?.id as string);

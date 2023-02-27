@@ -1,11 +1,11 @@
 /**
  * Wrapper funkce pro parsování data z URL search paramu
  *
- * @param  {string|null} dateString string ze kterého to vytvoří Date nebo null
+ * @param  {string|null} date_string string ze kterého to vytvoří Date nebo null
  */
-export function get_date_from_string(dateString: string | null) {
-	if (dateString) {
-		return new Date(dateString);
+export function get_date_from_string(date_string: string | null) {
+	if (date_string) {
+		return new Date(date_string);
 	}
 	return null;
 }
@@ -16,7 +16,7 @@ export function get_date_from_string(dateString: string | null) {
  * @param  {Date} date Datum od kterého odstarnit měsíce
  * @param  {number} months Kolik měsíců odstranit
  */
-export function subtract_month(date: Date, months = 1) {
+export function subtract_month(date: Date, months: number = 1) {
 	date.setMonth(date.getMonth() - months);
 	return date;
 }
@@ -42,6 +42,11 @@ export function get_minute_sklonovani(minutes: number) {
 
 export function get_date_in_ddmmyyyy(date: Date) {
 	return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+}
+
+export function get_date_from_ddmmyyyy(date_string: string) {
+	const [day, month, year] = date_string.split('-');
+	return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
 }
 
 export function convert_date_to_pocketbase_format(date: Date | null) {

@@ -2,6 +2,7 @@ import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 import {
 	convert_date_to_pocketbase_format,
+	get_date_from_ddmmyyyy,
 	get_date_from_string,
 	subtract_month
 } from '@utils/dates';
@@ -25,12 +26,13 @@ export const load = (async ({ locals, url, depends }) => {
 	depends('home');
 
 	// Get all the records in the given timeframe
-	const date_past =
-		convert_date_to_pocketbase_format(get_date_from_string(url.searchParams.get('from'))) ??
-		convert_date_to_pocketbase_format(subtract_month(new Date(), 1));
-	const date_end =
-		convert_date_to_pocketbase_format(get_date_from_string(url.searchParams.get('to'))) ??
-		convert_date_to_pocketbase_format(new Date('2024-01-01'));
+	const from = url.searchParams.get('from');
+	const to = url.searchParams.get('to');
+
+	const date_past = from
+		? get_date_from_ddmmyyyy(from).toISOString()
+		: subtract_month(new Date(), 1).toISOString();
+	const date_end = to ? get_date_from_ddmmyyyy(to).toISOString() : new Date().toISOString();
 
 	let filter = `(date >= "${date_past}" && date <= "${date_end}")`;
 
