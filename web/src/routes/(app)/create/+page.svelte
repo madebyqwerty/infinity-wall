@@ -56,7 +56,6 @@
 		>
 
 		<Rating />
-
 		<FormControl label="Programovací Jazyk" error={form?.errors?.language}>
 			<select class="select select-bordered w-full" name="language">
 				<option disabled selected>Vyberte Jazyk</option>

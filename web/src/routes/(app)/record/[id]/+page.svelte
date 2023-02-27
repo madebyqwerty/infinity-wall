@@ -10,9 +10,9 @@
 
 <Sidebar
 	route="/"
-	title="Záznam ze dne {new Date(data.record.date).toLocaleDateString('cs')}"
+	title="Záznam ze dne <br/>{new Date(data.record.date).toLocaleDateString('cs')}"
 	description={data.record.description}
-	size="lg"
+	size="max-w-lg"
 >
 	<div class="grid grid-cols-8">
 		<div class="col-span-3">
