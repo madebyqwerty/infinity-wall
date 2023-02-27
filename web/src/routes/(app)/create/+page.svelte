@@ -61,11 +61,4 @@
 		gap: 1rem;
 		gap: 1rem;
 	}
-
-	:global(:root) {
-		--date-picker-background: hsl(var(--b1));
-		--date-picker-foreground: hsl(var(--bc));
-		--date-picker-highlight-border: hsl(var(--pf));
-		--date-picker-selected-color: hsl(var(--pc));
-	}
 </style>
