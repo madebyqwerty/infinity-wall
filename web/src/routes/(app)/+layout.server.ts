@@ -45,6 +45,10 @@ export const load = (async ({ locals, url, depends }) => {
 
 	let usage_data = {
 		usedLanguages:{},
+		mostUsed:{
+			name:"",
+			time:0
+		},
 		totalTime:0
 	};
 	records.items.map((k)=>{
@@ -52,6 +56,10 @@ export const load = (async ({ locals, url, depends }) => {
 		else {usage_data.usedLanguages[k.language] += k.time}
 		usage_data.totalTime+=k.time;
 	})
+	usage_data.mostUsed={
+		name:Object.keys(usage_data.usedLanguages).sort((a,b)=>{return usage_data.usedLanguages[b] - usage_data.usedLanguages[a]})[0],
+		time:usage_data.usedLanguages[Object.keys(usage_data.usedLanguages).sort((a,b)=>{return usage_data.usedLanguages[b] - usage_data.usedLanguages[a]})[0]]
+	}
 console.log(usage_data)
 	return {
 		user: locals.user,

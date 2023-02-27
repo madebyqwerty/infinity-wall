@@ -2,6 +2,7 @@
 	import Graph from './Graph.svelte';
 	import { page } from '$app/stores';
 	import { language_names } from '@utils/languages';
+	import { dataset_dev } from 'svelte/internal';
 </script>
 
 <div>
@@ -16,14 +17,10 @@
 		průměrna doba tréninku byla
 		<span class="highlighted">
 			{Math.round($page.data.usage_data.totalTime/$page.data.records.length)} minut.
-		</span>{/if}
+		</span> Váš nejpoužívanejší jazyk je {language_names[$page.data.usage_data.mostUsed.name]} ({$page.data.usage_data.mostUsed.time} minut){/if}
+
 	</p>
-	{#if $page.data.records.length>0}
-	<h3>Nejpoužívanější jazyky</h3>
-	{#each Object.keys($page.data.usage_data.usedLanguages).sort((a,b)=>{return $page.data.usage_data.usedLanguages[b] - $page.data.usage_data.usedLanguages[a]}) as language, i}
-		<div>{i+1}. {language_names[language]}: {$page.data.usage_data.usedLanguages[language]} minut</div>
-	{/each}
-	{/if}
+
 </div>
 
 <style>
