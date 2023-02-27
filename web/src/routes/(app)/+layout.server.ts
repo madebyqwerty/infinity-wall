@@ -43,10 +43,21 @@ export const load = (async ({ locals, url, depends }) => {
 		filter: filter
 	});
 
+	let usage_data = {
+		usedLanguages:{},
+		totalTime:0
+	};
+	records.items.map((k)=>{
+		if(!usage_data.usedLanguages[k.language]){usage_data.usedLanguages[k.language] = k.time}
+		else {usage_data.usedLanguages[k.language] += k.time}
+		usage_data.totalTime+=k.time;
+	})
+console.log(usage_data)
 	return {
 		user: locals.user,
 		records: structuredClone(records.items),
 		date_past,
-		date_end
+		date_end,
+		usage_data
 	};
 }) satisfies LayoutServerLoad;
