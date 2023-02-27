@@ -21,7 +21,7 @@
 	{#if $page.data.records.length>0}
 	<h3>Nejpoužívanější jazyky</h3>
 	{#each Object.keys($page.data.usage_data.usedLanguages).sort((a,b)=>{return $page.data.usage_data.usedLanguages[b] - $page.data.usage_data.usedLanguages[a]}) as language, i}
-		<div>{i+1}. {language}: {$page.data.usage_data.usedLanguages[language]} minut</div>
+		<div>{i+1}. {language_names[language]}: {$page.data.usage_data.usedLanguages[language]} minut</div>
 	{/each}
 	{/if}
 </div>
