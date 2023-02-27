@@ -1,6 +1,7 @@
 <script>
 	import Graph from './Graph.svelte';
 	import { page } from '$app/stores';
+	import { language_names } from '@utils/languages';
 </script>
 
 <div>
@@ -10,12 +11,18 @@
 			>{new Date($page.data.date_past).toLocaleDateString('cs')}</span
 		>
 		do <span class="highlighted">{new Date($page.data.date_end).toLocaleDateString('cs')}</span>
-		jste si přidal/a <span class="highlighted">{$page.data.records.length} záznamů</span>. Váše
+		jste si {$page.data.records.length==0?"nepřidal/a žádný":"přidal/a"} <span class="highlighted">{$page.data.records.length} záznam{[2,3,4].includes($page.data.records.length)?"y":[0,1].includes($page.data.records.length)?"":"ů"}</span>. Váše
 		průměrna doba tréninku byla
 		<span class="highlighted">
-			{Math.round(Math.random() * 100)} minut.
+			{$page.data.usage_data.totalTime} minut.
 		</span>
 	</p>
+	{#if $page.data.records.length>0}
+	<h3>Nejpoužívanější jazyky</h3>
+	{#each Object.keys($page.data.usage_data.usedLanguages).sort((a,b)=>{return $page.data.usage_data.usedLanguages[b] - $page.data.usage_data.usedLanguages[a]}) as language, i}
+		<div>{i+1}. {language}: {$page.data.usage_data.usedLanguages[language]} minut</div>
+	{/each}
+	{/if}
 </div>
 
 <style>
