@@ -38,9 +38,13 @@ export const load = (async ({ locals, url, depends }) => {
 	let filter = `(date >= "${date_past}" && date <= "${date_end}")`;
 
 	const langs: string[] | null = JSON.parse(url.searchParams.get('langs') as string);
-	const stars: number[] | null = JSON.parse(url.searchParams.get('stars') as string)?.map(
-		(el: number) => el + 1
-	);
+	const stars: number[] | null = JSON.parse(url.searchParams.get('stars') as string);
+
+	console.log(stars);
+
+	filter += create_filter(stars, 'rating', '||');
+
+	console.log(filter);
 
 	const records = await locals.pb.collection('records').getList<RecordsResponse>(1, 200, {
 		filter: filter
