@@ -1,7 +1,7 @@
 import type { RecordsResponse } from '@pocketbase/types';
 import { RecordsLanguageOptions } from '@pocketbase/types';
 import type { PageServerLoad, Actions } from './$types';
-import { fail } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { zfd } from 'zod-form-data';
 import { get_date_from_ddmmyyyy } from '@utils/dates';
@@ -59,5 +59,7 @@ export const actions: Actions = {
 		} catch (e) {
 			console.log('idk', e, data, locals.pb.authStore.model?.id);
 		}
+
+		throw redirect(303, '/record/' + id);
 	}
 };

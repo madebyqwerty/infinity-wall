@@ -1,6 +1,6 @@
 import type { RecordsResponse } from '@pocketbase/types';
 import type { PageServerLoad, Actions } from './$types';
-import { redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 export const load = (async ({ locals, params }) => {
 	const { id } = params;
 
@@ -14,11 +14,11 @@ export const actions: Actions = {
 	default: async ({ locals, request, url }) => {
 		const data = Object.fromEntries(await request.formData());
 		try {
-			await locals.pb.collection("records").delete(data.id);
-		} catch(e){
-		  return fail(400, "Lol nefunguje to")
+			await locals.pb.collection('records').delete(data.id as string);
+		} catch (e) {
+			return fail(400, { error: 'Lol nefunguje to' });
 		}
-		
-		throw redirect(303,"/")
+
+		throw redirect(303, '/home');
 	}
 };
