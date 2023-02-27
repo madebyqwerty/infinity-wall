@@ -13,11 +13,7 @@ export const load = (async ({ locals, params }) => {
 export const actions: Actions = {
 	default: async ({ locals, request, url }) => {
 		const data = Object.fromEntries(await request.formData());
-		try{
-			await locals.pb.collection("records").delete(data.id);
-			throw redirect(303, '/');
-		} catch(e){
-			console.log(e);
-		}
+		await locals.pb.collection("records").delete(data.id);
+		throw redirect(303, '/');
 	}
 };
