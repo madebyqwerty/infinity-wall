@@ -14,7 +14,7 @@
 		jste si {$page.data.records.length==0?"nepřidal/a žádný":"přidal/a"} <span class="highlighted">{$page.data.records.length} záznam{[2,3,4].includes($page.data.records.length)?"y":[0,1].includes($page.data.records.length)?"":"ů"}</span>. Váše
 		průměrna doba tréninku byla
 		<span class="highlighted">
-			{$page.data.usage_data.totalTime} minut.
+			{Math.round($page.data.usage_data.totalTime/$page.data.records.length)} minut.
 		</span>
 	</p>
 	{#if $page.data.records.length>0}
