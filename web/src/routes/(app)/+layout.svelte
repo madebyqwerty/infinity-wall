@@ -4,9 +4,12 @@
 	import Navbar from './Navbar.svelte';
 	import Records from './Records.svelte';
 	import Filter from './Filter.svelte';
+	import type { PageData } from './$types';
 
 	let scroll_y = 0;
 	let drawer_content: HTMLElement;
+
+	export let data: PageData;
 
 	function update_scroll() {
 		scroll_y = drawer_content.scrollTop;
@@ -15,24 +18,20 @@
 
 <main>
 	<div class="drawer">
-		<DrawerToggle routes={['record', 'backup', 'export', 'import', "create"]} />
+		<DrawerToggle routes={['record', 'backup', 'export', 'import', 'create', 'edit']} />
 
-		<div
-			class="drawer-content scroll-p-32 scroll-smooth"
-			on:scroll={update_scroll}
-			bind:this={drawer_content}
-		>
-			<div class="bg xl:h-[800px] ">
-				<Navbar {scroll_y} />
-				<div class="2xl:px-96 xl:px-72 px-4 xl:py-16 py-8">
+		<div class="drawer-content scroll-smooth" on:scroll={update_scroll} bind:this={drawer_content}>
+			<Navbar {scroll_y} />
+			<div class="bg -my-56 py-56">
+				<div class="xl:px-60 xl:py-8 px-4">
 					<Hero />
 				</div>
 			</div>
-			<div class="xl:px-96 xl:py-0 px-8 py-16">
-				<div class="xl:-translate-y-48">
-					<Filter />
-					<Records />
-				</div>
+			<div class="xl:px-60 xl:py-8 2xl:grid px-4 grid-cols-12 gap-8 w-full mt-10">
+				<Filter />
+				{#key data}
+					<Records {data} />
+				{/key}
 			</div>
 		</div>
 		<slot />

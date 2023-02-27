@@ -6,7 +6,7 @@
 
 	$: {
 		if (browser) {
-			document.body.dataset.theme = $page.route.id?.includes('admin') ? 'corporate' : 'corporate';
+			document.body.dataset.theme = $page.route.id?.includes('admin') ? 'admin' : 'bussiness';
 		}
 	}
 </script>

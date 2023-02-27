@@ -80,7 +80,7 @@ export type RecordsRecord = {
 	description?: string
 	user: RecordIdString
 	date: IsoDateString
-	language: RecordsLanguageOptions[]
+	language: RecordsLanguageOptions
 }
 
 export type UsersRecord = {

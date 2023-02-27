@@ -1,22 +1,25 @@
 <script lang="ts">
-	import { language_names } from '@utils/languages';
-	import Dateinput from '@components/Dateinput.svelte';
-	import { enhance } from '$app/forms';
 	import Sidebar from '@components/Sidebar.svelte';
+	import { language_names } from '@utils/languages';
+	import type { ActionData, PageData } from './$types';
+	import { enhance } from '$app/forms';
+	import Dateinput from '@components/Dateinput.svelte';
 	import FormControl from '@components/FormControl.svelte';
 	import Rating from '@components/Rating.svelte';
-	import { goto, invalidate, invalidateAll } from '$app/navigation';
 
-	export let form: import('./$types').ActionData;
+	export let data: PageData;
+	export let form: ActionData;
+
+	let date = new Date(data.record.date);
 </script>
 
-<Sidebar route="/" title="Nový záznam">
-	{#if form?.error}
-		<div class="text-error mb-4">
-			{form?.error}
-		</div>
-	{/if}
+<Sidebar
+	route="/record/{data.record.id}"
+	title="Upravit záznam <br/> {date.toLocaleDateString('cs')}"
+>
 	<form use:enhance method="POST" class="flex flex-col items-center justify-center">
+		<input type="hidden" bind:value={data.record.id} name="id" />
+
 		<Dateinput />
 
 		<FormControl label="Délka záznamu" error={form?.errors?.time}
@@ -28,8 +31,8 @@
 				min={1}
 			/></FormControl
 		>
+		<Rating rating={data.record.rating}/>
 
-		<Rating />
 		<FormControl label="Programovací Jazyk" error={form?.errors?.language}>
 			<select class="select select-bordered w-full" name="language">
 				<option disabled selected>Vyberte Jazyk</option>
@@ -39,16 +42,14 @@
 			</select>
 		</FormControl>
 
-		<FormControl label="Popis" error={form?.errors?.description}>
-			<textarea
-				class="textarea textarea-bordered w-full"
-				rows={8}
-				name="description"
-				placeholder="Např: Optimalizoval jsem deployování docker containeru na server."
-			/>
-		</FormControl>
+		<textarea
+			class="textarea textarea-bordered"
+			bind:value={data.record.description}
+			name="description"
+			placeholder="Popis"
+		/>
 
-		<button class="btn btn-primary" type="submit"> Přidat záznam </button>
+		<button class="btn btn-primary" type="submit"> Upravit záznam </button>
 	</form>
 </Sidebar>
 
@@ -59,13 +60,11 @@
 		justify-content: center;
 		align-items: start;
 		gap: 1rem;
-		gap: 1rem;
 	}
 
-	:global(:root) {
-		--date-picker-background: hsl(var(--b1));
-		--date-picker-foreground: hsl(var(--bc));
-		--date-picker-highlight-border: hsl(var(--pf));
-		--date-picker-selected-color: hsl(var(--pc));
+	:global(.date-time-field),
+	:global(.date-time-field > input) {
+		width: 100% !important;
+		min-width: 20rem;
 	}
 </style>

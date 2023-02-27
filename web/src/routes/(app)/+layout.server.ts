@@ -1,6 +1,11 @@
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
-import { get_date_from_string, subtract_month } from '@utils/dates';
+import {
+	convert_date_to_pocketbase_format,
+	get_date_from_ddmmyyyy,
+	get_date_from_string,
+	subtract_month
+} from '@utils/dates';
 import type { RecordsResponse } from '@pocketbase/types';
 
 function create_filter(arr: Array<string | number> | null, type: string, mode: '&&' | '||' = '&&') {
@@ -17,23 +22,18 @@ function create_filter(arr: Array<string | number> | null, type: string, mode: '
 	return result;
 }
 
-function convert_date_to_pocketbase_format(date: Date | null) {
-	if (date) {
-		return date.toISOString().replace('T', ' ').replace('Z', '');
-	}
-	return null;
-}
-
 export const load = (async ({ locals, url, depends }) => {
+	console.log('Running layou server load');
 	depends('home');
 
 	// Get all the records in the given timeframe
-	const date_past =
-		convert_date_to_pocketbase_format(get_date_from_string(url.searchParams.get('from'))) ??
-		convert_date_to_pocketbase_format(subtract_month(new Date(), 1));
-	const date_end =
-		convert_date_to_pocketbase_format(get_date_from_string(url.searchParams.get('to'))) ??
-		convert_date_to_pocketbase_format(new Date());
+	const from = url.searchParams.get('from');
+	const to = url.searchParams.get('to');
+
+	const date_past = from
+		? get_date_from_ddmmyyyy(from).toISOString()
+		: subtract_month(new Date(), 1).toISOString();
+	const date_end = to ? get_date_from_ddmmyyyy(to).toISOString() : new Date().toISOString();
 
 	let filter = `(date >= "${date_past}" && date <= "${date_end}")`;
 
@@ -46,8 +46,38 @@ export const load = (async ({ locals, url, depends }) => {
 		filter: filter
 	});
 
+	let usage_data = {
+		usedLanguages: {},
+		mostUsed: {
+			name: '',
+			time: 0
+		},
+		totalTime: 0
+	};
+	records.items.map((k) => {
+		if (!usage_data.usedLanguages[k.language]) {
+			usage_data.usedLanguages[k.language] = k.time;
+		} else {
+			usage_data.usedLanguages[k.language] += k.time;
+		}
+		usage_data.totalTime += k.time;
+	});
+	usage_data.mostUsed = {
+		name: Object.keys(usage_data.usedLanguages).sort((a, b) => {
+			return usage_data.usedLanguages[b] - usage_data.usedLanguages[a];
+		})[0],
+		time: usage_data.usedLanguages[
+			Object.keys(usage_data.usedLanguages).sort((a, b) => {
+				return usage_data.usedLanguages[b] - usage_data.usedLanguages[a];
+			})[0]
+		]
+	};
+	console.log(usage_data);
 	return {
 		user: locals.user,
-		records: structuredClone(records.items)
+		records: structuredClone(records.items),
+		date_past,
+		date_end,
+		usage_data
 	};
 }) satisfies LayoutServerLoad;
