@@ -1,6 +1,6 @@
 import type { RecordsResponse } from '@pocketbase/types';
-import type { PageServerLoad } from './$types';
-
+import type { PageServerLoad, Actions } from './$types';
+import { redirect } from '@sveltejs/kit';
 export const load = (async ({ locals, params }) => {
 	const { id } = params;
 
@@ -10,3 +10,14 @@ export const load = (async ({ locals, params }) => {
 		record: structuredClone(record)
 	};
 }) satisfies PageServerLoad;
+export const actions: Actions = {
+	default: async ({ locals, request, url }) => {
+		const data = Object.fromEntries(await request.formData());
+		try{
+			await locals.pb.collection("records").delete(data.id);
+			redirect(303, '/');
+		} catch(e){
+			console.log(e)
+		}
+	}
+};
