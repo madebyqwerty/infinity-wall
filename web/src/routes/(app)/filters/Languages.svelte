@@ -13,11 +13,15 @@
 		(a, b) => data.usage_data.usedLanguages[b] - data.usage_data.usedLanguages[a]
 	);
 
-	$: languages = used_languages
-		.flat(1)
-		.filter((el) => el.toLowerCase().includes(search.toLowerCase()));
+	$: filtered_languages =
+		(JSON.parse($page.url.searchParams.get('languages') as string) as string[]) ?? [];
 
-	$: filtered_languages = JSON.parse($page.url.searchParams.get('languages') as string) ?? [];
+	$: languages = [
+		used_languages,
+		filtered_languages.filter((lang) => !used_languages.includes(lang))
+	].flat(1);
+
+	$: searched_languages = languages.filter((el) => el.toLowerCase().includes(search.toLowerCase()));
 
 	async function update_languages(language: string) {
 		if (filtered_languages.includes(language)) {
@@ -48,7 +52,7 @@
 	/>
 
 	<ul class="menu">
-		{#each languages as language (language)}
+		{#each searched_languages as language (language)}
 			<li class="form-control">
 				<label class="label cursor-pointer justify-start">
 					<input

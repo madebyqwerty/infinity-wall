@@ -28,7 +28,7 @@
 				</div>
 			</div>
 			<div class="xl:px-60 xl:py-8 2xl:grid px-4 grid-cols-12 gap-8 w-full mt-10">
-				<Filter />
+				<Filter {data} />
 				{#key data}
 					<Records {data} />
 				{/key}

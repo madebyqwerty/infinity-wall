@@ -1,7 +1,10 @@
 <script lang="ts">
+	import type { PageData } from './$types';
 	import Date from './filters/Date.svelte';
 	import Languages from './filters/Languages.svelte';
 	import Rating from './filters/Rating.svelte';
+
+	export let data: PageData;
 </script>
 
 <div class="relative col-span-4">
@@ -13,7 +16,9 @@
 		<div class="flex flex-col gap-8">
 			<Date />
 			<Rating />
-			<Languages />
+			{#key data}
+				<Languages />
+			{/key}
 		</div>
 	</section>
 </div>

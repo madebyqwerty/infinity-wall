@@ -1,5 +1,4 @@
 import type { RecordsResponse } from '@pocketbase/types';
-import { RecordsLanguageOptions } from '@pocketbase/types';
 import type { PageServerLoad, Actions } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
@@ -41,7 +40,7 @@ export const actions: Actions = {
 					.min(1, 'Hodnocení musí být alespoň jedna hvězda')
 					.max(5, 'Hodnocení nesmí být více jak 5 hvězd')
 			),
-			language: z.nativeEnum(RecordsLanguageOptions),
+			language: z.string({ required_error: 'Musíte zadat jazyk' }),
 			description: z.string().max(500, 'Popis nesmí být delší než 500 znaků')
 		});
 
