@@ -1,5 +1,6 @@
 import type { Actions } from './$types';
 import Papa from 'papaparse';
+import { date_to_pocketbase, get_date_from_ddmmyyyy } from '@utils/dates';
 
 interface RecordData {
 	id: string;
@@ -28,12 +29,7 @@ export const actions: Actions = {
 
 			const { id, date, language, description, rating, ...time } = record;
 
-			const [day, month, year] = date?.split('-');
-
-			// Months in js are 0-indexed, this is why we subtract 1
-			const submit_date = new Date(+year, +month - 1, +day + 1);
-			submit_date.setHours(0, 0, 0, 0);
-			const final_date = submit_date.toISOString();
+			const final_date = date_to_pocketbase(get_date_from_ddmmyyyy(date));
 
 			try {
 				await locals.pb.collection('records').update(id, {

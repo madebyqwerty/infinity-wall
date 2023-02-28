@@ -1,8 +1,6 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
-	import FormControl from '@components/FormControl.svelte';
-	import type { RecordsLanguageOptions } from '@pocketbase/types';
 	import { language_colors, language_names } from '@utils/languages';
 
 	console.log($page.data);
@@ -13,22 +11,15 @@
 
 	$: used_languages = Object.keys(data.usage_data.usedLanguages).sort(
 		(a, b) => data.usage_data.usedLanguages[b] - data.usage_data.usedLanguages[a]
-	) as RecordsLanguageOptions[];
+	);
 
-	$: languages = [
-		...used_languages,
-		// Filter out languages that are already in use
-		Object.keys(language_names).filter(
-			(lang) => !used_languages.includes(lang as RecordsLanguageOptions)
-		)
-	]
+	$: languages = used_languages
 		.flat(1)
-		.filter((el) => el.toLowerCase().includes(search.toLowerCase())) as RecordsLanguageOptions[];
+		.filter((el) => el.toLowerCase().includes(search.toLowerCase()));
 
-	$: filtered_languages =
-		JSON.parse($page.url.searchParams.get('languages') as string) ?? languages;
+	$: filtered_languages = JSON.parse($page.url.searchParams.get('languages') as string) ?? [];
 
-	async function update_languages(language: RecordsLanguageOptions) {
+	async function update_languages(language: string) {
 		if (filtered_languages.includes(language)) {
 			filtered_languages = filtered_languages.filter((lang: string) => lang !== language);
 		} else {
@@ -67,7 +58,7 @@
 						class="checkbox checkbox-xs"
 					/>
 					<span class="label-text flex">
-						{language_names[language]}
+						{language}
 					</span>
 				</label>
 			</li>

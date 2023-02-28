@@ -1,15 +1,14 @@
 import { z } from 'zod';
 import { zfd } from 'zod-form-data';
 import type { Actions } from './$types';
-import { RecordsLanguageOptions } from '@pocketbase/types';
 import { fail, redirect } from '@sveltejs/kit';
-import { convert_date_to_pocketbase_format, get_date_from_ddmmyyyy } from '@utils/dates';
+import { date_to_pocketbase, get_date_from_ddmmyyyy } from '@utils/dates';
 
 export const actions: Actions = {
 	default: async ({ locals, request }) => {
 		const data = await request.formData();
 
-		const parsed_date = get_date_from_ddmmyyyy(data.get('date') as string).toISOString();
+		const parsed_date = date_to_pocketbase(get_date_from_ddmmyyyy(data.get('date') as string));
 		if (parsed_date) data.set('date', parsed_date);
 
 		data.set('user', locals.pb.authStore.model?.id as string);
@@ -28,7 +27,7 @@ export const actions: Actions = {
 					.min(1, 'Hodnocení musí být alespoň jedna hvězda')
 					.max(5, 'Hodnocení nesmí být více jak 5 hvězd')
 			),
-			language: z.nativeEnum(RecordsLanguageOptions, { required_error: 'Neplatný jazyk' }),
+			language: z.string({ required_error: 'Neplatný jazyk' }),
 			description: z.string().max(500, 'Popis nesmí být delší než 500 znaků')
 		});
 

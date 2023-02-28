@@ -31,6 +31,11 @@ export function subtract_year(date: Date, years = 1) {
 	return date;
 }
 
+export function subtract_day(date: Date, days = 1) {
+	date.setDate(date.getDate() - days);
+	return date;
+}
+
 export function get_minute_sklonovani(minutes: number) {
 	if (minutes == 1) {
 		return 'minuta';
@@ -46,13 +51,14 @@ export function get_date_in_ddmmyyyy(date: Date) {
 
 export function get_date_from_ddmmyyyy(date_string: string) {
 	const [day, month, year] = date_string.split('-');
+	// Month is 0-indexed, so we subtract 1
 	return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
 }
 
-export function convert_date_to_pocketbase_format(date: Date | null) {
+export function date_to_pocketbase(date: Date | null) {
 	if (date) {
 		date.setUTCHours(0, 0, 0, 0);
-		console.log(date.toISOString());
+		date.setDate(date.getDate() + 1);
 		return date.toISOString();
 	}
 	return null;

@@ -1,20 +1,27 @@
 import { redirect } from '@sveltejs/kit';
 import type { LayoutServerLoad } from './$types';
 import {
-	convert_date_to_pocketbase_format,
+	date_to_pocketbase,
 	get_date_from_ddmmyyyy,
 	get_date_from_string,
-	subtract_month
+	subtract_day,
+	subtract_month,
+	subtract_week
 } from '@utils/dates';
 import type { RecordsResponse } from '@pocketbase/types';
 
-function create_filter(arr: Array<string | number> | null, type: string, mode: '&&' | '||' = '&&') {
+function create_filter(
+	arr: Array<string | number> | null,
+	type: string,
+	mode: '&&' | '||' = '&&',
+	operator: '=' | '~' = '='
+) {
 	let result = '';
 
 	if (arr && arr.length > 0) {
 		result += ' && (';
 		arr.forEach((str, i) => {
-			result += `${type} ~ "${str}" ${i + 1 !== arr.length ? mode : ''}`;
+			result += `${type} ${operator} "${str}" ${i + 1 !== arr.length ? mode : ''}`;
 		});
 		result += ')';
 	}
@@ -31,9 +38,11 @@ export const load = (async ({ locals, url, depends }) => {
 	const to = url.searchParams.get('to');
 
 	const date_past = from
-		? get_date_from_ddmmyyyy(from).toISOString()
-		: subtract_month(new Date(), 1).toISOString();
-	const date_end = to ? get_date_from_ddmmyyyy(to).toISOString() : new Date().toISOString();
+		? date_to_pocketbase(subtract_day(get_date_from_ddmmyyyy(from)))
+		: date_to_pocketbase(subtract_week(new Date(), 1));
+	const date_end = date_to_pocketbase(to ? get_date_from_ddmmyyyy(to) : new Date());
+
+	console.log(date_past, date_end);
 
 	let filter = `(date >= "${date_past}" && date <= "${date_end}")`;
 
@@ -42,7 +51,7 @@ export const load = (async ({ locals, url, depends }) => {
 
 	console.log(stars);
 
-	filter += create_filter(stars, 'rating', '||');
+	filter += create_filter(stars, 'rating', '||', '~');
 	filter += create_filter(langs, 'language', '||');
 
 	console.log(filter);
@@ -77,6 +86,7 @@ export const load = (async ({ locals, url, depends }) => {
 			})[0]
 		]
 	};
+
 	console.log(usage_data);
 	return {
 		user: locals.user,

@@ -4,7 +4,7 @@ import type { PageServerLoad, Actions } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { z } from 'zod';
 import { zfd } from 'zod-form-data';
-import { get_date_from_ddmmyyyy } from '@utils/dates';
+import { date_to_pocketbase, get_date_from_ddmmyyyy } from '@utils/dates';
 
 export const load = (async ({ locals, params }) => {
 	const { id } = params;
@@ -22,7 +22,7 @@ export const actions: Actions = {
 
 		const id = data.get('id'); // Musíme odstranit aby to potom nebylo v datech pro pocketbase
 
-		const parsed_date = get_date_from_ddmmyyyy(data.get('date') as string).toISOString();
+		const parsed_date = date_to_pocketbase(get_date_from_ddmmyyyy(data.get('date') as string));
 		if (parsed_date) data.set('date', parsed_date);
 
 		data.delete('id');
