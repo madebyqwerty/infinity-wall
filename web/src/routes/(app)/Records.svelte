@@ -29,9 +29,18 @@
 		longest: (d: RecordsResponse[]) => d.sort((a, b) => b.time - a.time)
 	};
 
-	function update_sort() {
-		sorted_records = sorting_functions[selected](records);
+	function update_sort(type: keyof SortingFunctions = selected) {
+		console.log('Sorting by', type);
+		selected = type;
+		sorted_records = sorting_functions[type](records);
 	}
+
+	const header = ['Datum', 'Délka', 'Hodnocení'];
+	const header_active_values: Array<Array<keyof SortingFunctions>> = [
+		['newest', 'oldest'],
+		['longest', 'shortest'],
+		['hardest', 'easiest']
+	];
 </script>
 
 <section id="data" class="bg-base-100 bg-opacity-90 rounded-md p-8 w-full col-span-8">
@@ -44,25 +53,37 @@
 		<a href="/backup/import" class="btn btn-ghost btn-sm">Importovat zálohu</a>
 		<a href="/backup/export" class="btn btn-ghost btn-sm">Exportovat zálohu</a>
 	</div>
-	<select
-		class="select w-full max-w-xs select-sm my-4"
-		bind:value={selected}
-		on:change={update_sort}
-	>
-		<option disabled selected>Seřadit podle:</option>
-		<option value="newest">Nejnovější</option>
-		<option value="oldest">Nejstarší</option>
-		<option value="hardest">Nejlepší</option>
-		<option value="easiest">Nejhorší</option>
-		<option value="shortest">Nejkratší</option>
-		<option value="longest">Nejdelší</option>
-	</select>
 	<table class="table w-full">
 		<thead class="sticky top-16">
 			<tr>
-				<th>Datum</th>
-				<th>Délka</th>
-				<th>Hodnocení</th>
+				{#each header as header_text, i}
+					{@const active =
+						selected === header_active_values[i][0] || selected === header_active_values[i][1]}
+					<th
+						on:click={() =>
+							update_sort(
+								selected === header_active_values[i][0]
+									? header_active_values[i][1]
+									: header_active_values[i][0]
+							)}
+					>
+						<button class="flex items-center select-none cursor-pointer">
+							{header_text}
+							<div class="swap swap-rotate {active ? 'text-base-content' : 'text-base-200'}">
+								<iconify-icon
+									icon="material-symbols:arrow-drop-up-sharp"
+									width={20}
+									class={selected === header_active_values[i][0] ? 'swap-on' : 'swap-off'}
+								/>
+								<iconify-icon
+									icon="material-symbols:arrow-drop-down-sharp"
+									width={20}
+									class={selected === header_active_values[i][1] ? 'swap-on' : 'swap-off'}
+								/>
+							</div>
+						</button>
+					</th>
+				{/each}
 				<th>Programovací jazyk</th>
 			</tr>
 		</thead>
