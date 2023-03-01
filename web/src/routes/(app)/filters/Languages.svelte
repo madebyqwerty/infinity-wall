@@ -1,7 +1,6 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { language_colors, language_names } from '@utils/languages';
 
 	console.log($page.data);
 

@@ -24,3 +24,11 @@
 		</div>
 	</section>
 </div>
+
+<style>
+	section#filter {
+		animation: appear 0.75s ease-in;
+		animation-fill-mode: forwards;
+		opacity: 0;
+	}
+</style>

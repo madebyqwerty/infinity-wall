@@ -22,9 +22,7 @@
 			</div>
 			<div class="xl:px-60 xl:py-8 2xl:flex-row flex-col flex px-4 gap-8 mt-10">
 				<Filter {data} />
-				{#key data}
-					<Records {data} />
-				{/key}
+				<Records {data} />
 			</div>
 		</div>
 		<slot />

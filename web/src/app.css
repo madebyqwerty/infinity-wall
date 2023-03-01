@@ -5,3 +5,13 @@
 html {
 	scroll-behavior: smooth;
 }
+
+@keyframes appear {
+	from {
+		transform: translate(0, 20%);
+	}
+	to {
+		transform: translate(0, 0);
+		opacity: 100;
+	}
+}

@@ -1,11 +1,11 @@
 <script lang="ts">
 	import Sidebar from '@components/Sidebar.svelte';
-	import { language_names } from '@utils/languages';
 	import type { ActionData, PageData } from './$types';
 	import { enhance } from '$app/forms';
 	import Dateinput from '@components/Dateinput.svelte';
 	import FormControl from '@components/FormControl.svelte';
 	import Rating from '@components/Rating.svelte';
+	import Input from '@components/Input.svelte';
 
 	export let data: PageData;
 	export let form: ActionData;
@@ -33,14 +33,13 @@
 		>
 		<Rating rating={data.record.rating} />
 
-		<FormControl label="Programovací Jazyk" error={form?.errors?.language}>
-			<select class="select select-bordered w-full" name="language">
-				<option disabled selected>Vyberte Jazyk</option>
-				{#each Object.entries(language_names) as l}
-					<option value={l[0]}>{l[1]}</option>
-				{/each}
-			</select>
-		</FormControl>
+		<Input
+			label="Programovací jazyk"
+			name="language"
+			placeholder="JavaScript"
+			type="text"
+			error={form?.errors?.language?.at(0) ?? ''}
+		/>
 
 		<textarea
 			class="textarea textarea-bordered"

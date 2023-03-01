@@ -3,6 +3,7 @@
 	import { get_minute_sklonovani } from '@utils/dates';
 	import { goto } from '$app/navigation';
 	import type { RecordsResponse } from '@pocketbase/types';
+	import LanguagePill from '@components/LanguagePill.svelte';
 	export let data: LayoutData;
 
 	interface SortingFunctions {
@@ -67,7 +68,7 @@
 									: header_active_values[i][0]
 							)}
 					>
-						<button class="flex items-center select-none cursor-pointer">
+						<button class="flex items-center select-none cursor-pointer uppercase">
 							{header_text}
 							<div class="swap swap-rotate {active ? 'text-base-content' : 'text-base-200'}">
 								<iconify-icon
@@ -88,23 +89,37 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each sorted_records as record, i (record.id)}
-				<tr
-					class="hover cursor-pointer"
-					on:click={() => goto(`/record/${record.id}`, { noScroll: true })}
-				>
-					<td>{new Date(record.date).toLocaleDateString('cs')}</td>
-					<td>{record.time} {get_minute_sklonovani(record.time)}</td>
-					<td>{'*'.repeat(record.rating)}</td>
-					<td>
-						<div class="flex flex-wrap gap-1">
-							<div class="badge badge-primary">
-								{record.language}
-							</div>
-						</div>
-					</td>
-				</tr>
-			{/each}
+			{#key sorted_records}
+				{#each sorted_records as record, i (record.id)}
+					<tr
+						class="hover cursor-pointer"
+						style="--delay: {i * 0.1}s"
+						on:click={() => goto(`/record/${record.id}`, { noScroll: true })}
+					>
+						<td>{new Date(record.date).toLocaleDateString('cs')}</td>
+						<td>{record.time} {get_minute_sklonovani(record.time)}</td>
+						<td>{'*'.repeat(record.rating)}</td>
+						<td>
+							<LanguagePill language={record.language ?? ''} />
+						</td>
+					</tr>
+				{/each}
+			{/key}
 		</tbody>
 	</table>
 </section>
+
+<style>
+	tr {
+		animation: appear 0.5s ease-in-out;
+		animation-fill-mode: forwards;
+		opacity: 0;
+		animation-delay: var(--delay);
+	}
+
+	section#data {
+		animation: appear 0.75s ease-in;
+		animation-fill-mode: forwards;
+		opacity: 0;
+	}
+</style>

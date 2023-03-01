@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Sidebar from '@components/Sidebar.svelte';
 	import { get_text_color } from '@utils';
-	import { language_colors, language_names } from '@utils/languages';
 	import type { PageData } from './$types';
 	import { enhance } from '$app/forms';
+	import LanguagePill from '@components/LanguagePill.svelte';
 
 	export let data: PageData;
 	console.log(data);
@@ -26,9 +26,7 @@
 			<div>{data.record.time}</div>
 			<div>{'*'.repeat(data.record.rating)}</div>
 			<div class="flex flex-wrap gap-1">
-				<div class="badge badge-primary">
-					{data.record.language}
-				</div>
+				<LanguagePill language={data.record.language ?? ''} />
 			</div>
 		</div>
 	</div>
