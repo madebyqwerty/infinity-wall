@@ -7,6 +7,8 @@
 			method: 'GET'
 		});
 
+		const filename = res.headers.get('Content-Disposition')?.split('filename=')[1];
+
 		// convert zip file to url object (for anchor tag download)
 		let blob = await res.blob();
 		var url = window.URL || window.webkitURL;
@@ -14,7 +16,7 @@
 
 		// generate anchor tag, click it for download and then remove it again
 		let a = document.createElement('a');
-		a.setAttribute('download', `backup-${get_date_in_ddmmyyyy(new Date())}.csv`);
+		a.setAttribute('download', filename ?? 'backup.csv');
 		a.setAttribute('href', link);
 		document.body.appendChild(a);
 		a.click();
