@@ -6,14 +6,13 @@
 	import { enhance } from '$app/forms';
 
 	export let data: PageData;
-	console.log(data)
+	console.log(data);
 </script>
 
 <Sidebar
 	route="/"
 	title="Záznam ze dne <br/>{new Date(data.record.date).toLocaleDateString('cs')}"
 	description={data.record.description}
-	size="max-w-lg"
 >
 	<div class="grid grid-cols-8">
 		<div class="col-span-3">
@@ -33,17 +32,12 @@
 			</div>
 		</div>
 	</div>
-	<div class="flex flex-row gap-1">
-		<a href="/edit/{data.record.id}" class="btn btn-outline flex-grow">Upravit záznam</a>
-		<form use:enhance method="POST">
-			<input type="hidden" value={data.record.id} name="id" />
-			<button type="submit" class="btn btn-outline btn-error">
-				<iconify-icon
-					icon="ion:trash-outline"
-					inline={true}
-					width={30}
-				/>
-			</button>
-		</form>
-	</div>
+	<a href="/edit/{data.record.id}" class="link">Upravit záznam</a>
+	<!-- <a href="/edit/{data.record.id}" class="btn btn-outline">Upravit záznam</a> -->
+	<form use:enhance method="POST">
+		<input type="hidden" value={data.record.id} name="id" />
+		<button type="submit" class="btn btn-outline btn-error">
+			<iconify-icon icon="ion:trash-outline" inline={true} width={30} />
+		</button>
+	</form>
 </Sidebar>

@@ -4,12 +4,12 @@
 	import Navbar from './Navbar.svelte';
 	import Records from './Records.svelte';
 	import Filter from './Filter.svelte';
-	import type { PageData } from './$types';
+	import type { PageData, LayoutData } from './$types';
 
 	let scroll_y = 0;
 	let drawer_content: HTMLElement;
 
-	export let data: PageData;
+	export let data: LayoutData;
 
 	function update_scroll() {
 		scroll_y = drawer_content.scrollTop;
@@ -27,7 +27,7 @@
 					<Hero />
 				</div>
 			</div>
-			<div class="xl:px-60 xl:py-8 2xl:grid px-4 grid-cols-12 gap-8 w-full mt-10">
+			<div class="xl:px-60 xl:py-8 2xl:flex-row flex-col flex px-4 gap-8 mt-10">
 				<Filter {data} />
 				{#key data}
 					<Records {data} />
