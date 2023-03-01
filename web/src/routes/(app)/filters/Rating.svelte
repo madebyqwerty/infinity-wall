@@ -30,7 +30,7 @@
 	</label>
 
 	<ul class="bg-base-100 menu">
-		{#each [1, 2, 3, 4, 5] as number}
+		{#each [0, 1, 2, 3, 4, 5] as number}
 			<li class="form-control">
 				<label class="label cursor-pointer justify-start">
 					<input
@@ -39,7 +39,8 @@
 						class="checkbox checkbox-xs"
 						on:change={() => update_stars(number)}
 					/>
-					<span class="label-text flex">
+					<span class="label-text flex items-center">
+						<div class="mr-2">{number}</div>
 						{#each Array(number) as start}
 							<div class="bg-orange-400 w-3 h-3 mask-star-2 mask" />
 						{/each}
