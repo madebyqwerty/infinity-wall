@@ -1,9 +1,9 @@
 <script lang="ts">
-	import type { PageData } from './$types';
+	import type { LayoutData } from './$types';
 	import { get_minute_sklonovani } from '@utils/dates';
 	import { goto } from '$app/navigation';
 
-	export let data: PageData;
+	export let data: LayoutData;
 	const { records } = data;
 </script>
 
