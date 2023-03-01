@@ -4,24 +4,17 @@
 	import Navbar from './Navbar.svelte';
 	import Records from './Records.svelte';
 	import Filter from './Filter.svelte';
-	import type { PageData, LayoutData } from './$types';
-
-	let scroll_y = 0;
-	let drawer_content: HTMLElement;
+	import type { LayoutData } from './$types';
 
 	export let data: LayoutData;
-
-	function update_scroll() {
-		scroll_y = drawer_content.scrollTop;
-	}
 </script>
 
 <main>
 	<div class="drawer">
 		<DrawerToggle routes={['record', 'backup', 'export', 'import', 'create', 'edit']} />
 
-		<div class="drawer-content scroll-smooth" on:scroll={update_scroll} bind:this={drawer_content}>
-			<Navbar {scroll_y} />
+		<div class="drawer-content scroll-smooth">
+			<Navbar />
 			<div class="bg -my-56 py-56">
 				<div class="xl:px-60 xl:py-8 px-4">
 					<Hero />

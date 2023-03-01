@@ -1,18 +1,13 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import type { PageData } from './$types';
-	import { browser } from '$app/environment';
+	import type { LayoutData } from './$types';
 
-	const { user } = $page.data as PageData;
-
-	export let scroll_y: number;
+	const { user } = $page.data as LayoutData;
 </script>
 
 <div
 	id="navbar"
-	class="sticky top-0 z-30 {scroll_y > 0
-		? 'bg-opacity-90 bg-primary shadow-md text-base-content'
-		: 'bg-opacity-0 shadow-none text-base-content'} backdrop-blur bg-base-100 text-base-content transition duration-300 ease-in-out"
+	class="bg-opacity-0 shadow-none text-base-content backdrop-blur bg-base-100 transition duration-300 ease-in-out"
 >
 	<nav class="navbar">
 		<div class="navbar-start" />
