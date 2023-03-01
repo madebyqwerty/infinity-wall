@@ -17,10 +17,10 @@
 	route="/record/{data.record.id}"
 	title="Upravit záznam <br/> {date.toLocaleDateString('cs')}"
 >
-	<form use:enhance method="POST" class="flex flex-col items-center justify-center">
-		<input type="hidden" bind:value={data.record.id} name="id" />
-
+	<form use:enhance method="POST" class="flex flex-col justify-center gap-4">
 		<Dateinput />
+
+		<input type="hidden" bind:value={data.record.id} name="id" />
 
 		<FormControl label="Délka záznamu" error={form?.errors?.time}
 			><input
@@ -31,7 +31,7 @@
 				min={1}
 			/></FormControl
 		>
-		<Rating rating={data.record.rating}/>
+		<Rating rating={data.record.rating} />
 
 		<FormControl label="Programovací Jazyk" error={form?.errors?.language}>
 			<select class="select select-bordered w-full" name="language">
@@ -52,19 +52,3 @@
 		<button class="btn btn-primary" type="submit"> Upravit záznam </button>
 	</form>
 </Sidebar>
-
-<style>
-	form {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: start;
-		gap: 1rem;
-	}
-
-	:global(.date-time-field),
-	:global(.date-time-field > input) {
-		width: 100% !important;
-		min-width: 20rem;
-	}
-</style>

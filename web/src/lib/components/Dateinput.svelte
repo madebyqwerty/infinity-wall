@@ -11,13 +11,12 @@
 	$: date_string = get_date_in_ddmmyyyy(date);
 </script>
 
-<input type="hidden" bind:value={date_string} {name} />
+<input type="hidden" class="hidden w-0" bind:value={date_string} {name} />
 
 <DateInput
 	closeOnSelection={true}
 	bind:value={date}
 	{min}
-	on:select
 	locale={{
 		months: [
 			'Leden',
@@ -40,10 +39,10 @@
 
 <style>
 	:global(:root) {
-		--date-picker-background: hsl(var(--b1));
-		--date-picker-foreground: hsl(var(--bc));
-		--date-picker-highlight-border: hsl(var(--pf));
-		--date-picker-selected-color: hsl(var(--pc));
+		--date-picker-background: hsl(var(--b2));
+		--date-picker-foreground: hsl(var(--bf));
+		--date-picker-highlight-border: hsl(var(--p));
+		--date-picker-selected-color: hsl(var(--pf));
 		--date-input-width: 100%;
 	}
 </style>

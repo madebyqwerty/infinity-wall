@@ -13,8 +13,9 @@
 
 	let selected: Date;
 
-	let from =
-		get_date_from_ddmmyyyy($page.url.searchParams.get('from') ?? '') ?? subtract_week(new Date());
+	let from = get_date_from_ddmmyyyy(
+		$page.url.searchParams.get('from') ?? get_date_in_ddmmyyyy(subtract_week(new Date()))
+	);
 	let to = new Date();
 
 	async function update_date() {
@@ -35,7 +36,7 @@
 	}
 </script>
 
-<div class="form-control w-full">
+<div class="form-control">
 	<label class="label" for="date-select">
 		<span class="label-text">Od kdy do kdy</span>
 	</label>
@@ -51,7 +52,7 @@
 		<option value={subtract_year(new Date())}>Poslední rok</option>
 	</select>
 
-	<div class="flex w-full py-4 gap-4">
+	<div class="flex py-4 gap-4">
 		<FormControl label="Od">
 			<Dateinput bind:date={from} on:select={update_url} />
 		</FormControl>

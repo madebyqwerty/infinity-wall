@@ -16,7 +16,7 @@
 			{form?.error}
 		</div>
 	{/if}
-	<form use:enhance method="POST" class="flex flex-col items-center justify-center">
+	<form use:enhance method="POST" class="flex flex-col justify-center w-full gap-4">
 		<Dateinput />
 
 		<FormControl label="Délka záznamu" error={form?.errors?.time}
@@ -51,14 +51,3 @@
 		<button class="btn btn-primary" type="submit"> Přidat záznam </button>
 	</form>
 </Sidebar>
-
-<style>
-	form {
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		align-items: start;
-		gap: 1rem;
-		gap: 1rem;
-	}
-</style>

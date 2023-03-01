@@ -3,7 +3,6 @@
 	import { get_minute_sklonovani } from '@utils/dates';
 	import { goto } from '$app/navigation';
 	import type { RecordsResponse } from '@pocketbase/types';
-	import { date } from 'zod';
 	export let data: LayoutData;
 
 	interface SortingFunctions {
@@ -68,46 +67,23 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#key sorted_records}
-				{#each sorted_records as record, i (record.id)}
-					<tr
-						class="hover cursor-pointer"
-						on:click={() => goto(`/record/${record.id}`, { noScroll: true })}
-						style="--delay:{i * 200}ms"
-					>
-						<td>{new Date(record.date).toLocaleDateString('cs')}</td>
-						<td>{record.time} {get_minute_sklonovani(record.time)}</td>
-						<td>{'*'.repeat(record.rating)}</td>
-						<td>
-							<div class="flex flex-wrap gap-1">
-								<div class="badge badge-primary">
-									{record.language}
-								</div>
+			{#each sorted_records as record, i (record.id)}
+				<tr
+					class="hover cursor-pointer"
+					on:click={() => goto(`/record/${record.id}`, { noScroll: true })}
+				>
+					<td>{new Date(record.date).toLocaleDateString('cs')}</td>
+					<td>{record.time} {get_minute_sklonovani(record.time)}</td>
+					<td>{'*'.repeat(record.rating)}</td>
+					<td>
+						<div class="flex flex-wrap gap-1">
+							<div class="badge badge-primary">
+								{record.language}
 							</div>
-						</td>
-					</tr>
-				{/each}
-			{/key}
+						</div>
+					</td>
+				</tr>
+			{/each}
 		</tbody>
 	</table>
 </section>
-
-<style>
-	@keyframes appear {
-		from {
-			opacity: 0;
-			transform: translate(0, 20%);
-		}
-		to {
-			transform: translate(0, 0);
-			opacity: 100;
-		}
-	}
-
-	tr {
-		opacity: 0;
-		animation: appear 0.5s ease-in-out;
-		animation-fill-mode: forwards;
-		animation-delay: var(--delay, 0ms);
-	}
-</style>
