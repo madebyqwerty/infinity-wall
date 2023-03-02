@@ -12,6 +12,8 @@
 	<table class="table max-w-screen-xl w-full">
 		<thead>
 			<tr>
+				<th />
+				<th>ID</th>
 				<th>Jméno</th>
 				<th>Uživatelské jméno</th>
 				<th>Email</th>
@@ -21,6 +23,8 @@
 		<tbody>
 			{#each data.users as user, i (user.id)}
 				<tr class="hover">
+					<th>{i + 1}</th>
+					<td>{user.id}</td>
 					<td>
 						<figure class="flex items-center space-x-3">
 							<div>
