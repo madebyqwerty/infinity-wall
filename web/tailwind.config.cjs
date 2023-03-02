@@ -10,7 +10,7 @@ module.exports = {
 				upshop: {
 					primary: '#134E4A',
 					secondary: '#14532D',
-					accent: '#166534',
+					accent: '#164E63',
 					neutral: '#1F2937',
 					'base-100': '#E2E8F0',
 					info: '#0C4A6E',
