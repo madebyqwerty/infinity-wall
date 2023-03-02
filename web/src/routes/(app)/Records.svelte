@@ -15,8 +15,8 @@
 		longest: (d: RecordsResponse[]) => RecordsResponse[];
 	}
 
-	const { records } = data;
-	let sorted_records: RecordsResponse[] = records;
+	let sorted_records: RecordsResponse[] = data.records;
+	$: data.records, sorted_records = sorting_functions[selected](data.records)
 
 	let selected: keyof SortingFunctions = 'newest';
 
@@ -31,9 +31,9 @@
 	};
 
 	function update_sort(type: keyof SortingFunctions = selected) {
-		console.log('Sorting by', type);
+		
 		selected = type;
-		sorted_records = sorting_functions[type](records);
+		
 	}
 
 	const header = ['Datum', 'Délka', 'Hodnocení'];
@@ -90,6 +90,7 @@
 			</tr>
 		</thead>
 		<tbody>
+			{#if sorted_records.length==0}Nenašli jsme žádný záznam{/if}
 			{#key sorted_records}
 				{#each sorted_records as record, i (record.id)}
 					<tr
