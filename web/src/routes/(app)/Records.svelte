@@ -69,17 +69,17 @@
 									: header_active_values[i][0]
 							)}
 					>
-						<button class="flex items-center select-none cursor-pointer uppercase">
+						<button class="flex items-center select-none cursor-pointer uppercase w-2">
 							{header_text}
 							<div class="swap swap-rotate {active ? 'text-base-content' : 'text-base-200'}">
 								<iconify-icon
 									icon="material-symbols:arrow-drop-up-sharp"
-									width={20}
+									width={18}
 									class={selected === header_active_values[i][0] ? 'swap-on' : 'swap-off'}
 								/>
 								<iconify-icon
 									icon="material-symbols:arrow-drop-down-sharp"
-									width={20}
+									width={18}
 									class={selected === header_active_values[i][1] ? 'swap-on' : 'swap-off'}
 								/>
 							</div>
@@ -93,7 +93,7 @@
 			{#key sorted_records}
 				{#each sorted_records as record, i (record.id)}
 					<tr
-						class="hover cursor-pointer"
+						class="hover cursor-pointer animated"
 						style="--delay: {i * 0.1}s"
 						on:click={() => goto(`/record/${record.id}`, { noScroll: true })}
 					>
@@ -112,7 +112,7 @@
 </section>
 
 <style>
-	tr {
+	tr.animated {
 		animation: appear 0.5s ease-in-out;
 		animation-fill-mode: forwards;
 		opacity: 0;
