@@ -14,18 +14,18 @@
 
 	<div class="rating rating-lg">
 		<input type="radio" name="rating" bind:group={rating} value={0} class="rating-hidden" />
-		<input type="radio" name="rating" bind:group={rating} value={1} class="mask mask-star-2" />
-		<input type="radio" name="rating" bind:group={rating} value={2} class="mask mask-star-2" />
+		<input type="radio" name="rating" bind:group={rating} value={1} class="mask mask-star-2 bg-orange-400" />
+		<input type="radio" name="rating" bind:group={rating} value={2} class="mask mask-star-2 bg-orange-400" />
 		<input
 			type="radio"
 			name="rating"
 			bind:group={rating}
 			value={3}
-			class="mask mask-star-2"
+			class="mask mask-star-2 bg-orange-400"
 			checked
 		/>
-		<input type="radio" name="rating" bind:group={rating} value={4} class="mask mask-star-2" />
-		<input type="radio" name="rating" bind:group={rating} value={5} class="mask mask-star-2" />
+		<input type="radio" name="rating" bind:group={rating} value={4} class="mask mask-star-2 bg-orange-400" />
+		<input type="radio" name="rating" bind:group={rating} value={5} class="mask mask-star-2 bg-orange-400" />
 	</div>
 	<div style="transition:250ms ease-in-out;opacity:{rating==0?0.5:rating / 4 - 1 / 4}">
 		<iconify-icon
