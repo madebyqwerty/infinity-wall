@@ -44,7 +44,7 @@
 	];
 </script>
 
-<section id="data" class="bg-base-100 bg-opacity-90 rounded-md p-8 w-full col-span-8">
+<section id="data" class="bg-base-100 bg-opacity-90 rounded-md p-8 w-full col-span-4">
 	<div
 		class="flex xl:flex-row flex-col xl:items-center gap-2 text-base-content text-opacity-75 mb-4 "
 	>
@@ -57,6 +57,7 @@
 	<table class="table w-full">
 		<thead class="sticky top-16">
 			<tr>
+				<th />
 				{#each header as header_text, i}
 					{@const active =
 						selected === header_active_values[i][0] || selected === header_active_values[i][1]}
@@ -96,6 +97,7 @@
 						style="--delay: {i * 0.1}s"
 						on:click={() => goto(`/record/${record.id}`, { noScroll: true })}
 					>
+						<th class="text-base-content text-opacity-50 font-bold">{i + 1}</th>
 						<td>{new Date(record.date).toLocaleDateString('cs')}</td>
 						<td>{record.time} {get_minute_sklonovani(record.time)}</td>
 						<td>{'*'.repeat(record.rating)}</td>
@@ -115,11 +117,5 @@
 		animation-fill-mode: forwards;
 		opacity: 0;
 		animation-delay: var(--delay);
-	}
-
-	section#data {
-		animation: appear 0.75s ease-in;
-		animation-fill-mode: forwards;
-		opacity: 0;
 	}
 </style>

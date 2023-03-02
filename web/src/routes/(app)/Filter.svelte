@@ -7,10 +7,10 @@
 	export let data: LayoutData;
 </script>
 
-<div class="col-span-4 w-fit max-w-fit">
+<div class="2xl:w-fit w-full col-span-2">
 	<section
 		id="filter"
-		class="bg-base-100 bg-opacity-90 rounded-md xl:shadow-md xl:p-8 p-4 sticky top-20"
+		class="bg-base-100 bg-opacity-90 rounded-md xl:shadow-md xl:p-8 p-6 sticky top-20"
 	>
 		<h2 class="text-4xl mb-4">Filtrování</h2>
 		<div class="flex flex-col gap-8">
@@ -24,11 +24,3 @@
 		</div>
 	</section>
 </div>
-
-<style>
-	section#filter {
-		animation: appear 0.75s ease-in;
-		animation-fill-mode: forwards;
-		opacity: 0;
-	}
-</style>
