@@ -29,6 +29,7 @@
 				placeholder="Délka"
 				class="input input-bordered"
 				min={1}
+				bind:value={data.record.time}
 			/></FormControl
 		>
 		<Rating rating={data.record.rating} />
@@ -38,6 +39,7 @@
 			name="language"
 			placeholder="JavaScript"
 			type="text"
+			bind:value={data.record.language}
 			error={form?.errors?.language?.at(0) ?? ''}
 		/>
 
