@@ -40,10 +40,10 @@
 
 <style>
 	:global(:root) {
-		--date-picker-background: hsl(var(--b2));
+		--date-picker-background: hsl(var(--b1));
 		--date-picker-foreground: hsl(var(--bc));
 		--date-picker-highlight-border: hsl(var(--p));
-		--date-picker-selected-color: hsl(var(--pf));
+		--date-picker-selected-color: hsl(var(--p));
 		--date-input-width: 100%;
 	}
 
