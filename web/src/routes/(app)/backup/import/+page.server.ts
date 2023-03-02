@@ -1,6 +1,7 @@
 import type { Actions } from './$types';
 import Papa from 'papaparse';
 import { date_to_pocketbase, get_date_from_ddmmyyyy } from '@utils/dates';
+import { fail } from '@sveltejs/kit';
 
 interface RecordData {
 	id: string;
@@ -19,9 +20,24 @@ export const actions: Actions = {
 		const file = data.file as Blob;
 		const csv = await file.text();
 
+		if (file.size === 0)
+			return fail(400, { file: 'Nebyl vybrán žádný soubor, nebo je soubor prázdný' });
+
+		if (locals.user?.username !== file.name.split('-')[0])
+			return fail(403, { file: 'Tato záloha patří jinému uživateli' });
+
 		const records = Papa.parse<RecordData>(csv, {
 			header: true
 		});
+
+		console.log(records);
+
+		interface LineError {
+			row: number;
+			id: string;
+		}
+
+		const errors: LineError[] = [];
 
 		for (let i in records.data) {
 			const record = records.data[i];
@@ -51,9 +67,18 @@ export const actions: Actions = {
 						user: locals?.user?.id
 					});
 				} catch (e) {
+					errors.push({ row: parseInt(i) + 2, id });
 					console.log(e);
 				}
 			}
+		}
+
+		if (errors.length > 0) {
+			return fail(400, { errors });
+		} else {
+			return {
+				success: true
+			};
 		}
 	}
 };
