@@ -46,13 +46,24 @@ export function get_minute_sklonovani(minutes: number) {
 }
 
 export function get_date_in_ddmmyyyy(date: Date) {
-	return `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+	return `${pad(`${date.getDate()}`)}-${pad(`${date.getMonth() + 1}`)}-${date.getFullYear()}`;
 }
 
 export function get_date_from_ddmmyyyy(date_string: string) {
 	const [day, month, year] = date_string.split('-');
 	// Month is 0-indexed, so we subtract 1
 	return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+}
+
+export function get_date_from_yyyymmdd(date_string: string) {
+	const [year, month, day] = date_string.split('-');
+	// Month is 0-indexed, so we subtract 1
+	return new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+}
+
+export function get_date_in_yyyymmdd(date: Date) {
+	const month = `${date.getMonth() + 1}`;
+	return `${date.getFullYear()}-${pad(`${date.getMonth() + 1}`)}-${pad(`${date.getDate()}`)}`;
 }
 
 export function date_to_pocketbase(date: Date | null) {
@@ -62,4 +73,8 @@ export function date_to_pocketbase(date: Date | null) {
 		return date.toISOString();
 	}
 	return null;
+}
+
+function pad(str: string, length: number = 2) {
+	return str.length === 2 ? str : '0' + str;
 }

@@ -1,57 +1,61 @@
+import { convert_date, convert_pocketbase_to_json, start } from '$lib/server/pocketbase';
+import type { RecordsResponse } from '@pocketbase/types';
+import { get_date_from_yyyymmdd } from '@utils/dates';
+import type { RequestHandler } from './$types';
 
-import { pb } from '@pocketbase';
-import { get_date_in_ddmmyyyy, get_date_from_ddmmyyyy } from '@utils/dates';
+export const GET: RequestHandler = async ({ request, params }) => {
+	const pb = await start(request.url);
 
-await pb.collection('admins').authWithPassword('admin', '123456');
+	try {
+		const { record_id } = params;
 
-export const GET = async ({ params }) => {
-    try {
-        const { user_id, record_id } = params;
+		const record = await pb.collection('records').getOne<RecordsResponse>(record_id, {});
 
-        const record = await pb.collection('records').getOne(record_id, {});
+		return new Response(JSON.stringify(convert_pocketbase_to_json(record)), { status: 200 });
+	} catch {
+		return new Response(JSON.stringify(''), { status: 404 });
+	}
+};
 
-        const { id, date, time, language, rating, description } = record;
+export const DELETE: RequestHandler = async ({ request, params }) => {
+	const pb = await start(request.url);
+	try {
+		const { record_id } = params;
 
-        return new Response(JSON.stringify({ id: id, date: get_date_in_ddmmyyyy(new Date(date)), "time-spent": time.toString(), "programming-language": language, rating: rating, description: description }), { status: 200 });
-    }
-    catch {
-        return new Response(JSON.stringify(""), { status: 404 });
-    }
-}
+		await pb.collection('records').delete(record_id);
 
-export const DELETE = async ({ params }) => {
-    try {
-        const { user_id, record_id } = params;
+		return new Response(JSON.stringify(''), { status: 200 });
+	} catch {
+		return new Response(JSON.stringify(''), { status: 404 });
+	}
+};
 
-        await pb.collection('records').delete(record_id);
+export const PUT: RequestHandler = async ({ request, params }) => {
+	const pb = await start(request.url);
 
-        return new Response(JSON.stringify(""), { status: 200 });
-    }
-    catch {
-        return new Response(JSON.stringify(""), { status: 404 });
-    }
-}
+	try {
+		const { user_id, record_id } = params;
+		const body = await request.json();
 
-export const PUT = async ({ request, params }) => {
-    try {
-        const { user_id, record_id } = params;
-        const body = await request.json();
+		var today = new Date();
+		var input_date = get_date_from_yyyymmdd(body['date']);
 
-        var today = new Date();
-        var input_date = get_date_from_ddmmyyyy(body["date"]);
+		if (input_date > today) {
+			return new Response(JSON.stringify(''), { status: 404 });
+		}
 
-        if (input_date > today) {
-            return new Response(JSON.stringify(""), { status: 404 });
-        }
+		const record = await pb.collection('records').update<RecordsResponse>(record_id, {
+			time: parseInt(body['time_spent']),
+			rating: parseInt(body['rating']),
+			description: body['description'],
+			user: user_id,
+			date: convert_date(body['date']),
+			language: body['programming_language']
+		});
 
-        await pb.collection('records').update(record_id, { "time": parseInt(body["time-spent"]), "rating": parseInt(body["rating"]), "description": body["description"], "user": user_id, "date": input_date.toISOString(), "language": body["programming-language"] });
-
-        const record = await pb.collection('records').getOne(record_id, {});
-        const { id, date, time, language, rating, description } = record;
-
-        return new Response(JSON.stringify({ id: id, date: get_date_in_ddmmyyyy(new Date(date)), "time-spent": String(time), "programming-language": language, rating: rating, description: description }), { status: 200 });
-    }
-    catch {
-        return new Response(JSON.stringify(""), { status: 404 });
-    }
-}
+		return new Response(JSON.stringify(convert_pocketbase_to_json(record)), { status: 200 });
+	} catch (e) {
+		console.log(e);
+		return new Response(JSON.stringify(''), { status: 404 });
+	}
+};
