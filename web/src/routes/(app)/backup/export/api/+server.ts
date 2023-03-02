@@ -23,9 +23,9 @@ export const GET: RequestHandler = async ({ locals }) => {
 		status: 200,
 		headers: {
 			'Content-Type': 'text/csv',
-			'Content-Disposition': `attachment; filename=${locals.user?.username}-${get_date_in_ddmmyyyy(
-				new Date()
-			)}.csv`
+			'Content-Disposition': `attachment; filename=${
+				locals.user?.username
+			}-${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}.csv`
 		}
 	});
 };
