@@ -90,7 +90,6 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#if sorted_records.length==0}Nenašli jsme žádný záznam{/if}
 			{#key sorted_records}
 				{#each sorted_records as record, i (record.id)}
 					<tr
@@ -106,6 +105,8 @@
 							<LanguagePill language={record.language ?? ''} />
 						</td>
 					</tr>
+					{:else}
+					Nenašli jsme žádný záznam
 				{/each}
 			{/key}
 		</tbody>
