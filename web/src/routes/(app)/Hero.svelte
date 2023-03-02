@@ -17,8 +17,7 @@
 		{#if $page.data.records.length > 0}
 			<span class="highlighted">
 				{$page.data.records.length}
-				záznam
-				{[2, 3, 4].includes($page.data.records.length)
+				záznam{[2, 3, 4].includes($page.data.records.length)
 					? 'y'
 					: [0, 1].includes($page.data.records.length)
 					? ''

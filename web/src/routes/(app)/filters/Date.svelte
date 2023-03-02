@@ -26,11 +26,10 @@
 	}
 
 	async function update_url() {
+		
+		$page.url.searchParams.set('from', get_date_in_ddmmyyyy(from));
+		$page.url.searchParams.set('to', get_date_in_ddmmyyyy(to));
 		const url = $page.url;
-
-		url.searchParams.set('from', get_date_in_ddmmyyyy(from));
-		url.searchParams.set('to', get_date_in_ddmmyyyy(to));
-
 		await goto(url.toString(), { noScroll: true });
 		await invalidate('home');
 	}

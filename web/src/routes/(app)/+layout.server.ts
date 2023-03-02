@@ -30,7 +30,7 @@ function create_filter(
 }
 
 export const load = (async ({ locals, url, depends }) => {
-	console.log('Running layou server load');
+	console.log('Running layout server load');
 	depends('home');
 
 	// Get all the records in the given timeframe

@@ -17,6 +17,7 @@
 	closeOnSelection={true}
 	bind:value={date}
 	{min}
+	on:select
 	locale={{
 		months: [
 			'Leden',
