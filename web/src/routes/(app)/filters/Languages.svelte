@@ -2,8 +2,6 @@
 	import { goto, invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
 
-	console.log($page.data);
-
 	const data = $page.data;
 
 	let search = '';

@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { goto, invalidate } from '$app/navigation';
 	import { page } from '$app/stores';
+	import Stars from '@components/Stars.svelte';
 
 	$: stars = (JSON.parse($page.url.searchParams.get('stars') as string) as number[]) || [
 		0, 1, 2, 3, 4, 5
 	];
-
-	$: console.log(stars);
 
 	async function update_stars(number: number) {
 		if (stars.includes(number)) {
@@ -40,10 +39,7 @@
 						on:change={() => update_stars(number)}
 					/>
 					<span class="label-text flex items-center">
-						<div class="mr-2">{number}</div>
-						{#each Array(number) as start}
-							<div class="bg-orange-400 w-3 h-3 mask-star-2 mask" />
-						{/each}
+						<Stars {number} />
 					</span>
 				</label>
 			</li>

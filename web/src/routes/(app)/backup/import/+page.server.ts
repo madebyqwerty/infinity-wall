@@ -30,8 +30,6 @@ export const actions: Actions = {
 			header: true
 		});
 
-		console.log(records);
-
 		interface LineError {
 			row: number;
 			id: string;

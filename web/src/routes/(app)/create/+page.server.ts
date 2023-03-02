@@ -41,9 +41,7 @@ export const actions: Actions = {
 
 			return fail(400, response);
 		}
-		console.log(Object.fromEntries(data))
 		try {
-			
 			await locals.pb.collection('records').create(data, { $autoCancel: false });
 		} catch (e) {
 			console.log('idk', e, data, locals.pb.authStore.model?.id);

@@ -4,7 +4,6 @@
 	export let title: string;
 	export let description: string = '';
 	export let route: string;
-console.log(route)
 	onMount(() => {
 		const navbar = document.querySelector('#navbar');
 

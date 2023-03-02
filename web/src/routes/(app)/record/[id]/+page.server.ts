@@ -18,7 +18,6 @@ export const actions: Actions = {
 		} catch (e) {
 			return fail(400, { error: 'Lol nefunguje to' });
 		}
-
 		throw redirect(303, '/home');
 	}
 };

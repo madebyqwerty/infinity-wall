@@ -5,6 +5,7 @@
 	import type { RecordsResponse } from '@pocketbase/types';
 	import LanguagePill from '@components/LanguagePill.svelte';
 	import { page } from '$app/stores';
+	import Stars from '@components/Stars.svelte';
 	export let data: LayoutData;
 
 	interface SortingFunctions {
@@ -102,7 +103,7 @@
 						<th class="text-base-content text-opacity-50 font-bold">{i + 1}</th>
 						<td>{new Date(record.date).toLocaleDateString('cs')}</td>
 						<td>{record.time} {get_minute_sklonovani(record.time)}</td>
-						<td>{'*'.repeat(record.rating)}</td>
+						<td><Stars number={record.rating} /></td>
 						<td>
 							<LanguagePill language={record.language ?? ''} />
 						</td>

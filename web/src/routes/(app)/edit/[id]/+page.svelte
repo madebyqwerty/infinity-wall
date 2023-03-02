@@ -40,13 +40,13 @@
 			name="language"
 			placeholder="JavaScript"
 			type="text"
-			bind:value={data.record.language}
+			value={data.record.language}
 			error={form?.errors?.language?.at(0) ?? ''}
 		/>
 
 		<textarea
 			class="textarea textarea-bordered"
-			bind:value={data.record.description}
+			value={data.record.description}
 			name="description"
 			placeholder="Popis"
 		/>

@@ -43,19 +43,13 @@ export const load = (async ({ locals, url, depends }) => {
 		: date_to_pocketbase(subtract_week(new Date(), 1));
 	const date_end = date_to_pocketbase(to ? get_date_from_ddmmyyyy(to) : new Date());
 
-	console.log(date_past, date_end);
-
 	let filter = `(date >= "${date_past}" && date <= "${date_end}")`;
 
 	const langs: string[] | null = JSON.parse(url.searchParams.get('languages') as string);
 	const stars: number[] | null = JSON.parse(url.searchParams.get('stars') as string);
 
-	console.log(stars);
-
 	filter += create_filter(stars, 'rating', '||', '=', '');
 	filter += create_filter(langs, 'language', '||');
-
-	console.log(filter);
 
 	const records = await locals.pb.collection('records').getList<RecordsResponse>(1, 200, {
 		filter: filter
@@ -88,7 +82,6 @@ export const load = (async ({ locals, url, depends }) => {
 		]
 	};
 
-	console.log(usage_data);
 	return {
 		user: locals.user,
 		records: structuredClone(records.items),
