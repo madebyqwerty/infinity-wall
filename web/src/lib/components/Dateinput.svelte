@@ -41,9 +41,14 @@
 <style>
 	:global(:root) {
 		--date-picker-background: hsl(var(--b2));
-		--date-picker-foreground: hsl(var(--bf));
+		--date-picker-foreground: hsl(var(--bc));
 		--date-picker-highlight-border: hsl(var(--p));
 		--date-picker-selected-color: hsl(var(--pf));
 		--date-input-width: 100%;
+	}
+
+	:global(.date-time-field > input) {
+		border-radius: 2rem !important;
+		font-weight: 600;
 	}
 </style>

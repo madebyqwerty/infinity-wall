@@ -43,7 +43,10 @@
 	];
 </script>
 
-<section id="data" class="bg-base-100 bg-opacity-90 rounded-md p-8 w-full col-span-4">
+<section
+	id="data"
+	class="bg-base-100 bg-opacity-90 rounded-md p-8 w-full col-span-4 shadow-md h-max"
+>
 	<div
 		class="flex xl:flex-row flex-col xl:items-center gap-2 text-base-content text-opacity-75 mb-4 "
 	>
@@ -54,7 +57,7 @@
 		<a href="/backup/export{$page.url.search}" class="btn btn-ghost btn-sm">Exportovat zálohu</a>
 	</div>
 	<table class="table w-full">
-		<thead class="sticky top-16">
+		<thead>
 			<tr>
 				<th />
 				{#each header as header_text, i}

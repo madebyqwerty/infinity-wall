@@ -7,7 +7,7 @@
 
 <div
 	id="navbar"
-	class="bg-opacity-0 shadow-none text-base-content backdrop-blur bg-base-100 transition duration-300 ease-in-out"
+	class="bg-opacity-0 shadow-none text-primary-content backdrop-blur bg-base-100 transition duration-300 ease-in-out"
 >
 	<nav class="navbar">
 		<div class="navbar-start" />

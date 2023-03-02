@@ -2,9 +2,9 @@
 	import { page } from '$app/stores';
 </script>
 
-<div>
-	<h1 class="text-6xl font-bold text-white text-opacity-90 mb-4">Vítejte v UpShop Track</h1>
-	<p class="text-stone-800">
+<div class="text-primary-content">
+	<h1 class="text-6xl font-bold text-opacity-90 mb-4 text-white">Vítejte v UpShop Track</h1>
+	<p>
 		V období od
 		<span class="highlighted">
 			{new Date($page.data.date_past).toLocaleDateString('cs')}

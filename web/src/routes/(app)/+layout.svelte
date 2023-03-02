@@ -31,9 +31,10 @@
 
 <style>
 	.bg {
-		background: linear-gradient(155deg, #4776E6 5%, #8E54E9 80%) fixed;
+		background: linear-gradient(155deg, #134e4a 15%, #14532d 90%) fixed;
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
+		background-attachment: fixed;
 	}
 </style>
