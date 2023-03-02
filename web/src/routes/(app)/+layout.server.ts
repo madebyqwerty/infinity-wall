@@ -14,14 +14,15 @@ function create_filter(
 	arr: Array<string | number> | null,
 	type: string,
 	mode: '&&' | '||' = '&&',
-	operator: '=' | '~' = '='
+	operator: '=' | '~' = '=',
+	pad: '' | '"' = '"'
 ) {
 	let result = '';
 
 	if (arr && arr.length > 0) {
 		result += ' && (';
 		arr.forEach((str, i) => {
-			result += `${type} ${operator} "${str}" ${i + 1 !== arr.length ? mode : ''}`;
+			result += `${type} ${operator} ${pad}${str}${pad} ${i + 1 !== arr.length ? mode : ''}`;
 		});
 		result += ')';
 	}
@@ -51,7 +52,7 @@ export const load = (async ({ locals, url, depends }) => {
 
 	console.log(stars);
 
-	filter += create_filter(stars, 'rating', '||', '~');
+	filter += create_filter(stars, 'rating', '||', '=', '');
 	filter += create_filter(langs, 'language', '||');
 
 	console.log(filter);
