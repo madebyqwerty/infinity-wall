@@ -3,7 +3,7 @@
 	import { page } from '$app/stores';
 
 	$: stars = (JSON.parse($page.url.searchParams.get('stars') as string) as number[]) || [
-		1, 2, 3, 4, 5
+		0, 1, 2, 3, 4, 5
 	];
 
 	$: console.log(stars);

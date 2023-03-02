@@ -4,6 +4,7 @@
 	import { goto } from '$app/navigation';
 	import type { RecordsResponse } from '@pocketbase/types';
 	import LanguagePill from '@components/LanguagePill.svelte';
+	import { page } from '$app/stores';
 	export let data: LayoutData;
 
 	interface SortingFunctions {
@@ -17,7 +18,6 @@
 
 	let sorted_records: RecordsResponse[] = data.records;
 	$: data.records, sorted_records = sorting_functions[selected](data.records)
-
 	let selected: keyof SortingFunctions = 'newest';
 
 	const time = (date: string) => new Date(date).getTime();
@@ -50,9 +50,9 @@
 	>
 		<h2 class="text-4xl text-base-content">Moje záznamy</h2>
 		<div class="flex-grow" />
-		<a href="/create" class="btn btn-sm btn-primary">Přidat záznam</a>
-		<a href="/backup/import" class="btn btn-ghost btn-sm">Importovat zálohu</a>
-		<a href="/backup/export" class="btn btn-ghost btn-sm">Exportovat zálohu</a>
+		<a href="/create{$page.url.search}" class="btn btn-sm btn-primary">Přidat záznam</a>
+		<a href="/backup/import{$page.url.search}" class="btn btn-ghost btn-sm">Importovat zálohu</a>
+		<a href="/backup/export{$page.url.search}" class="btn btn-ghost btn-sm">Exportovat zálohu</a>
 	</div>
 	<table class="table w-full">
 		<thead class="sticky top-16">
@@ -95,7 +95,7 @@
 					<tr
 						class="hover cursor-pointer animated"
 						style="--delay: {i * 0.1}s"
-						on:click={() => goto(`/record/${record.id}`, { noScroll: true })}
+						on:click={() => goto(`/record/${record.id}${$page.url.search}`, { noScroll: true })}
 					>
 						<th class="text-base-content text-opacity-50 font-bold">{i + 1}</th>
 						<td>{new Date(record.date).toLocaleDateString('cs')}</td>

@@ -6,6 +6,7 @@
 	import FormControl from '@components/FormControl.svelte';
 	import Rating from '@components/Rating.svelte';
 	import Input from '@components/Input.svelte';
+	import { page } from '$app/stores';
 
 	export let data: PageData;
 	export let form: ActionData;
@@ -14,7 +15,7 @@
 </script>
 
 <Sidebar
-	route="/record/{data.record.id}"
+	route="/record/{data.record.id}{$page.url.search}"
 	title="Upravit záznam <br/> {date.toLocaleDateString('cs')}"
 >
 	<form use:enhance method="POST" class="flex flex-col justify-center gap-4">

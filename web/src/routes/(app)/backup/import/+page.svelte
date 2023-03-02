@@ -3,12 +3,13 @@
 	import { enhance } from '$app/forms';
 	import FormControl from '@components/FormControl.svelte';
 	import type { ActionData } from './$types';
+	import { page } from '$app/stores';
 
 	export let form: ActionData;
 </script>
 
 <Sidebar
-	route="/"
+	route="/home{$page.url.search}"
 	title="Importujte soubor"
 	description="Chcete obnovit své záznamy z uložené zálohy?
    S naší funkcí pro import dat to není žádný problém.

@@ -5,11 +5,12 @@
 	import FormControl from '@components/FormControl.svelte';
 	import Rating from '@components/Rating.svelte';
 	import Input from '@components/Input.svelte';
+	import { page } from '$app/stores';
 
 	export let form: import('./$types').ActionData;
 </script>
 
-<Sidebar route="/" title="Nový záznam">
+<Sidebar route="/home{$page.url.search}" title="Nový záznam">
 	{#if form?.error}
 		<div class="text-error mb-4">
 			{form?.error}

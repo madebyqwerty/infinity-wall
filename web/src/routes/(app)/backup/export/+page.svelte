@@ -1,6 +1,7 @@
 <script lang="ts">
 	import Sidebar from '@components/Sidebar.svelte';
 	import { get_date_in_ddmmyyyy } from '@utils/dates';
+	import { page } from '$app/stores';
 
 	async function get_file() {
 		const res = await fetch(`/backup/export/api`, {
@@ -25,7 +26,7 @@
 </script>
 
 <Sidebar
-	route="/"
+	route="/home{$page.url.search}"
 	title="Exportujte zálohu"
 	description="Máte rádi jistotu?
   Tak si uložte všechny své záznamy v podobě CSV souboru!

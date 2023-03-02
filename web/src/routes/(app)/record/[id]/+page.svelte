@@ -4,13 +4,13 @@
 	import type { PageData } from './$types';
 	import { enhance } from '$app/forms';
 	import LanguagePill from '@components/LanguagePill.svelte';
-
+	import { page } from '$app/stores';
 	export let data: PageData;
 	console.log(data);
 </script>
 
 <Sidebar
-	route="/"
+	route="/home{$page.url.search}"
 	title="Záznam ze dne <br/>{new Date(data.record.date).toLocaleDateString('cs')}"
 	description={data.record.description}
 >
@@ -30,7 +30,7 @@
 			</div>
 		</div>
 	</div>
-	<a href="/edit/{data.record.id}" class="link">Upravit záznam</a>
+	<a href="/edit/{data.record.id}{$page.url.search}" class="link">Upravit záznam</a>
 	<!-- <a href="/edit/{data.record.id}" class="btn btn-outline">Upravit záznam</a> -->
 	<form use:enhance method="POST">
 		<input type="hidden" value={data.record.id} name="id" />
