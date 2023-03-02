@@ -17,7 +17,8 @@
 	}
 
 	let sorted_records: RecordsResponse[] = data.records;
-	$: data.records, sorted_records = sorting_functions[selected](data.records)
+	$: data.records, (sorted_records = sorting_functions[selected](data.records));
+
 	let selected: keyof SortingFunctions = 'newest';
 
 	const time = (date: string) => new Date(date).getTime();
@@ -31,9 +32,7 @@
 	};
 
 	function update_sort(type: keyof SortingFunctions = selected) {
-		
 		selected = type;
-		
 	}
 
 	const header = ['Datum', 'Délka', 'Hodnocení'];
@@ -105,19 +104,10 @@
 							<LanguagePill language={record.language ?? ''} />
 						</td>
 					</tr>
-					{:else}
+				{:else}
 					Nenašli jsme žádný záznam
 				{/each}
 			{/key}
 		</tbody>
 	</table>
 </section>
-
-<style>
-	tr.animated {
-		animation: appear 0.5s ease-in-out;
-		animation-fill-mode: forwards;
-		opacity: 0;
-		animation-delay: var(--delay);
-	}
-</style>
