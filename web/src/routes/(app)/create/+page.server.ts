@@ -18,13 +18,13 @@ export const actions: Actions = {
 			time: zfd.numeric(
 				z
 					.number({ required_error: 'Neplatná délka' })
-					.min(1, 'Délka musí být delší než 0')
+					.min(1, 'Délka musí být větší než 0')
 					.max(1440, 'Délka nesmí být více než  jeden den')
 			),
 			rating: zfd.numeric(
 				z
 					.number({ required_error: 'Neplatné hodnocení' })
-					.min(1, 'Hodnocení musí být alespoň jedna hvězda')
+					.min(0, 'Hodnocení musí být alespoň 0')
 					.max(5, 'Hodnocení nesmí být více jak 5 hvězd')
 			),
 			language: z.string({ required_error: 'Neplatný jazyk' }),
@@ -41,8 +41,9 @@ export const actions: Actions = {
 
 			return fail(400, response);
 		}
-
+		console.log(Object.fromEntries(data))
 		try {
+			
 			await locals.pb.collection('records').create(data, { $autoCancel: false });
 		} catch (e) {
 			console.log('idk', e, data, locals.pb.authStore.model?.id);

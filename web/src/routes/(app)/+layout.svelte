@@ -31,7 +31,7 @@
 
 <style>
 	.bg {
-		background: url('/bg.png');
+		background: linear-gradient(155deg, #4776E6 5%, #8E54E9 80%) fixed;
 		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
