@@ -2,7 +2,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import { optional, z } from 'zod';
 import { zfd } from 'zod-form-data';
 import type { Actions } from './$types';
-import isAlphaNumeric from 'validator/lib/isAlphaNumeric';
+import validator from 'validator';
 
 export const actions: Actions = {
 	default: async ({ locals, request, url }) => {
@@ -20,7 +20,8 @@ export const actions: Actions = {
 				.min(2, 'Jméno musí být delší jak 2 znaky'),
 			email: z.string().optional(),
 			username: z
-				.string({ required_error: 'Uživatelské jméno je povinný údaj' }).refine((val) => isAlphaNumeric(val), {
+				.string({ required_error: 'Uživatelské jméno je povinný údaj' })
+				.refine((val) => validator.isAlphanumeric(val), {
 					message: 'Uživatelské jméno musí obsahovat poouze charaktery od a-z a A-Z a čísla od 0-9'
 				}),
 			password: is_create
