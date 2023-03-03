@@ -15,7 +15,7 @@
 	</div>
 
 	<div class="rating rating-lg">
-		<input type="radio" name="rating" bind:group={rating} value={0} class="rating-hidden" />
+		<input type="radio" name="rating" bind:group={rating} value={0} class="rating-hidden" checked />
 		<input
 			type="radio"
 			name="rating"
@@ -36,7 +36,7 @@
 			bind:group={rating}
 			value={3}
 			class="mask mask-star-2 bg-orange-400"
-			checked
+			
 		/>
 		<input
 			type="radio"
