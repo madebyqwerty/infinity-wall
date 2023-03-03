@@ -3,9 +3,7 @@
 	import { page } from '$app/stores';
 	import Stars from '@components/Stars.svelte';
 
-	$: stars = (JSON.parse($page.url.searchParams.get('stars') as string) as number[]) || [
-		0, 1, 2, 3, 4, 5
-	];
+	$: stars = (JSON.parse($page.url.searchParams.get('stars') as string) as number[]) || [];
 
 	async function update_stars(number: number) {
 		if (stars.includes(number)) {
