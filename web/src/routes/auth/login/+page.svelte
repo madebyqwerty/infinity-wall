@@ -17,13 +17,31 @@
 			<h1 class="text-5xl font-bold">
 				Přihlašte se do <br /> <span class="text-primary">UpShop {site_name}</span>
 			</h1>
-			<p class="py-6 xl:max-w-md">
-				Vítejte v aplikaci pro zaznamenávání vašeho osobního růstu a profesionálního rozvoje v rámci
-				naší společnosti UpShop. Prosím, přihlaste se a začněte využívat všech možností, které vám
-				naše aplikace nabízí. Jsme tu pro vás, abychom vám pomohli s vaším růstem a abychom vás
-				podpořili na cestě k dosažení vašich cílů. <br /> <br />
-				Pokud ještě nemáte účet požádejte svého administrátora aby vám účet vytvořil.
-			</p>
+
+			<div class="alert alert-info shadow-lg mt-6">
+				<div>
+					<svg
+						xmlns="http://www.w3.org/2000/svg"
+						fill="none"
+						viewBox="0 0 24 24"
+						class="stroke-current flex-shrink-0 w-6 h-6"
+						><path
+							stroke-linecap="round"
+							stroke-linejoin="round"
+							stroke-width="2"
+							d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+						/></svg
+					>
+					<span>
+						<strong>Verze: <code>{__VERSION__}</code></strong><br />
+						Prosím zkontrolujte že verze opdovídá verzi na
+						<a
+							href="https://github.com/tomaskebrle/up-shop-qwerty/blob/main/web/package.json"
+							class="link text-info-content">Githubu</a
+						>
+					</span>
+				</div>
+			</div>
 		</div>
 		<form
 			class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100"
