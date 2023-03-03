@@ -14,22 +14,33 @@ export const actions: Actions = {
 		data.set('user', locals.pb.authStore.model?.id as string);
 
 		const schema = zfd.formData({
-			date: z.string({ required_error: 'Neplatné datum' }),
+			date: z.string()
+			  .refine(value => {
+				return /[a-zA-Z0-9]/.test(value);
+			  }, {
+				message: 'Neplatné datum'
+			  })
+			  ,
 			time: zfd.numeric(
-				z
-					.number({ required_error: 'Neplatná délka' })
-					.min(1, 'Délka musí být větší než 0')
-					.max(1440, 'Délka nesmí být více než  jeden den')
+			  z.number({ required_error: 'Neplatná délka' })
+			  .min(1, 'Délka musí být větší než 0')
+			  .max(1440, 'Délka nesmí být více než jeden den')
 			),
 			rating: zfd.numeric(
-				z
-					.number({ required_error: 'Neplatné hodnocení' })
-					.min(0, 'Hodnocení musí být alespoň 0')
-					.max(5, 'Hodnocení nesmí být více jak 5 hvězd')
+			  z.number({ required_error: 'Neplatné hodnocení' })
+			  .min(0, 'Hodnocení musí být alespoň 0')
+			  .max(5, 'Hodnocení nesmí být více jak 5 hvězd')
 			),
-			language: z.string({ required_error: 'Neplatný jazyk' }),
-			description: z.string().max(500, 'Popis nesmí být delší než 500 znaků')
-		});
+			language: z.string()
+			  .refine(value => {
+				return /[a-zA-Z0-9]/.test(value);
+			  }, {
+				message: 'Špatný formát jazyku (a-z0-9)'
+			  })
+			  ,
+			description: z.string()
+			  .max(500, 'Popis nesmí být delší než 500 znaků')
+		  });
 
 		let parsed = schema.safeParse(data);
 
@@ -42,7 +53,10 @@ export const actions: Actions = {
 			return fail(400, response);
 		}
 		try {
-			await locals.pb.collection('records').create(data, { $autoCancel: false });
+
+					await locals.pb.collection('records').create(data, { $autoCancel: false });
+		
+			
 		} catch (e) {
 			console.log('idk', e, data, locals.pb.authStore.model?.id);
 			return fail(400, {
