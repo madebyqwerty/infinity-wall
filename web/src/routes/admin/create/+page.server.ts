@@ -17,7 +17,11 @@ export const actions: Actions = {
 		const user_schema = zfd.formData({
 			name: z
 				.string({ required_error: 'Jméno nesmí být prázdné' })
-				.min(2, 'Jméno musí být delší jak 2 znaky'),
+				.min(2, 'Jméno musí být delší jak 2 znaky').refine(value => {
+					return /[a-zA-Z0-9]/.test(value);
+				  }, {
+					message: 'Jméno musí obsahovat platné znaky (a-z0-9)'
+				  }),
 			email: z.string().optional(),
 			username: z
 				.string({ required_error: 'Uživatelské jméno je povinný údaj' })
