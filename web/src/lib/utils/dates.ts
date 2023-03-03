@@ -69,7 +69,7 @@ export function get_date_in_yyyymmdd(date: Date) {
 export function date_to_pocketbase(date: Date | null) {
 	if (date) {
 		date.setUTCHours(0, 0, 0, 0);
-		date.setDate(date.getDate() + 1);
+		date.setDate(date.getDate());
 		return date.toISOString();
 	}
 	return null;
