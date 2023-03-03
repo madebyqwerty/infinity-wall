@@ -7,7 +7,7 @@
 	export let date_string = '';
 	export let date = new Date();
 	export let min: Date | undefined = undefined;
-
+	export let max: Date | undefined = undefined;
 	$: date_string = get_date_in_ddmmyyyy(date);
 </script>
 
@@ -17,6 +17,7 @@
 	closeOnSelection={true}
 	bind:value={date}
 	{min}
+	{max}
 	on:select
 	locale={{
 		months: [

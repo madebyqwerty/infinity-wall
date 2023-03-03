@@ -14,12 +14,12 @@
 	});
 </script>
 
-<div class="drawer-side ">
+<div class="drawer-side">
 	<!-- svelte-ignore a11y-missing-content -->
 	<a href={route} class="drawer-overlay" data-sveltekit-noscroll />
 
 	<div
-		class="p-8 max-w-3xl w-full bg-base-100 text-base-content drawer-side-content fixed h-screen z-40"
+		class="p-8 max-w-3xl w-full bg-base-100 text-base-content drawer-side-content fixed h-screen overflow-y-auto z-40"
 	>
 		<div class="flex xl:items-center">
 			<h2 class="text-4xl mb-4">{@html title}</h2>
