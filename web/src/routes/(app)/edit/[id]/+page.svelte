@@ -33,7 +33,7 @@
 				bind:value={data.record.time}
 			/></FormControl
 		>
-		<Rating rating={data.record.rating} />
+		<Rating value={data.record.rating} />
 
 		<Input
 			label="Programovací jazyk"
