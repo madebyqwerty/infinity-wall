@@ -49,10 +49,12 @@ export const actions: Actions = {
 				});
 			} else {
 				if (!password) data.delete('password');
+				if (password) data.set('passwordConfirm', password);
 
 				await locals.pb.collection('users').update(id as string, data);
 			}
 		} catch (e) {
+			console.log(e);
 			return fail(400, {
 				pocketbase: 'Jejda něco se pokazilo, pořádně zkontrolujte správnost data'
 			});
