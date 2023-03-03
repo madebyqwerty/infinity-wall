@@ -44,10 +44,7 @@
 	];
 </script>
 
-<section
-	id="data"
-	class="bg-base-100 bg-opacity-90 rounded-md p-8 w-full col-span-4 shadow-md h-max"
->
+<section id="data" class="bg-base-100 bg-opacity-90 card p-8 w-full col-span-4 shadow-md h-max">
 	<div
 		class="flex xl:flex-row flex-col xl:items-center gap-2 text-base-content text-opacity-75 mb-4 "
 	>

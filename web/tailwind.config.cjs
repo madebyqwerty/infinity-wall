@@ -29,7 +29,6 @@ module.exports = {
 					'--tab-radius': '2rem' // border radius of tabs
 				}
 			},
-			'corporate',
 			{
 				admin: {
 					primary: '#134E4A',

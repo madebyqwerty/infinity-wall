@@ -30,7 +30,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="flex items-center gap-4 pt-8">
+	<div class="flex items-center pt-8 btn-group">
 		<a href="/edit/{data.record.id}{$page.url.search}" class="btn btn-primary gap-4">
 			<iconify-icon icon="material-symbols:edit" />
 			Upravit záznam

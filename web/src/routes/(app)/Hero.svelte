@@ -8,7 +8,7 @@
 <div class="text-primary-content">
 	<h1 class="text-6xl font-bold text-opacity-90 mb-4 text-white">Vítejte v UpShop Track</h1>
 	{#if data.records.length > 0}
-		<div class="stats shadow">
+		<div class="stats shadow 2xl:stats-horizontal stats-vertical">
 			<div class="stat">
 				<div class="stat-figure text-accent">
 					<iconify-icon icon="mdi:file-document-outline" width={48} />
