@@ -1,6 +1,6 @@
 {
 	"name": "web",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"private": true,
 	"scripts": {
 		"dev": "vite dev --host",
@@ -36,6 +36,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@sentry/node": "^7.40.0",
 		"@types/papaparse": "^5.3.7",
 		"daisyui": "^2.50.0",
 		"iconify-icon": "^1.0.5",

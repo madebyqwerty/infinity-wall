@@ -1,6 +1,12 @@
-import { redirect, type Handle } from '@sveltejs/kit';
+import { redirect, type Handle, type HandleServerError } from '@sveltejs/kit';
 import PocketBase, { type Admin, type Record } from 'pocketbase';
 import { dev } from '$app/environment';
+import * as SentryNode from '@sentry/node';
+import crypto from 'crypto';
+
+SentryNode.init({
+	dsn: 'https://54b087cb81144f03b008d36abf6e2d0b@o4504775532085248.ingest.sentry.io/4504775533461504'
+});
 
 const is_admin = (user: Record | Admin | null) => user?.collectionName === 'admins';
 
@@ -57,4 +63,16 @@ export const handle: Handle = async ({ event, resolve }) => {
 	);
 
 	return response;
+};
+
+export const handleError: HandleServerError = async ({ error, event }) => {
+	const errorId = crypto.randomUUID();
+	SentryNode.captureException(error, {
+		contexts: { sveltekit: { event, errorId } }
+	});
+
+	return {
+		message: "An unexpected error occurred. We're working on it.",
+		errorId
+	};
 };
