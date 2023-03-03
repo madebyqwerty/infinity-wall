@@ -8,6 +8,7 @@ RUN apk add --no-cache \
     # this is needed only if you want to use scp to copy later your pb_data locally
     openssh
 RUN apk add caddy
+RUN apk --no-cache add curl
 
 # Copy your custom PocketBase and build
 COPY ./ /app

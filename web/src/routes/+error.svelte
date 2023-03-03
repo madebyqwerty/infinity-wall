@@ -3,7 +3,7 @@
 </script>
 
 <div class="min-h-screen w-screen flex items-center">
-	<div class="alert alert-error shadow-lg">
+	<div class="alert alert-error shadow-lg max-w-lg">
 		<div>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
