@@ -7,7 +7,7 @@
 <div class="xl:px-96">
 	<div class="flex xl:flex-row flex-col gap-4 items-center justify-between">
 		<h1 class="text-6xl text-base-content my-16">Management uživatelů</h1>
-		<a href="/admin/create" class="btn btn-primary btn-outline">Přidat nového uživatele</a>
+		<a href="/admin/create" class="btn btn-primary">Přidat nového uživatele</a>
 	</div>
 	<table class="table max-w-screen-xl w-full">
 		<thead>

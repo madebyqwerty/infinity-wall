@@ -2,6 +2,7 @@ import { fail, redirect } from '@sveltejs/kit';
 import { optional, z } from 'zod';
 import { zfd } from 'zod-form-data';
 import type { Actions } from './$types';
+import isAlphaNumeric from 'validator/lib/isAlphaNumeric';
 
 export const actions: Actions = {
 	default: async ({ locals, request, url }) => {
@@ -11,12 +12,17 @@ export const actions: Actions = {
 		const user_id = url.searchParams.get('edit');
 		const is_create = user_id === null;
 
+		console.log(username);
+
 		const user_schema = zfd.formData({
 			name: z
 				.string({ required_error: 'Jméno nesmí být prázdné' })
 				.min(2, 'Jméno musí být delší jak 2 znaky'),
 			email: z.string().optional(),
-			username: z.string().optional(),
+			username: z
+				.string({ required_error: 'Uživatelské jméno je povinný údaj' }).refine((val) => isAlphaNumeric(val), {
+					message: 'Uživatelské jméno musí obsahovat poouze charaktery od a-z a A-Z a čísla od 0-9'
+				}),
 			password: is_create
 				? z.string().min(8, 'Heslo musí mít minimálně 8 znaků')
 				: optional(z.string())
@@ -30,19 +36,25 @@ export const actions: Actions = {
 			return fail(400, response);
 		}
 
-		if (is_create) {
-			console.log(data);
-			await locals.pb.collection('users').create({
-				password,
-				name,
-				username,
-				email,
-				passwordConfirm: password
-			});
-		} else {
-			if (!password) data.delete('password');
+		try {
+			if (is_create) {
+				console.log(data);
+				await locals.pb.collection('users').create({
+					password,
+					name,
+					username,
+					email,
+					passwordConfirm: password
+				});
+			} else {
+				if (!password) data.delete('password');
 
-			await locals.pb.collection('users').update(id as string, data);
+				await locals.pb.collection('users').update(id as string, data);
+			}
+		} catch (e) {
+			return fail(400, {
+				pocketbase: 'Jejda něco se pokazilo, pořádně zkontrolujte správnost data'
+			});
 		}
 
 		throw redirect(303, '/admin');

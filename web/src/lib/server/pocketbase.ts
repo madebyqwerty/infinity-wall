@@ -12,7 +12,7 @@ export const start = async (url: string) => {
 	const pocketbase_URL = dev ? 'http://127.0.0.1:8090' : `http://${new URL(url).host}`;
 	const pb = new PocketBase(pocketbase_URL);
 
-	pb.collection('admins').authWithPassword('admin', '123456');
+	pb.admins.authWithPassword("admin@upshop.cz", "1234567890")
 
 	return pb;
 };

@@ -19,9 +19,16 @@
 	$: email_error = form?.email?.at(0) || '';
 	$: username_error = form?.username?.at(0) || '';
 	$: password_error = form?.password?.at(0) || '';
+	$: pocketbase_error = form?.pocketbase || '';
 </script>
 
 <Sidebar {title} route="/admin">
+	{#if pocketbase_error}
+		<div class="alert alert-error">
+			{pocketbase_error}
+		</div>
+	{/if}
+
 	<form use:enhance method="POST" class="flex flex-col gap-4" on:submit={() => invalidate('admin')}>
 		<input type="hidden" value={data.user?.id} name="id" />
 		<Input
