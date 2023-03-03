@@ -16,7 +16,7 @@
 			{form?.error}
 		</div>
 	{/if}
-	<form method="POST" class="flex flex-col justify-center w-full gap-4">
+	<form use:enhance method="POST" class="flex flex-col justify-center w-full gap-4">
 		<Dateinput max={new Date()} />
 
 		<FormControl label="Délka záznamu" error={form?.errors?.time}
