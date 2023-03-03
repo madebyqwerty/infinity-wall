@@ -13,6 +13,12 @@ func init() {
 
 		dao := daos.New(db)
 
+		admin := &models.Admin{}
+
+		admin.SetPassword("1234567890")
+		admin.Email = "admin@upshop.cz"
+		dao.SaveAdmin(admin)
+
 		collection, err := dao.FindCollectionByNameOrId("admins")
 
 		if err != nil {
@@ -21,7 +27,7 @@ func init() {
 
 		record := models.NewRecord(collection)
 
-		if dao.IsRecordValueUnique("admins", "email", "admin@upshop.cz") && dao.IsRecordValueUnique("admins", "username", "admin") {
+		if dao.IsRecordValueUnique("admins", "email", "admin@upshop.cz") {
 
 			record.SetEmail("admin@upshop.cz")
 			record.SetPassword("123456")
@@ -35,6 +41,16 @@ func init() {
 		return nil
 	}, func(db dbx.Builder) error {
 		// add down queries...
+		dao := daos.New(db)
+
+		admin, err := dao.FindAdminByEmail("admin@uphshop.cz")
+		if err != nil {
+			return err
+		}
+
+		if err := dao.DeleteAdmin(admin); err != nil {
+			return err
+		}
 
 		return nil
 	})

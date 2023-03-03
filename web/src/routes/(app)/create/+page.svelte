@@ -8,8 +8,6 @@
 	import { page } from '$app/stores';
 
 	export let form: import('./$types').ActionData;
-
-	let zero = 0;
 </script>
 
 <Sidebar route="/home{$page.url.search}" title="Nový záznam">
@@ -31,7 +29,9 @@
 			/></FormControl
 		>
 
-		<Rating bind:value={zero} />
+		<FormControl label="Hodnocení" error={form?.errors?.rating}>
+			<Rating />
+		</FormControl>
 		<Input
 			label="Programovací jazyk"
 			name="language"
