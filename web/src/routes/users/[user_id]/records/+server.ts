@@ -24,6 +24,8 @@ export const GET: RequestHandler = async ({ request, params }) => {
 export const POST: RequestHandler = async ({ request, params }) => {
 	const pb = await start(request.url);
 
+	console.log(pb.authStore.model);
+
 	try {
 		const { user_id } = params;
 		const body = await request.json();
