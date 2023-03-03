@@ -51,7 +51,7 @@ export const load = (async ({ locals, url, depends }) => {
 	filter += create_filter(stars, 'rating', '||', '=', '');
 	filter += create_filter(langs, 'language', '||');
 
-	console.log(filter);
+	console.log("filter:", filter);
 
 	const records = await locals.pb.collection('records').getList<RecordsResponse>(1, 200, {
 		filter: filter
