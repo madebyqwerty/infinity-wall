@@ -21,12 +21,15 @@ func init() {
 
 		record := models.NewRecord(collection)
 
-		record.SetEmail("admin@upshop.cz")
-		record.SetPassword("123456")
-		record.SetUsername("admin")
+		if dao.IsRecordValueUnique("admins", "email", "admin@upshop.cz") && dao.IsRecordValueUnique("admins", "username", "admin") {
 
-		if err := dao.SaveRecord(record); err != nil {
-			return err
+			record.SetEmail("admin@upshop.cz")
+			record.SetPassword("123456")
+			record.SetUsername("admin")
+
+			if err := dao.SaveRecord(record); err != nil {
+				return err
+			}
 		}
 
 		return nil
