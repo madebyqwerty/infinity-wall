@@ -19,7 +19,7 @@
 	title="Upravit záznam <br/> {date.toLocaleDateString('cs')}"
 >
 	<form use:enhance method="POST" class="flex flex-col justify-center gap-4">
-		<Dateinput />
+		<Dateinput max={new Date()} />
 
 		<input type="hidden" bind:value={data.record.id} name="id" />
 

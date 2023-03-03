@@ -62,7 +62,7 @@
 							Nepodařilo se nám importovat záznam{form.errors.length > 1 ? 'y' : ''}
 						</div>
 					</div>
-					<ul class="pl-1 pt-2">
+					<ul class="pl-1 pt-2 flex flex-col">
 						{#each form.errors as error}
 							<li class="text-error-content">
 								<span class="font-bold">Řádek:</span>
