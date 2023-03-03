@@ -1,5 +1,5 @@
 import type { RecordsResponse } from '@pocketbase/types';
-import { get_date_in_ddmmyyyy } from '@utils/dates';
+import { get_date_in_ddmmyyyy, get_date_in_yyyymmdd } from '@utils/dates';
 import type { RequestHandler } from './$types';
 import Papa from 'papaparse';
 
@@ -23,9 +23,9 @@ export const GET: RequestHandler = async ({ locals }) => {
 		status: 200,
 		headers: {
 			'Content-Type': 'text/csv',
-			'Content-Disposition': `attachment; filename=${
-				locals.user?.username
-			}-${new Date().getFullYear()}-${new Date().getMonth() + 1}-${new Date().getDate()}.csv`
+			'Content-Disposition': `attachment; filename=${locals.user?.username}-${get_date_in_yyyymmdd(
+				new Date()
+			)}.csv`
 		}
 	});
 };
