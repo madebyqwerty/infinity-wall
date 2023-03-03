@@ -54,7 +54,7 @@ export const load = (async ({ locals, url, depends }) => {
 	console.log("filter:", filter);
 
 	const records = await locals.pb.collection('records').getList<RecordsResponse>(1, 200, {
-		filter: filter
+		filter: filter, autocancel: false
 	});
 
 	let usage_data = {
