@@ -1,5 +1,6 @@
 <script>
 
+
     export let data;
     console.log(data)
 
@@ -68,9 +69,12 @@ console.log(dateDiff(now, new Date(data.systemInfo.boot_time)));
         
         
         
-        <div class="stats shadow max-h-36">
+        <div class="stats shadow max-h-36 rounded-2xl">
           
             <div class="stat place-items-center">
+                <div class="stat-figure text-secondary">
+                    <iconify-icon width="50" icon="material-symbols:nest-clock-farsight-analog-outline"></iconify-icon>
+                   </div>
               <div class="stat-title">Čas bootu</div>
               <div class="stat-value">{`${dateDiff(new Date(data.systemInfo.boot_time),now).day}d ${dateDiff(new Date(data.systemInfo.boot_time),now).hour}h`}</div>
               <div class="stat-desc">{new Date(data.systemInfo.boot_time).toLocaleDateString("cs") + " " + new Date(data.systemInfo.boot_time).toLocaleTimeString("cs")}</div>
@@ -80,6 +84,9 @@ console.log(dateDiff(now, new Date(data.systemInfo.boot_time)));
             
             
               <div class="stat place-items-center">
+                <div class="stat-figure text-secondary">
+                    <iconify-icon width="50" icon="material-symbols:auto-awesome-mosaic"></iconify-icon>
+                   </div>
                 <div class="stat-title">Platforma</div>
                 <div class="stat-value">{data.systemInfo.platform.length>10?data.systemInfo.platform.slice(0,10)+"...":data.systemInfo.platform}</div>
                 <div class="stat-desc">{data.systemInfo.platform}</div>
@@ -87,13 +94,20 @@ console.log(dateDiff(now, new Date(data.systemInfo.boot_time)));
               
             
           </div>
-          <div class="stats shadow max-h-36"><div class="stat place-items-center">
+          <div class="stats shadow max-h-36 rounded-2xl"><div class="stat place-items-center">
+            <div class="stat-figure text-secondary">
+                <iconify-icon width="50" icon="mdi:harddisk"></iconify-icon>
+               </div>
                 <div class="stat-title">Využití disku</div>
                 <div class="stat-value">{data.systemInfo.disk_usage}%</div>
-              </div><div class="stat place-items-center">
+              </div><div class="stat place-items-center">  <div class="stat-figure text-secondary">
+                <iconify-icon width="50" icon="bi:memory"></iconify-icon>
+               </div>
                 <div class="stat-title">Zátěž RAM</div>
                 <div class="stat-value">{data.systemInfo.ram_usage}%</div>
-              </div><div class="stat place-items-center">
+              </div><div class="stat place-items-center">  <div class="stat-figure text-secondary">
+                <iconify-icon width="50" icon="ph:cpu"></iconify-icon>
+               </div>
               <div class="stat-title">Zátěž CPU</div>
               <div class="stat-value">{data.systemInfo.cpu_load.toString().length>5?data.systemInfo.cpu_load.toString().slice(0,5)+"..":data.systemInfo.cpu_load}%</div>
 
@@ -108,7 +122,7 @@ console.log(dateDiff(now, new Date(data.systemInfo.boot_time)));
         <div class="couple relative flex flex-row justify-between items-end" style={`width:100%;height:100%;`}>
             <div class="bar box-border bg-blue-600" style="height:{users[user][0].commits.length/usersMax*100}%;width:100%;"></div>
             <div class="name">{users[user][0].commits.length}</div>
-            <img class="avatar" src={users[user][0].avatar_url} alt="">
+            <div class="tooltip avatar4" data-tip={users[user][0].nick}><img src="{users[user][0].avatar_url}" alt="" class="avatar2"></div>
         </div>
         
             
@@ -121,7 +135,7 @@ console.log(dateDiff(now, new Date(data.systemInfo.boot_time)));
     <div class="bar box-border bg-green-600" style="height:{commit.commit.lines_added/commitMax*100}%;width:80%;"></div>
     <div class="bar box-border bg-red-600" style="height:{commit.commit.lines_removed/commitMax*100}%;width:80%;"></div>
     <div class="name">{new Date(commit.commit.date).toLocaleDateString("cs").slice(0,-5).replace(" ", "")} {`${new Date(commit.commit.date).getHours().toString().padStart(2, '0')}:${new Date(commit.commit.date).getMinutes().toString().padStart(2, '0')}`}<br/>{"+"+commit.commit.lines_added.toString()+" -"+commit.commit.lines_removed.toString()}</div>
-    <img src="{commit.user.avatar_url}" alt="" class="avatar2">
+    <div class="tooltip avatar3" data-tip={users[commit.user.userID][0].nick}><img src="{commit.user.avatar_url}" alt="" class="avatar2"></div>
 </div>
 
     
@@ -156,9 +170,28 @@ console.log(dateDiff(now, new Date(data.systemInfo.boot_time)));
     }
     .avatar2{
         position:absolute;
+        top:0;
+        left:0;
+        width: 25px;
+        height: 25px;
+        border-radius:10px;
+        
+    }
+    .avatar3{
+        position:absolute;
         bottom:0;
         left:50%;
         transform:translate(-50%,250%);
+        width: 25px;
+        height: 25px;
+        border-radius:10px;
+        
+    }
+    .avatar4{
+        position:absolute;
+        bottom:0;
+        left:50%;
+        transform:translate(-50%,200%);
         width: 25px;
         height: 25px;
         border-radius:10px;
