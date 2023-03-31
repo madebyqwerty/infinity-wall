@@ -4,7 +4,7 @@ export const load = async ({ fetch }) => {
         'accept': 'application/json',
         'x-access-token': 'a4ced53e5ce70b738f88b70113bc806d'
     }
-    const commits_request = await fetch('https://tda.knapa.cz/commit/', {
+    const commits_request = await fetch('https://tda.knapa.cz/commit/latest/50', {
         method: 'GET',
         headers
     });
@@ -30,7 +30,7 @@ export const load = async ({ fetch }) => {
     
     let users = []
     raw_users.forEach((element:any) => {
-        users = users.concat({element, "commits": commits[element["userID"]]})
+        users = users.concat({"user": element, "commits": commits[element["userID"]]})
     })
     
     return {
