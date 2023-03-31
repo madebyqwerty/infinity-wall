@@ -10,6 +10,7 @@
 	export let id;
 	export let body: string;
 	export let author: string;
+	export let date;
 
 	let element;
 	let editor;
@@ -74,6 +75,8 @@
 	<div class="focus:outline-none focus:ring-0" bind:this={element} />
 
 	<em>-{author}</em>
+	<br />
+	<em>{date.toLocaleDateString('cs')}</em>
 
 	<div class="card-actions">
 		<button class="btn btn-circle btn-ghost btn-sm z-10" on:click={handleDelete}>
@@ -85,5 +88,9 @@
 <style>
 	:global(h1) {
 		@apply text-2xl;
+	}
+
+	:global(ul) {
+		@apply list-disc;
 	}
 </style>
