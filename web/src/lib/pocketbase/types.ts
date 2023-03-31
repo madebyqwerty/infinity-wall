@@ -4,7 +4,7 @@
 
 export enum Collections {
 	Admins = "admins",
-	Records = "records",
+	Notes = "notes",
 	Users = "users",
 }
 
@@ -36,13 +36,12 @@ export type AdminsRecord = {
 
 }
 
-export type RecordsRecord = {
-	time: number
-	rating: number
-	description?: string
-	user: RecordIdString
-	date: IsoDateString
-	language?: string
+export type NotesRecord = {
+	author: string
+	body: string
+	x?: number
+	y?: string
+	theme?: string
 }
 
 export type UsersRecord = {
@@ -52,11 +51,11 @@ export type UsersRecord = {
 
 // Response types include system fields and match responses from the PocketBase API
 export type AdminsResponse = AdminsRecord & AuthSystemFields
-export type RecordsResponse<Texpand = unknown> = RecordsRecord & BaseSystemFields<Texpand>
+export type NotesResponse = NotesRecord & BaseSystemFields
 export type UsersResponse = UsersRecord & AuthSystemFields
 
 export type CollectionRecords = {
 	admins: AdminsRecord
-	records: RecordsRecord
+	notes: NotesRecord
 	users: UsersRecord
 }
