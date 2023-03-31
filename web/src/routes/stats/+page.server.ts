@@ -1,31 +1,57 @@
 
-export const load: PageLoad = async ({fetch}) => {
+export const load = async ({ fetch }) => {
+    const headers: HeadersInit = {
+        'accept': 'application/json',
+        'x-access-token': 'a4ced53e5ce70b738f88b70113bc806d'
+    }
+    const commits_request = await fetch('https://tda.knapa.cz/commit', {
+        method: 'GET',
+        headers
+    });
+    const raw_commits = await commits_request.json();
+    
+    const users_request = await fetch('https://tda.knapa.cz/user/', {
+        method: 'GET',
+        headers
+    });
+    const raw_users = await users_request.json();
+    
+    const sysinfo_request = await fetch('https://tda.knapa.cz/sysinfo/', {
+        method: 'GET',
+        headers
+    });
+    const sysinfo = await sysinfo_request.json();
+    
+    let commits_by_id = {}
+    raw_commits.forEach((element:any) => {
+        commits_by_id[element["creator_id"]] ??= [element]
+        commits_by_id[element["creator_id"]] = [...commits_by_id[element["creator_id"]], element]
+    });
+    
+    let users = {}
+    raw_users.forEach((element:any) => {
+        users[element["userID"]] = [element]
+        users[element["userID"]][0].commits = commits_by_id[element["userID"]]?commits_by_id[element["userID"]]: []
+    })
+
+    let commits = []
+    raw_commits.forEach((element:any) => {
+        commits = commits.concat({
+            "commit": element, 
+            "user": {
+                "name": users[element["creator_id"]][0]["name"],
+                "surname": users[element["creator_id"]][0]["surname"],
+                "nick": users[element["creator_id"]][0]["nick"],
+                "avatar_url": users[element["creator_id"]][0]["avatar_url"],
+                "userID": users[element["creator_id"]][0]["userID"],
+                "commits": commits_by_id[element["creator_id"]].length
+            }
+        })
+    })
+    
     return {
-        commits:[
-            {
-                id: '1',
-                author: 'John Doe',
-                datum: '2020-01-01',
-                lines_added: 10,
-                lines_removed: 5,
-                description: 'Added a new feature'
-            }
-        ],
-        users:[
-            {
-                id: '1',
-                name: 'John',
-                surname: 'Doe',
-                nickname: 'johndoe',
-                avatar_url: 'https://avatars0.githubusercontent.com/u/1?v=4',
-            }
-        ],
-        systemInfo:{
-            boot_time: '2020-01-01',
-            cpu_load: 0.5,
-            ram: 8,
-            platform: 'linux',
-            disk_usage: 0.5,
-        }
+        commits: commits,
+        users: users,
+        systemInfo: sysinfo
     }
 };
