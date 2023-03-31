@@ -4,6 +4,8 @@
 	import StarterKit from '@tiptap/starter-kit';
 	import { pb } from '@pocketbase';
 	import { editing } from '@utils/editingstore';
+	import Edit from './Edit.svelte';
+	import { invalidateAll } from '$app/navigation';
 
 	export let id;
 	export let body: string;
@@ -12,15 +14,27 @@
 	let element;
 	let editor;
 
+	let isEdit = false;
+
 	onMount(() => {
 		editor = new Editor({
 			element: element,
 			extensions: [StarterKit],
-			content: body,
+			content: body ? JSON.parse(body) : '',
+			editable: true,
+			editorProps: {
+				attributes: {
+					class: 'focus:outline-none focus:ring-0'
+				}
+			},
 			onTransaction: ({ editor }) => {
 				// force re-render so `editor.isActive` works as expected
 				editor = editor;
-				pb.collection('notes');
+				pb.collection('notes').update(
+					id,
+					{ body: JSON.stringify(editor.getJSON()) },
+					{ $autoCancel: false }
+				);
 			}
 		});
 	});
@@ -30,15 +44,26 @@
 			editor.destroy();
 		}
 	});
+
+	async function handleDelete() {
+		await pb.collection('notes').delete(id);
+		await invalidateAll();
+	}
 </script>
 
-<button class="btn btn-circle">
-	<iconify-icon icon="mdi:dots-vertical" />
-</button>
+<div class="card-body p-2">
+	<div class="focus:outline-none focus:ring-0" bind:this={element} />
 
-<div bind:this={element} />
+	<em>-{author}</em>
 
-{author}
+	<div class="card-actions z-50">
+		<button class="btn btn-circle btn-ghost btn-sm" on:click={handleDelete}>
+			<iconify-icon icon="material-symbols:delete-outline" />
+		</button>
+	</div>
+</div>
+
+<Edit bind:isOpen={isEdit} />
 
 <style>
 	:global(h1) {

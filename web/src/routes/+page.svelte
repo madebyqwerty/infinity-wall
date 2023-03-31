@@ -33,7 +33,7 @@
 		// calculateBounds();
 	});
 
-	let boardData = data.notes.map((note) => {
+	$: boardData = data.notes.map((note) => {
 		return {
 			id: note.id,
 			x: note.x,
