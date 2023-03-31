@@ -7,6 +7,7 @@
 	import { browser } from '$app/environment';
 	import Note from './Note.svelte';
 	import NoteInner from './NoteInner.svelte';
+	import { pb } from '@pocketbase';
 
 	let areaElt: HTMLElement | null = null;
 	let bounds = { width: 0, height: 0 };
@@ -14,6 +15,8 @@
 	let offsetY = 0;
 	let scale = 1;
 	let panzoomInstance: HTMLElement | null = null;
+
+	export let data;
 
 	const calculateBounds = () => {
 		if (areaElt) {
@@ -30,28 +33,31 @@
 		// calculateBounds();
 	});
 
-	let data = [
-		{
-			id: 'one',
-			x: 20,
-			y: 150,
+	let boardData = data.notes.map((note) => {
+		return {
+			id: note.id,
+			x: note.x,
+			y: note.y,
 			props: {
-				body: 'Tohle je test',
-				author: 'Peter'
+				body: note.body,
+				author: note.author,
+				id: note.id
 			},
-			links: [
-				{ id: 'two', props: { text: 'testing 123' } },
-				{ id: 'four', props: { text: 'one to four, baby' } }
-			]
-		}
-	];
+			links: []
+		};
+	});
 
 	const handleDragStart = (e) => {
 		console.log('drag start');
 	};
 	const handleDragEnd = (e) => {
 		console.log('drag end', e);
-		data = data.map((elt) => {
+		pb.collection('notes').update(
+			e.detail.id,
+			{ x: e.detail.x, y: e.detail.y },
+			{ $$autoCancel: false }
+		);
+		boardData = boardData.map((elt) => {
 			if (elt.id === e.detail.id) {
 				elt.x = e.detail.x;
 				elt.y = e.detail.y;
@@ -78,13 +84,12 @@
 	};
 
 	const handleCreateUnit = () => {
-		data = [
-			...data,
+		boardData = [
+			...boardData,
 			{
 				id: data.length + 1,
 				x: offsetX,
 				y: offsetY,
-				text: 'a new unit',
 				links: []
 			}
 		];
@@ -140,9 +145,9 @@
 </script>
 
 {#if browser}
-	<div class="area" bind:this={areaElt}>
+	<div class="area !max-w-screen-sm !max-h-screen" bind:this={areaElt}>
 		<Canvas
-			{data}
+			data={boardData}
 			OuterComponent={Note}
 			InnerComponent={NoteInner}
 			on:dragstart={handleDragStart}
@@ -150,8 +155,8 @@
 			on:offsetchange={handleOffset}
 			on:scalechange={handleScale}
 			bind:panzoomInstance
-			x={2000}
-			y={2000}
+			x={1080}
+			y={1920}
 		/>
 	</div>
 {/if}

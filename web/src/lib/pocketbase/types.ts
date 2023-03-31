@@ -39,8 +39,8 @@ export type AdminsRecord = {
 export type NotesRecord = {
 	author: string
 	body: string
-	positionX?: number
-	positionY?: string
+	x?: number
+	y?: string
 	theme?: string
 }
 

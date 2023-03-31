@@ -37,6 +37,9 @@
 	"type": "module",
 	"dependencies": {
 		"@sentry/node": "^7.40.0",
+		"@tiptap/core": "^2.0.1",
+		"@tiptap/pm": "^2.0.1",
+		"@tiptap/starter-kit": "^2.0.1",
 		"@types/papaparse": "^5.3.7",
 		"daisyui": "^2.50.0",
 		"iconify-icon": "^1.0.5",
