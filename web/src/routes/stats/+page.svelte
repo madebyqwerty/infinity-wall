@@ -1,4 +1,7 @@
 <script>
+	import { invalidateAll } from '$app/navigation';
+
+
 
 
     export let data;
@@ -59,6 +62,11 @@ function dateDiff(date1, date2) {
 }
 let now =  new Date();
 console.log(dateDiff(now, new Date(data.systemInfo.boot_time)));
+
+setInterval(async ()=>{
+    await invalidateAll();
+    console.log("refreshed")
+},25000)
 </script>
 
 <div id="container">
@@ -109,7 +117,7 @@ console.log(dateDiff(now, new Date(data.systemInfo.boot_time)));
                 <iconify-icon width="50" icon="ph:cpu"></iconify-icon>
                </div>
               <div class="stat-title">Zátěž CPU</div>
-              <div class="stat-value">{data.systemInfo.cpu_load.toString().length>5?data.systemInfo.cpu_load.toString().slice(0,5)+"..":data.systemInfo.cpu_load}%</div>
+              <div class="stat-value">{data.systemInfo.cpu_load.toString().length>5? (data.systemInfo.cpu_load*100).toString().slice(0,5)+"..":data.systemInfo.cpu_load*100}%</div>
 
             </div></div>
         </section>
