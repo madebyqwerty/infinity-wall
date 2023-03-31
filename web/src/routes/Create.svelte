@@ -22,6 +22,11 @@
 			return;
 		}
 
+		if (name.startsWith(' ')) {
+			error = 'Jméno nemůže začínat mezerou';
+			return;
+		}
+
 		await pb.collection('notes').create({
 			author: name,
 			y: 100,
