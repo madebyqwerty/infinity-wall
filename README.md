@@ -6,7 +6,7 @@
 
 ## Funkce
 
-- Funguje Markdown editor 
+- Funguje Markdown editor / shortcuty Ctrl + b Ctrl + i
 - Nástěnka je nekonečná
 - Za note se dá potáhnout při okraji
 - Kolečkem se zoomuje

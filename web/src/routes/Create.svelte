@@ -45,6 +45,6 @@
 
 <Modal bind:open={isOpen}>
 	<h1 class="text-5xl">Vytvořit nový lístek</h1>
-	<Input label="Jméno" {error} name="name" type="text" bind:value={name} placeholder="Martin" />
+	<Input label="Jméno" {error} name="name" bind:value={name} placeholder="Martin" />
 	<button class="btn btn-primary" on:click={handleCreate}>Vytvořit</button>
 </Modal>

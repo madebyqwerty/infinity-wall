@@ -44,7 +44,8 @@
 			props: {
 				body: note.body,
 				author: note.author,
-				id: note.id
+				id: note.id,
+				date: new Date(note.created)
 			},
 			links: []
 		};
