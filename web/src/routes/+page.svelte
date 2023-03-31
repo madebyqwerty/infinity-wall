@@ -153,6 +153,9 @@
 			<button class="btn btn-circle" on:click={() => (isOpen = true)}>
 				<iconify-icon icon="material-symbols:add-circle-outline" width={32} />
 			</button>
+			<a class="btn btn-circle mt-2" href="/stats">
+				<iconify-icon icon="ion:ios-stats" width={32} />
+			</a>
 			<Create bind:isOpen />
 		</div>
 		<div class="area max-w-screen max-h-screen" bind:this={areaElt}>
