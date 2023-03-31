@@ -4,6 +4,14 @@
 2. Daniel Ransdorf
 3. Václav Parma
 
+## Funkce
+
+- Funguje Markdown editor 
+- Nástěnka je nekonečná
+- Za note se dá potáhnout při okraji
+- Kolečkem se zoomuje
+- Zmačknutím myši se posunuje
+
 ## Jak spustit
 
 `cd web`

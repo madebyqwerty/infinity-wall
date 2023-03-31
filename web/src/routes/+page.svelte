@@ -153,7 +153,7 @@
 
 {#if browser}
 	<div class="grid ">
-		<div class="h-screen bg-base-200 p-2">
+		<div class="h-screen bg-base-200 p-2 z-50">
 			<button class="btn btn-circle" on:click={() => (isOpen = true)}>
 				<iconify-icon icon="material-symbols:add-circle-outline" width={32} />
 			</button>
