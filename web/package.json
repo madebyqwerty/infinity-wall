@@ -38,6 +38,7 @@
 	"dependencies": {
 		"@sentry/node": "^7.40.0",
 		"@tiptap/core": "^2.0.1",
+		"@tiptap/extension-character-count": "^2.0.1",
 		"@tiptap/pm": "^2.0.1",
 		"@tiptap/starter-kit": "^2.0.1",
 		"@types/papaparse": "^5.3.7",
