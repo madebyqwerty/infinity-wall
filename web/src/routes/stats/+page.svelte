@@ -61,6 +61,7 @@ console.log(dateDiff(now, new Date(data.systemInfo.boot_time)));
 </script>
 
 <div id="container">
+    <a href="/" class="abso"> &#60;</a>
     <section class="flex flex-col text-center justify-center gap-8 mx-auto"><h2  class="text-3xl flex-1">
         System Info
         </h2> 
@@ -132,6 +133,17 @@ console.log(dateDiff(now, new Date(data.systemInfo.boot_time)));
 
 
 <style>
+    .abso{
+        position:absolute;
+        top:0;
+        left:0;
+        font-size:2rem;
+        padding:1rem;
+        cursor:pointer;
+        width:3rem;
+        height:3rem;
+        border-radius:50%;
+    }
     .avatar{
         position:absolute;
         bottom:0;
