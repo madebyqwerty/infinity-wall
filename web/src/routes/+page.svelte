@@ -9,6 +9,8 @@
 	import NoteInner from './NoteInner.svelte';
 	import { pb } from '@pocketbase';
 	import Create from './Create.svelte';
+	import { invalidateAll } from '$app/navigation';
+	import { editing } from '@utils/editingstore';
 
 	let areaElt: HTMLElement | null = null;
 	let bounds = { width: 0, height: 0 };
@@ -49,10 +51,12 @@
 	});
 
 	const handleDragStart = (e) => {
+		$editing = true;
 		console.log('drag start');
 	};
 	const handleDragEnd = (e) => {
 		console.log('drag end', e);
+		$editing = false;
 		pb.collection('notes').update(
 			e.detail.id,
 			{ x: e.detail.x, y: e.detail.y },

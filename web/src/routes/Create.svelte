@@ -31,6 +31,7 @@
 		await invalidateAll();
 
 		error = '';
+		name = '';
 		isOpen = false;
 	}
 

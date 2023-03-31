@@ -34,6 +34,12 @@
 					{ body: JSON.stringify(editor.getJSON()) },
 					{ $autoCancel: false }
 				);
+			},
+			onFocus: () => {
+				$editing = true;
+			},
+			onBlur: () => {
+				$editing = false;
 			}
 		});
 	});
@@ -55,7 +61,7 @@
 
 	<em>-{author}</em>
 
-	<div class="card-actions z-50">
+	<div class="card-actions">
 		<button class="btn btn-circle btn-ghost btn-sm" on:click={handleDelete}>
 			<iconify-icon icon="material-symbols:delete-outline" />
 		</button>
