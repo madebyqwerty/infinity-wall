@@ -6,6 +6,7 @@
 	import Canvas from 'svelte-infinite-canvas';
 	import { browser } from '$app/environment';
 	import Note from './Note.svelte';
+	import NoteInner from './NoteInner.svelte';
 
 	let areaElt: HTMLElement | null = null;
 	let bounds = { width: 0, height: 0 };
@@ -34,8 +35,14 @@
 			id: 'one',
 			x: 20,
 			y: 150,
-			text: 'Tohle je první text',
-			author: 'Petr'
+			props: {
+				body: 'Tohle je test',
+				author: 'Peter'
+			},
+			links: [
+				{ id: 'two', props: { text: 'testing 123' } },
+				{ id: 'four', props: { text: 'one to four, baby' } }
+			]
 		}
 	];
 
@@ -138,6 +145,7 @@
 		<Canvas
 			{data}
 			OuterComponent={Note}
+			InnerComponent={NoteInner}
 			on:dragstart={handleDragStart}
 			on:dragend={handleDragEnd}
 			on:offsetchange={handleOffset}
@@ -145,14 +153,6 @@
 			bind:panzoomInstance
 			x={2000}
 			y={2000}
-		>
-			<div slot="controls" class="controls">
-				<button on:click={handleCreateUnit}>Create new unit</button>
-				<div>
-					<button on:click={zoomIn}>+ Zoom in</button>
-					<button on:click={zoomOut}>- Zoom out</button>
-				</div>
-			</div>
-		</Canvas>
+		/>
 	</div>
 {/if}

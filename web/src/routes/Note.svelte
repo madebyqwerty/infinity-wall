@@ -3,6 +3,7 @@
 
 	<div class="card-body">
 		<div class="text"><slot name="text" /></div>
+		<div class="links"><slot name="linkStarter" /></div>
 	</div>
 </div>
 
