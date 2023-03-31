@@ -4,7 +4,6 @@
 	import StarterKit from '@tiptap/starter-kit';
 	import { pb } from '@pocketbase';
 	import { editing } from '@utils/editingstore';
-	import Edit from './Edit.svelte';
 	import { invalidateAll } from '$app/navigation';
 
 	export let id;
@@ -24,7 +23,7 @@
 			editable: true,
 			editorProps: {
 				attributes: {
-					class: 'focus:outline-none focus:ring-0'
+					class: 'focus:outline-none focus:ring-0 p-2'
 				}
 			},
 			onTransaction: ({ editor }) => {
@@ -51,7 +50,7 @@
 	}
 </script>
 
-<div class="card-body p-2">
+<div class="card-body p-4">
 	<div class="focus:outline-none focus:ring-0" bind:this={element} />
 
 	<em>-{author}</em>
@@ -62,8 +61,6 @@
 		</button>
 	</div>
 </div>
-
-<Edit bind:isOpen={isEdit} />
 
 <style>
 	:global(h1) {

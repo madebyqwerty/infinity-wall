@@ -8,6 +8,7 @@
 	import Note from './Note.svelte';
 	import NoteInner from './NoteInner.svelte';
 	import { pb } from '@pocketbase';
+	import Create from './Create.svelte';
 
 	let areaElt: HTMLElement | null = null;
 	let bounds = { width: 0, height: 0 };
@@ -142,21 +143,37 @@
 			right: right
 		});
 	};
+
+	let isOpen = false;
 </script>
 
 {#if browser}
-	<div class="area !max-w-screen-sm !max-h-screen" bind:this={areaElt}>
-		<Canvas
-			data={boardData}
-			OuterComponent={Note}
-			InnerComponent={NoteInner}
-			on:dragstart={handleDragStart}
-			on:dragend={handleDragEnd}
-			on:offsetchange={handleOffset}
-			on:scalechange={handleScale}
-			bind:panzoomInstance
-			x={1080}
-			y={1920}
-		/>
+	<div class="grid ">
+		<div class="h-screen bg-base-200 p-2">
+			<button class="btn btn-circle" on:click={() => (isOpen = true)}>
+				<iconify-icon icon="material-symbols:add-circle-outline" width={32} />
+			</button>
+			<Create bind:isOpen />
+		</div>
+		<div class="area max-w-screen max-h-screen" bind:this={areaElt}>
+			<Canvas
+				data={boardData}
+				OuterComponent={Note}
+				InnerComponent={NoteInner}
+				on:dragstart={handleDragStart}
+				on:dragend={handleDragEnd}
+				on:offsetchange={handleOffset}
+				on:scalechange={handleScale}
+				bind:panzoomInstance
+				x={1080}
+				y={1920}
+			/>
+		</div>
 	</div>
 {/if}
+
+<style>
+	.grid {
+		grid-template-columns: 64px 1fr;
+	}
+</style>
