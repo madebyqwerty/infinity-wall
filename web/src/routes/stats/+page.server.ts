@@ -4,7 +4,7 @@ export const load = async ({ fetch }) => {
         'accept': 'application/json',
         'x-access-token': 'a4ced53e5ce70b738f88b70113bc806d'
     }
-    const commits_request = await fetch('https://tda.knapa.cz/commit/latest/50', {
+    const commits_request = await fetch('https://tda.knapa.cz/commit', {
         method: 'GET',
         headers
     });
@@ -22,15 +22,30 @@ export const load = async ({ fetch }) => {
     });
     const sysinfo = await sysinfo_request.json();
     
-    let commits = {}
+    let commits_by_id = {}
     raw_commits.forEach((element:any) => {
-        commits[element["creator_id"]] ??= [element]
-        commits[element["creator_id"]] = [...commits[element["creator_id"]], element]
+        commits_by_id[element["creator_id"]] ??= [element]
+        commits_by_id[element["creator_id"]] = [...commits_by_id[element["creator_id"]], element]
     });
     
-    let users = []
+    let users = {}
     raw_users.forEach((element:any) => {
-        users = users.concat({"user": element, "commits": commits[element["userID"]]})
+        users[element["userID"]] = [element]
+    })
+
+    let commits = []
+    raw_commits.forEach((element:any) => {
+        commits = commits.concat({
+            "commit": element, 
+            "user": {
+                "name": users[element["creator_id"]][0]["name"],
+                "surname": users[element["creator_id"]][0]["surname"],
+                "nick": users[element["creator_id"]][0]["nick"],
+                "avatar_url": users[element["creator_id"]][0]["avatar_url"],
+                "userID": users[element["creator_id"]][0]["userID"],
+                "commits": commits_by_id[element["creator_id"]].length
+            }
+        })
     })
     
     return {
