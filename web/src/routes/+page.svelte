@@ -47,11 +47,10 @@
 	];
 
 	const handleDragStart = (e) => {
-		console.log(e);
 		console.log('drag start');
 	};
 	const handleDragEnd = (e) => {
-		console.log('drag end');
+		console.log('drag end', e);
 		data = data.map((elt) => {
 			if (elt.id === e.detail.id) {
 				elt.x = e.detail.x;
