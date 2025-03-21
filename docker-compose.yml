@@ -1,0 +1,41 @@
+services:
+  traefik:
+    image: traefik:v2.9
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command:
+      - "--providers.docker=true"
+      - "--providers.docker.exposedbydefault=false"
+      - "--entrypoints.web.address=:80"
+      - "--entrypoints.websecure.address=:443"
+    restart: always
+
+  pocketbase:
+    build: .
+    command: ./backend/backend serve --http=0.0.0.0:8090
+    restart: always
+    volumes:
+      - ./pb_data:/app/pb_data
+    environment:
+      - DOMAIN=localhost
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.pocketbase.rule=Host(`pb.tomaskebrle.cz`)"
+      - "traefik.http.routers.pocketbase.entrypoints=web"
+      - "traefik.http.services.pocketbase.loadbalancer.server.port=8090"
+
+  web:
+    build: .
+    command: node web/build
+    restart: always
+    environment:
+      - DOMAIN=localhost
+      - PUBLIC_POCKETBASE_URL=http://pb.tomaskebrle.cz
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=Host(`app.tomaskebrle.cz`)"
+      - "traefik.http.routers.web.entrypoints=web"
+      - "traefik.http.services.web.loadbalancer.server.port=3000"

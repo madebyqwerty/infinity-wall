@@ -1,6 +1,5 @@
 import { dev } from '$app/environment';
+import { env } from '$env/dynamic/public';
 import Pocketbase from 'pocketbase';
 
-export const pocketbase_URL = dev ? 'http://127.0.0.1:8090' : '/';
-
-export const pb = new Pocketbase(pocketbase_URL);
+export const pb = new Pocketbase(env.PUBLIC_POCKETBASE_URL);

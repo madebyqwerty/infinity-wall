@@ -9,7 +9,7 @@ import {
 import PocketBase from 'pocketbase';
 
 export const start = async (url: string) => {
-	const pocketbase_URL = dev ? 'http://127.0.0.1:8090' : `http://${new URL(url).host}`;
+	const pocketbase_URL = dev ? 'http://127.0.0.1:8090' : `http://127.0.0.1:8090`;
 	const pb = new PocketBase(pocketbase_URL);
 
 	await pb.admins.authWithPassword('admin@upshop.cz', '1234567890');

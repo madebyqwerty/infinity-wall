@@ -1,14 +1,19 @@
-FROM node:18-alpine
+FROM node:18
 
-RUN apk add -v build-base
-RUN apk add -v go 
-RUN apk add -v ca-certificates
-RUN apk add --no-cache \
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    golang \
+    ca-certificates \
     unzip \
-    # this is needed only if you want to use scp to copy later your pb_data locally
-    openssh
-RUN apk add caddy
-RUN apk --no-cache add curl
+    openssh-client \
+    curl
+
+# Install Caddy 2.6.2
+RUN curl -L -o caddy.tar.gz "https://github.com/caddyserver/caddy/releases/download/v2.6.2/caddy_2.6.2_linux_amd64.tar.gz" && \
+    tar -xzf caddy.tar.gz caddy && \
+    mv caddy /usr/local/bin/caddy && \
+    chmod +x /usr/local/bin/caddy && \
+    rm caddy.tar.gz
 
 ENV CGO_CFLAGS="-D_LARGEFILE64_SOURCE"
 
@@ -34,5 +39,3 @@ WORKDIR /app
 
 EXPOSE 80
 
-# start PocketBase
-CMD ["sh", "docker-wrapper.sh"]
