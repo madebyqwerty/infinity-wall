@@ -19,7 +19,7 @@ WORKDIR /app/backend
 # leave this line in. 
 # For more complex builds that include other dependencies, remove this 
 # line and rely on the go.sum lockfile.
-RUN go get github.com/pocketbase/pocketbase
+RUN go get github.com/pocketbase/pocketbase@v0.10.1
 
 RUN go build
 WORKDIR /app/web
