@@ -10,6 +10,8 @@ RUN apk add --no-cache \
 RUN apk add caddy
 RUN apk --no-cache add curl
 
+ENV CGO_CFLAGS="-D_LARGEFILE64_SOURCE"
+
 # Copy your custom PocketBase and build
 COPY ./ /app
 WORKDIR /app/backend
