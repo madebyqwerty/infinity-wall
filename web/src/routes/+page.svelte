@@ -30,6 +30,9 @@
 
 	onMount(() => {
 		calculateBounds();
+		pb.collection('notes').subscribe('*', (e) => {
+			invalidateAll();
+		});
 	});
 
 	afterUpdate(() => {

@@ -13,7 +13,7 @@
 	export let date;
 
 	let element;
-	let editor;
+	let editor: Editor;
 
 	let onlyText = '';
 
@@ -58,6 +58,11 @@
 			}
 		});
 	});
+	$: {
+		if (editor) {
+			editor.commands.setContent(body ? JSON.parse(body) : '');
+		}
+	}
 
 	onDestroy(() => {
 		if (editor) {

@@ -20,7 +20,7 @@ services:
     volumes:
       - ./pb_data:/app/pb_data
     environment:
-      - DOMAIN=localhost
+      - DOMAIN=tomaskebrle.cz
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.pocketbase.rule=Host(`pb.tomaskebrle.cz`)"
